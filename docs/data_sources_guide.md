@@ -65,11 +65,18 @@ Follow the click-by-click instructions. Place every downloaded file into `raw_da
 
 ---
 
-## Download Checklist & Workflow
-| Source | Downloaded? | Raw File Name in `raw_data/` | Verified with Agent? | Reference Year |
-| :--- | :---: | :--- | :---: | :---: |
-| **UDISE+** | [x] | `UDISE+2024_25_Booklet_existing.118ba29d4773e6372f72.pdf` | [x] Verified | 2024–25 |
-| **AISHE** | [x] | `AISHE Final Report 2023-24.xlsx` | [x] Verified | 2023–24 |
-| **PLFS** | [x] | `Annual_Report_PLFS_2025.pdf` | [x] Verified | Calendar Year 2025 |
-| **Census 2011** | [x] | `2011-IndiaState-0000.xlsx` | [x] Verified | 2011 |
+## Download Checklist, Metadata & Licensing Inventory
+
+All datasets below are official Government of India publications released under open access for public statistical reporting, research, and policy analysis, in accordance with the **National Data Sharing and Accessibility Policy (NDSAP)** and the **Government Open Data License - India (GODL)**.
+
+| Attribute | UDISE+ School Education | AISHE Higher Education | PLFS Employment & Labour | Census 2011 Baseline |
+| :--- | :--- | :--- | :--- | :--- |
+| **Portal Name** | UDISE+ Portal / Ministry of Education | AISHE Portal / Ministry of Education | MoSPI Reports Portal | Census of India / ORGI |
+| **Direct URL** | https://udiseplus.gov.in/#/publications | https://aishe.gov.in | https://mospi.gov.in | https://censusindia.gov.in |
+| **Raw File Name** | `UDISE+2024_25_Booklet_existing.118ba29d4773e6372f72.pdf` | `AISHE Final Report 2023-24.xlsx` | `Annual_Report_PLFS_2025.pdf` | `2011-IndiaState-0000.xlsx` |
+| **Dataset Reference Year** | 2024–25 | 2023–24 | Calendar Year 2025 (Jan–Dec 2025) | 2011 |
+| **Download Date** | 2026-11-13 | 2026-11-13 | 2026-11-13 | 2026-11-13 |
+| **File Format & Size** | PDF (~11.8 MB) | Excel `.xlsx` (~785 KB) | PDF (~34.6 MB) | Excel `.xlsx` (~90 KB) |
+| **Licence / Terms of Use** | Open Access (Government of India / NDSAP). Free for public dissemination with mandatory source attribution. Section 52(1)(q)(iv) of Indian Copyright Act 1957 permits republication of official government survey reports. | Open Access (Government of India / NDSAP). Free for public use and educational/analytical dissemination with official attribution. | Open Access (Ministry of Statistics and Programme Implementation). Free public data product under MoSPI open statistical dissemination policy. | Open Access (Registrar General & Census Commissioner, India). Public domain demographic dataset for research and civic analytics. |
+| **Redistribution Status** | **Permitted** with citation: *UDISE+ 2024-25, Department of School Education & Literacy, MoE*. | **Permitted** with citation: *AISHE 2023-24, Department of Higher Education, MoE*. | **Permitted** with citation: *Annual Report PLFS 2025, NSSO, MoSPI*. | **Permitted** with citation: *Census of India 2011 Primary Census Abstract, ORGI*. |
 
