@@ -1,0 +1,22 @@
+theme,indicator_name,source,definition,direction,level,year_available,notes
+School Access and Quality,pct_schools_functional_electricity,UDISE+,Percentage of schools with functional electricity,higher_is_better,state,2021-22 / 2022-23,Standard infrastructure metric
+School Access and Quality,pct_schools_functional_girls_toilet,UDISE+,Percentage of schools with functional girls toilets,higher_is_better,state,2021-22 / 2022-23,Sanitation & safety metric
+School Access and Quality,pct_schools_computers_internet,UDISE+,Percentage of schools with functional computers/ICT labs,higher_is_better,state,2021-22 / 2022-23,Digital access metric
+School Access and Quality,pupil_teacher_ratio_secondary,UDISE+,Pupil-Teacher Ratio at Secondary level,lower_is_better,state,2021-22 / 2022-23,Quality of instruction proxy
+School Access and Quality,dropout_rate_secondary,UDISE+,Annual dropout rate at secondary stage (Class 9-10),lower_is_better,state,2021-22 / 2022-23,Critical transition bottleneck
+School Access and Quality,transition_rate_upper_prim_to_sec,UDISE+,Transition rate from Upper Primary to Secondary schooling,higher_is_better,state,2021-22 / 2022-23,Retention across school stages
+Higher-Education Access,gross_enrolment_ratio_higher_ed,AISHE,Gross Enrolment Ratio (GER) in Higher Education (18-23 age group),higher_is_better,state,2021-22,Overall tertiary pipeline access
+Higher-Education Access,colleges_per_lakh_population,AISHE,College density per 100000 eligible population (18-23 years),higher_is_better,state,2021-22,Physical accessibility of higher education
+Higher-Education Access,pupil_teacher_ratio_higher_ed,AISHE,Pupil-Teacher Ratio in regular mode colleges and universities,lower_is_better,state,2021-22,Instructional capacity; needs verification in state summary tables
+Higher-Education Access,avg_enrolment_per_college,AISHE,Average student enrolment per college,higher_is_better,state,2021-22,Institutional scale; needs verification in state summary tables
+Higher-Education Access,postgraduate_enrolment_share,AISHE,Percentage of enrolled tertiary students in PG and above programs,higher_is_better,state,2021-22,Advanced opportunity pathway; needs verification
+Jobs and Economy,youth_unemployment_rate_15_29,PLFS,Unemployment rate among youth aged 15-29 (Usual Status ps+ss),lower_is_better,state,2022-23 / 2023-24,Direct measure of youth labor absorption
+Jobs and Economy,youth_lfpr_15_29,PLFS,Labour Force Participation Rate for youth aged 15-29 (Usual Status),higher_is_better,state,2022-23 / 2023-24,Youth willingness/opportunity to enter labor market
+Jobs and Economy,overall_unemployment_rate,PLFS,Unemployment rate across all ages (Usual Status ps+ss),lower_is_better,state,2022-23 / 2023-24,Macro state employment environment
+Jobs and Economy,regular_wage_salaried_share,PLFS,Percentage of workforce in regular wage or salaried employment,higher_is_better,state,2022-23 / 2023-24,Job quality and formalization proxy
+Jobs and Economy,formal_social_security_share,PLFS,Percentage of non-agricultural workers with social security benefits,higher_is_better,state,2022-23 / 2023-24,Quality of work; needs verification in state tables
+Gender Equality,gender_parity_index_higher_ed,AISHE,Gender Parity Index (Female GER / Male GER) in Higher Education,higher_is_better,state,2021-22,Ratio of female to male enrolment
+Gender Equality,female_lfpr_15_plus,PLFS,Female Labour Force Participation Rate (15+ years usual status),higher_is_better,state,2022-23 / 2023-24,Key Indian structural economic indicator
+Gender Equality,female_literacy_rate,Census 2011 / PLFS,Percentage of literate females,higher_is_better,state,2011 / 2022-23,Foundational literacy parity
+Gender Equality,literacy_gender_gap,Census 2011 / PLFS,Male literacy rate minus Female literacy rate (percentage points),lower_is_better,state,2011 / 2022-23,Historical foundational gender disparity
+Gender Equality,youth_female_unemployment_rate,PLFS,Unemployment rate among female youth aged 15-29,lower_is_better,state,2022-23 / 2023-24,Targeted friction for young educated women

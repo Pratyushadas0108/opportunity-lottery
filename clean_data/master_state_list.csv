@@ -1,0 +1,37 @@
+state_code,state_name,entity_type,census_2011_code,alternate_names,historical_boundary_notes
+AN,Andaman and Nicobar Islands,Union Territory,35,A & N Islands; Andaman & Nicobar; Andaman and Nicobar,Stable boundary
+AP,Andhra Pradesh,State,28,Andhra; AP,Census 2011 included Telangana (split in 2014); modern AP requires post-bifurcation adjustment
+AR,Arunachal Pradesh,State,12,Arunachal,Stable boundary
+AS,Assam,State,18,Asom,Stable boundary
+BR,Bihar,State,10,Bihar,Stable boundary
+CH,Chandigarh,Union Territory,04,Chandigarh,Stable boundary
+CT,Chhattisgarh,State,22,Chhatisgarh; CG,Stable boundary
+DH,Dadra and Nagar Haveli and Daman and Diu,Union Territory,26,Dadra & Nagar Haveli and Daman & Diu; DNH and DD; Daman and Diu; Dadra and Nagar Haveli,Merged in Jan 2020; Census 2011 reported Dadra & Nagar Haveli (26) and Daman & Diu (25) separately
+DL,Delhi,Union Territory,07,NCT of Delhi; National Capital Territory of Delhi; Delhi,Stable boundary
+GA,Goa,State,30,Goa,Stable boundary
+GJ,Gujarat,State,24,Gujarat,Stable boundary
+HR,Haryana,State,06,Haryana,Stable boundary
+HP,Himachal Pradesh,State,02,Himachal; HP,Stable boundary
+JK,Jammu and Kashmir,Union Territory,01,Jammu & Kashmir; J&K,Reorganized to UT in Oct 2019; Census 2011 included Ladakh
+JH,Jharkhand,State,20,Jharkhand,Stable boundary
+KA,Karnataka,State,29,Karnataka,Stable boundary
+KL,Kerala,State,32,Kerala,Stable boundary
+LA,Ladakh,Union Territory,01,Ladakh; UT of Ladakh,Carved out of J&K as separate UT in Oct 2019; was part of J&K in Census 2011
+LD,Lakshadweep,Union Territory,31,Lakshadweep; Laccadive Islands,Stable boundary
+MP,Madhya Pradesh,State,23,Madhya Pradesh; MP,Stable boundary
+MH,Maharashtra,State,27,Maharashtra,Stable boundary
+MN,Manipur,State,14,Manipur,Stable boundary
+ML,Meghalaya,State,17,Meghalaya,Stable boundary
+MZ,Mizoram,State,15,Mizoram,Stable boundary
+NL,Nagaland,State,13,Nagaland,Stable boundary
+OD,Odisha,State,21,Orissa; Odisha,Renamed from Orissa in 2011
+PY,Puducherry,Union Territory,34,Pondicherry; Puducherry,Renamed from Pondicherry in 2006
+PB,Punjab,State,03,Punjab,Stable boundary
+RJ,Rajasthan,State,08,Rajasthan,Stable boundary
+SK,Sikkim,State,11,Sikkim,Stable boundary
+TN,Tamil Nadu,State,33,Tamilnadu; TN,Stable boundary
+TS,Telangana,State,28,Telengana; TS; TG,Created June 2014 from Andhra Pradesh; not separately present in Census 2011 state tables
+TR,Tripura,State,16,Tripura,Stable boundary
+UP,Uttar Pradesh,State,09,Uttar Pradesh; UP,Stable boundary
+UK,Uttarakhand,State,05,Uttaranchal; Uttarakhand; UK,Renamed from Uttaranchal
+WB,West Bengal,State,19,West Bengal; Paschim Banga; WB,Stable boundary
