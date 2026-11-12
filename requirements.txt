@@ -11,3 +11,5 @@ geopandas
 jupyter
 ipykernel
 
+pypdf
+pdfplumber

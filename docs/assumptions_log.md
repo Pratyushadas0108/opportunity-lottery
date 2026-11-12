@@ -53,3 +53,53 @@ Every entry must record:
 - **Category**: Weighting
 - **Decision**: Baseline Opportunity Index applies equal weights (25% each) across the 4 thematic sub-indices, followed by explicit sensitivity analysis with 3 alternative weighting scenarios (Jobs-heavy, School-heavy, Gender-heavy).
 - **Justification**: Prevents subjective normative bias in the core benchmark while systematically demonstrating ranking robustness under sensitivity testing.
+
+
+
+---
+
+## Verified Raw Datasets Inventory
+
+### Log Entry 006: Verification of Official Datasets
+- **Date**: 2026-11-13
+- **Category**: Data Verification & Provenance
+
+1. **UDISE+ School Education Dataset**:
+   - **File**: `raw_data/UDISE+2024_25_Booklet_existing.118ba29d4773e6372f72.pdf`
+   - **Year**: 2024–25 (Latest official booklet)
+   - **Source**: Department of School Education & Literacy, Ministry of Education
+   - **Tables Verified**:
+     - Table 4.12 (p. 63): Pupil-Teacher Ratio (PTR) Secondary
+     - Table 6.13 (p. 120): Secondary Dropout Rate (Total, Boys, Girls)
+     - Table 6.14 (p. 121): Upper Primary to Secondary Transition Rate
+     - Table 8.6 (p. 161): % Functional Electricity (All management)
+     - Table 8.8 (p. 163): % Functional Girls' Toilet (All management)
+     - Table 7.10 (p. 138): % Functional Computer facility for pedagogical purposes
+     - Table 7.11 (p. 139): % Internet facility available
+
+2. **AISHE Higher Education Dataset**:
+   - **File**: `raw_data/AISHE Final Report 2023-24.xlsx`
+   - **Year**: 2023–24 (Latest official release)
+   - **Source**: Department of Higher Education, Ministry of Education
+   - **Sheets Verified**:
+     - `19GER(2011)`: Gross Enrolment Ratio (Male, Female, Total)
+     - `20GPI2011`: Gender Parity Index in Higher Education
+     - `4CollegeIndicator`: Colleges per lakh population & average college enrolment
+     - `25PTR`: Pupil-Teacher Ratio in regular mode higher education
+
+3. **PLFS Employment & Labour Dataset**:
+   - **File**: `raw_data/Annual_Report_PLFS_2025.pdf`
+   - **Year**: Calendar Year 2025 (January–December 2025)
+   - **Source**: National Sample Survey Office (NSSO), MoSPI
+   - **Tables Verified**:
+     - Table 18.0 (p. 152): Youth Unemployment Rate (15–29 years, Usual Status ps+ss) for Total, Male, Female
+     - Table 18.0 (p. 155): Overall Unemployment Rate (all ages)
+     - Table 16.0 (p. 142): Youth LFPR (15–29 years)
+     - Table 16.0 (p. 144): Female LFPR (15+ years)
+     - Table 19 (p. 157–165): Regular wage / salaried employment share
+
+4. **Census of India Demographic Baseline**:
+   - **File**: `raw_data/2011-IndiaState-0000.xlsx`
+   - **Year**: 2011 (Official Primary Census Abstract - State Level)
+   - **Source**: Office of the Registrar General & Census Commissioner, India
+   - **Metrics Verified**: Total Population (`TOT_P`), Male (`TOT_M`), Female (`TOT_F`), Population 0–6 (`P_06`, `M_06`, `F_06`), Literate Population (`P_LIT`, `M_LIT`, `F_LIT`).

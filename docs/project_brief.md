@@ -81,3 +81,4 @@ The composite **Opportunity Index** is constructed from four thematic sub-indice
 - **Temporal Transparency**: Data collection years vary across government sources; each dataset's reference year must be explicitly documented in logs and dictionaries.
 - **Audit Trail**: Every state name standardization, boundary merge (e.g., Dadra & Nagar Haveli and Daman & Diu), and missing-value treatment must be logged in `docs/assumptions_log.md`.
 - **Analyst Authorship**: The analysis agent provides empirical tables, charts, and models; final narrative insights and strategic recommendations are authored by the student.
+

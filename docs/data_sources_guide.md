@@ -68,7 +68,8 @@ Follow the click-by-click instructions. Place every downloaded file into `raw_da
 ## Download Checklist & Workflow
 | Source | Downloaded? | Raw File Name in `raw_data/` | Verified with Agent? | Reference Year |
 | :--- | :---: | :--- | :---: | :---: |
-| **UDISE+** | [ ] | *(e.g. udise_2021_22_raw.xlsx)* | [ ] | |
-| **AISHE** | [ ] | *(e.g. aishe_2021_22_raw.xlsx)* | [ ] | |
-| **PLFS** | [ ] | *(e.g. plfs_2022_23_raw.pdf / .xlsx)* | [ ] | |
-| **Census 2011** | [ ] | *(e.g. census_2011_pca_raw.xlsx)* | [ ] | 2011 |
+| **UDISE+** | [x] | `UDISE+2024_25_Booklet_existing.118ba29d4773e6372f72.pdf` | [x] Verified | 2024–25 |
+| **AISHE** | [x] | `AISHE Final Report 2023-24.xlsx` | [x] Verified | 2023–24 |
+| **PLFS** | [x] | `Annual_Report_PLFS_2025.pdf` | [x] Verified | Calendar Year 2025 |
+| **Census 2011** | [x] | `2011-IndiaState-0000.xlsx` | [x] Verified | 2011 |
+

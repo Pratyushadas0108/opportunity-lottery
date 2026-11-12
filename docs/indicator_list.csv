@@ -20,3 +20,4 @@ Gender Equality,female_lfpr_15_plus,PLFS,Female Labour Force Participation Rate 
 Gender Equality,female_literacy_rate,Census 2011 / PLFS,Percentage of literate females,higher_is_better,state,2011 / 2022-23,Foundational literacy parity
 Gender Equality,literacy_gender_gap,Census 2011 / PLFS,Male literacy rate minus Female literacy rate (percentage points),lower_is_better,state,2011 / 2022-23,Historical foundational gender disparity
 Gender Equality,youth_female_unemployment_rate,PLFS,Unemployment rate among female youth aged 15-29,lower_is_better,state,2022-23 / 2023-24,Targeted friction for young educated women
+
