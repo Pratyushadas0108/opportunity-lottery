@@ -1,0 +1,27 @@
+# Virtual Environment
+.venv/
+env/
+venv/
+ENV/
+
+# Python / Jupyter artifacts
+__pycache__/
+*.py[cod]
+*$py.class
+.ipynb_checkpoints/
+*.nbconvert/
+
+# OS-generated files
+.DS_Store
+Thumbs.db
+desktop.ini
+
+# Large files / Binary files (GitHub file limit is 100MB, warning at 50MB)
+# Note: Raw government datasets larger than 50MB should be ignored.
+# Power BI files (.pbix) can become very large when data models are cached.
+# If dashboard/*.pbix exceeds 50MB, uncomment the line below:
+# dashboard/*.pbix
+
+# Secrets and environment variables
+.env
+
