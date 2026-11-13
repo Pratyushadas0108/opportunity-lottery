@@ -1,0 +1,2746 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>The Opportunity Atlas | Indian States Opportunity Index</title>
+  <style>
+    :root {
+      --primary: #1F497D;
+      --primary-light: #2E75B6;
+      --accent: #00B0F0;
+      --bg: #F4F6F9;
+      --card-bg: #FFFFFF;
+      --text: #262626;
+      --text-muted: #666666;
+      --border: #E0E4E8;
+      --red: #C00000;
+      --green: #385723;
+      --gold: #C65911;
+    }
+    * { box-sizing: border-box; margin: 0; padding: 0; font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Helvetica, Arial, sans-serif; }
+    body { background: var(--bg); color: var(--text); line-height: 1.5; }
+    
+    header {
+      background: linear-gradient(135deg, #1F497D 0%, #112A46 100%);
+      color: white; padding: 2rem 1.5rem; text-align: center;
+      border-bottom: 4px solid var(--accent);
+    }
+    header h1 { font-size: 2.2rem; font-weight: 700; margin-bottom: 0.5rem; letter-spacing: -0.5px; }
+    header p { font-size: 1.05rem; opacity: 0.9; max-width: 850px; margin: 0 auto; }
+    .badge { display: inline-block; background: rgba(255,255,255,0.15); padding: 0.25rem 0.75rem; border-radius: 20px; font-size: 0.85rem; margin-top: 0.75rem; }
+
+    nav {
+      background: white; border-bottom: 1px solid var(--border);
+      position: sticky; top: 0; z-index: 100; box-shadow: 0 2px 4px rgba(0,0,0,0.04);
+    }
+    .nav-container { max-width: 1200px; margin: 0 auto; display: flex; gap: 1rem; padding: 0 1rem; overflow-x: auto; }
+    .nav-btn {
+      padding: 0.85rem 1.25rem; font-size: 0.95rem; font-weight: 600; color: var(--text-muted);
+      border: none; background: none; cursor: pointer; border-bottom: 3px solid transparent;
+      white-space: nowrap; transition: all 0.2s;
+    }
+    .nav-btn.active { color: var(--primary); border-bottom-color: var(--primary); }
+    .nav-btn:hover { color: var(--primary); }
+
+    main { max-width: 1200px; margin: 1.5rem auto; padding: 0 1rem; }
+    .tab-content { display: none; }
+    .tab-content.active { display: block; }
+
+    .kpi-grid {
+      display: grid; grid-template-columns: repeat(auto-fit, minmax(240px, 1fr));
+      gap: 1rem; margin-bottom: 1.5rem;
+    }
+    .kpi-card {
+      background: var(--card-bg); padding: 1.25rem; border-radius: 8px;
+      border: 1px solid var(--border); box-shadow: 0 1px 3px rgba(0,0,0,0.05);
+    }
+    .kpi-card .label { font-size: 0.85rem; font-weight: 600; text-transform: uppercase; color: var(--text-muted); margin-bottom: 0.25rem; }
+    .kpi-card .value { font-size: 1.8rem; font-weight: 700; color: var(--primary); }
+    .kpi-card .sub { font-size: 0.85rem; color: var(--text-muted); margin-top: 0.25rem; }
+
+    .two-col { display: grid; grid-template-columns: 1fr 1fr; gap: 1.5rem; }
+    @media (max-width: 900px) { .two-col { grid-template-columns: 1fr; } }
+
+    .card {
+      background: var(--card-bg); border-radius: 8px; border: 1px solid var(--border);
+      padding: 1.5rem; margin-bottom: 1.5rem; box-shadow: 0 1px 3px rgba(0,0,0,0.05);
+    }
+    .card h2 { font-size: 1.3rem; font-weight: 700; color: var(--primary); margin-bottom: 1rem; }
+    
+    .filter-bar { display: flex; gap: 1rem; flex-wrap: wrap; margin-bottom: 1rem; align-items: center; }
+    select, input {
+      padding: 0.5rem 0.75rem; border: 1px solid var(--border); border-radius: 6px;
+      font-size: 0.9rem; background: white;
+    }
+
+    table { width: 100%; border-collapse: collapse; font-size: 0.9rem; margin-top: 0.5rem; }
+    th, td { padding: 0.65rem 0.75rem; text-align: left; border-bottom: 1px solid var(--border); }
+    th { background: #F8FAFC; font-weight: 600; color: var(--primary); position: sticky; top: 0; }
+    tr:hover { background: #F1F5F9; cursor: pointer; }
+    .num { text-align: right; font-variant-numeric: tabular-nums; }
+    
+    .score-pill {
+      display: inline-block; padding: 0.2rem 0.55rem; border-radius: 12px;
+      font-weight: 600; font-size: 0.8rem; color: white;
+    }
+
+    /* Detail Modal / Panel */
+    .detail-panel {
+      background: #F8FAFC; border: 1px solid var(--border); border-radius: 8px;
+      padding: 1.25rem; margin-top: 1rem;
+    }
+    .detail-grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(200px, 1fr)); gap: 1rem; margin-top: 1rem; }
+    .detail-item { background: white; padding: 0.75rem; border-radius: 6px; border: 1px solid var(--border); }
+    .detail-item span { display: block; font-size: 0.75rem; color: var(--text-muted); }
+    .detail-item strong { font-size: 1.1rem; color: var(--primary); }
+
+    /* Funnel styles */
+    .funnel-stage {
+      background: white; border: 1px solid var(--border); border-radius: 8px;
+      padding: 1rem 1.25rem; margin-bottom: 1rem; display: flex; justify-content: space-between; align-items: center;
+    }
+    .funnel-bar-container { flex-grow: 1; margin: 0 1.5rem; }
+    .funnel-bar { height: 18px; border-radius: 9px; display: flex; overflow: hidden; background: #E2E8F0; margin-top: 0.25rem; }
+    .funnel-bar .male { background: var(--primary); }
+    .funnel-bar .female { background: #D946EF; }
+
+    .insight-card {
+      background: white; border-left: 4px solid var(--primary); border-radius: 0 8px 8px 0;
+      padding: 1.25rem; margin-bottom: 1rem; box-shadow: 0 1px 3px rgba(0,0,0,0.05);
+    }
+    .insight-card h3 { font-size: 1.05rem; font-weight: 700; color: var(--primary); margin-bottom: 0.4rem; }
+    .insight-card p { font-size: 0.92rem; color: #374151; }
+    .insight-card .caveat { font-size: 0.82rem; color: var(--text-muted); font-style: italic; margin-top: 0.4rem; }
+
+    footer { text-align: center; padding: 2rem; font-size: 0.85rem; color: var(--text-muted); border-top: 1px solid var(--border); margin-top: 3rem; }
+  </style>
+</head>
+<body>
+
+<header>
+  <h1>THE OPPORTUNITY ATLAS</h1>
+  <p>Assessing Student Opportunity Disparities Across Indian States & Union Territories</p>
+  <div class="badge">Official Data: UDISE+ AY 2024–25 | AISHE AY 2023–24 | PLFS CY 2025 | Census 2011</div>
+</header>
+
+<nav>
+  <div class="nav-container">
+    <button class="nav-btn active" onclick="showTab('leaderboard')">State Rankings</button>
+    <button class="nav-btn" onclick="showTab('pipeline')">Pipeline Breakdown</button>
+    <button class="nav-btn" onclick="showTab('gender')">The Gender Funnel</button>
+    <button class="nav-btn" onclick="showTab('clusters')">Structural Profiles</button>
+    <button class="nav-btn" onclick="showTab('insights')">Insights & Policy</button>
+  </div>
+</nav>
+
+<main>
+  <!-- TOP KPIS -->
+  <div class="kpi-grid">
+    <div class="kpi-card">
+      <div class="label">All-India Mean Score</div>
+      <div class="value">54.49</div>
+      <div class="sub">Across 36 States & UTs (Std Dev: 7.83)</div>
+    </div>
+    <div class="kpi-card">
+      <div class="label">#1 Overall Entity</div>
+      <div class="value">Chandigarh</div>
+      <div class="sub">Score: 70.05 (Universal Schooling & Electrification)</div>
+    </div>
+    <div class="kpi-card">
+      <div class="label">#1 Major State (>10M Pop)</div>
+      <div class="value">Tamil Nadu</div>
+      <div class="sub">Score: 64.92 (#2 among 28 full states)</div>
+    </div>
+    <div class="kpi-card">
+      <div class="label">Top 5 vs Bottom 5 Divide</div>
+      <div class="value">25.32 pts</div>
+      <div class="sub">Top 5 (67.82) is 1.60x higher than Bottom 5 (42.50)</div>
+    </div>
+  </div>
+
+  <!-- TAB 1: LEADERBOARD -->
+  <div id="leaderboard" class="tab-content active">
+    <div class="card">
+      <h2>State Opportunity Leaderboard</h2>
+      <div class="filter-bar">
+        <label>View Framework: 
+          <select id="frameworkFilter" onchange="filterData()">
+            <option value="all">All 36 States & UTs</option>
+            <option value="states">28 States Only</option>
+          </select>
+        </label>
+        <label>Region:
+          <select id="regionFilter" onchange="filterData()">
+            <option value="all">All Regions</option>
+            <option value="North">North</option>
+            <option value="South">South</option>
+            <option value="East">East</option>
+            <option value="West">West</option>
+            <option value="Central">Central</option>
+            <option value="North-East">North-East</option>
+          </select>
+        </label>
+        <input type="text" id="searchInput" placeholder="Search state..." onkeyup="filterData()">
+      </div>
+
+      <div style="max-height: 480px; overflow-y: auto;">
+        <table id="rankTable">
+          <thead>
+            <tr>
+              <th style="width: 60px;">Rank</th>
+              <th>State / UT</th>
+              <th>Entity</th>
+              <th>Region</th>
+              <th class="num">School (25%)</th>
+              <th class="num">Higher Ed (25%)</th>
+              <th class="num">Jobs (25%)</th>
+              <th class="num">Gender (25%)</th>
+              <th class="num">Opportunity Index</th>
+            </tr>
+          </thead>
+          <tbody id="tableBody"></tbody>
+        </table>
+      </div>
+
+      <!-- State Inspector Panel -->
+      <div id="inspectorPanel" class="detail-panel" style="display:none;">
+        <h3 id="inspectStateName" style="color:var(--primary); font-size:1.2rem;"></h3>
+        <p id="inspectClusterProfile" style="font-size:0.85rem; color:var(--text-muted); margin-bottom:0.75rem;"></p>
+        <div class="detail-grid">
+          <div class="detail-item"><span>School Transition Rate</span><strong id="inspectTrans"></strong></div>
+          <div class="detail-item"><span>School Electrification</span><strong id="inspectElec"></strong></div>
+          <div class="detail-item"><span>College GER (18–23)</span><strong id="inspectGER"></strong></div>
+          <div class="detail-item"><span>College Density</span><strong id="inspectDensity"></strong></div>
+          <div class="detail-item"><span>Youth Unemployment</span><strong id="inspectUR"></strong></div>
+          <div class="detail-item"><span>Female LFPR (15+)</span><strong id="inspectLFPR"></strong></div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- TAB 2: PIPELINE BREAKDOWN -->
+  <div id="pipeline" class="tab-content">
+    <div class="card">
+      <h2>Progression Pipeline Continuity Analysis</h2>
+      <p style="font-size:0.9rem; color:var(--text-muted); margin-bottom:1.5rem;">
+        Testing whether strength at one transition stage translates into strength at the next stage across 36 macro administrative entities.
+      </p>
+      
+      <div class="two-col">
+        <div style="background:#F8FAFC; padding:1.25rem; border-radius:8px; border:1px solid var(--border);">
+          <h3 style="color:var(--primary); font-size:1.1rem; margin-bottom:0.5rem;">Link 1: School Quality $\leftrightarrow$ Higher Education</h3>
+          <div style="font-size:1.8rem; font-weight:700; color:var(--green); margin-bottom:0.5rem;">r = +0.512 (Moderate-to-Strong)</div>
+          <p style="font-size:0.88rem; color:#4B5563;">
+            States with strong public school infrastructure, low dropout rates, and high secondary transition systematically co-occur with higher tertiary enrolment (e.g., Tamil Nadu, Kerala, Chandigarh).
+          </p>
+        </div>
+
+        <div style="background:#F8FAFC; padding:1.25rem; border-radius:8px; border:1px solid var(--border);">
+          <h3 style="color:var(--primary); font-size:1.1rem; margin-bottom:0.5rem;">Link 2: Higher Education $\leftrightarrow$ Youth Jobs</h3>
+          <div style="font-size:1.8rem; font-weight:700; color:var(--gold); margin-bottom:0.5rem;">r = +0.058 (No Linear Link)</div>
+          <p style="font-size:0.88rem; color:#4B5563;">
+            Tertiary expansion shows no clear linear correlation with immediate youth employment dynamism in cross-sectional data. Educated youth often experience longer search queues for formal jobs rather than accepting informal work.
+          </p>
+        </div>
+      </div>
+
+      <div style="margin-top:2rem;">
+        <h3 style="color:var(--primary); font-size:1.1rem; margin-bottom:1rem;">The Two Pipeline Extremes</h3>
+        <div class="two-col">
+          <div class="detail-item" style="border-left:4px solid var(--primary);">
+            <strong style="color:var(--primary);">Kerala (Education Peak, Jobs Friction)</strong>
+            <p style="font-size:0.85rem; margin-top:0.25rem;">School Rank: #2 (91.66) | College Rank: #6 (58.96)<br>Jobs Rank: #27 (49.09) | Youth Unemployment: 20.8%</p>
+          </div>
+          <div class="detail-item" style="border-left:4px solid var(--green);">
+            <strong style="color:var(--green);">Gujarat (Industrial Dynamism, Lower College Enrolment)</strong>
+            <p style="font-size:0.85rem; margin-top:0.25rem;">Jobs Rank: #1 Major State (79.95) | Youth Unemployment: 2.5%<br>College Rank: #21 (40.02) | College GER: 26.5%</p>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- TAB 3: THE GENDER FUNNEL -->
+  <div id="gender" class="tab-content">
+    <div class="card">
+      <h2>The Gender Progression Funnel</h2>
+      <p style="font-size:0.9rem; color:var(--text-muted); margin-bottom:1.5rem;">
+        Tracking where gender disparities narrow, reverse, and reappear across four sequential stages of life.
+      </p>
+
+      <div class="funnel-stage">
+        <div style="width: 220px;">
+          <strong>Stage 1: Adult Literacy</strong>
+          <span style="display:block; font-size:0.75rem; color:var(--text-muted);">Age 7+ (PLFS CY 2025)</span>
+        </div>
+        <div class="funnel-bar-container">
+          <div style="display:flex; justify-content:space-between; font-size:0.8rem;">
+            <span>Male: 87.5% (Official) / 90.5% (Mean)</span>
+            <span>Female: 74.9% (Official) / 80.5% (Mean)</span>
+          </div>
+          <div class="funnel-bar">
+            <div class="male" style="width: 53%;"></div>
+            <div class="female" style="width: 47%;"></div>
+          </div>
+        </div>
+        <div style="width: 140px; text-align:right;">
+          <strong style="color:var(--primary);">+10.0 to 12.6 pp</strong>
+          <span style="display:block; font-size:0.75rem; color:var(--text-muted);">Male Lead</span>
+        </div>
+      </div>
+
+      <div class="funnel-stage">
+        <div style="width: 220px;">
+          <strong>Stage 2: Secondary Retention</strong>
+          <span style="display:block; font-size:0.75rem; color:var(--text-muted);">Class 9–10 (UDISE+ AY 2024–25)</span>
+        </div>
+        <div class="funnel-bar-container">
+          <div style="display:flex; justify-content:space-between; font-size:0.8rem;">
+            <span>Boys: 86.7% (Official) / 87.3% (Mean)</span>
+            <span>Girls: 90.4% (Official) / 90.8% (Mean)</span>
+          </div>
+          <div class="funnel-bar">
+            <div class="male" style="width: 49%;"></div>
+            <div class="female" style="width: 51%;"></div>
+          </div>
+        </div>
+        <div style="width: 140px; text-align:right;">
+          <strong style="color:#D946EF;">-3.5 to 3.7 pp</strong>
+          <span style="display:block; font-size:0.75rem; color:#D946EF; font-weight:600;">Female Lead</span>
+        </div>
+      </div>
+
+      <div class="funnel-stage">
+        <div style="width: 220px;">
+          <strong>Stage 3: College Enrolment</strong>
+          <span style="display:block; font-size:0.75rem; color:var(--text-muted);">GER 18–23 (AISHE AY 2023–24)</span>
+        </div>
+        <div class="funnel-bar-container">
+          <div style="display:flex; justify-content:space-between; font-size:0.8rem;">
+            <span>Male: 28.9% (Official) / 29.8% (Mean)</span>
+            <span>Female: 31.2% (Official) / 34.3% (Mean)</span>
+          </div>
+          <div class="funnel-bar">
+            <div class="male" style="width: 48%;"></div>
+            <div class="female" style="width: 52%;"></div>
+          </div>
+        </div>
+        <div style="width: 140px; text-align:right;">
+          <strong style="color:#D946EF;">-2.3 to 4.5 pp</strong>
+          <span style="display:block; font-size:0.75rem; color:#D946EF; font-weight:600;">Female Lead</span>
+        </div>
+      </div>
+
+      <div class="funnel-stage" style="border-left:4px solid var(--red);">
+        <div style="width: 220px;">
+          <strong>Stage 4: Workforce Entry</strong>
+          <span style="display:block; font-size:0.75rem; color:var(--text-muted);">LFPR 15+ years (PLFS CY 2025)</span>
+        </div>
+        <div class="funnel-bar-container">
+          <div style="display:flex; justify-content:space-between; font-size:0.8rem;">
+            <span>Male: 79.1% (Official) / 77.2% (Mean)</span>
+            <span>Female: 40.0% (Official) / 43.8% (Mean)</span>
+          </div>
+          <div class="funnel-bar">
+            <div class="male" style="width: 65%;"></div>
+            <div class="female" style="width: 35%;"></div>
+          </div>
+        </div>
+        <div style="width: 140px; text-align:right;">
+          <strong style="color:var(--red);">+33.4 to 39.1 pp</strong>
+          <span style="display:block; font-size:0.75rem; color:var(--red); font-weight:600;">Substantial Gap</span>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- TAB 4: CLUSTERS -->
+  <div id="clusters" class="tab-content">
+    <div class="card">
+      <h2>Unsupervised Clustering: Four Structural Profiles ($k=4$)</h2>
+      <p style="font-size:0.9rem; color:var(--text-muted); margin-bottom:1.5rem;">
+        K-means clustering across the four sub-indices groups states into descriptive structural profiles based on dimensional trade-offs.
+      </p>
+
+      <div class="kpi-grid">
+        <div class="kpi-card" style="border-top:4px solid #1F497D;">
+          <div class="label">Cluster 1 (4 States/UTs)</div>
+          <div class="value" style="font-size:1.3rem;">Employment-Led Dynamism</div>
+          <div class="sub">Mean Jobs: <strong>78.65</strong> | Higher Ed: 40.03 | School: 69.56</div>
+          <p style="font-size:0.8rem; margin-top:0.5rem; color:var(--text-muted);">D&NH and D&D, Sikkim, Gujarat, Chhattisgarh</p>
+        </div>
+
+        <div class="kpi-card" style="border-top:4px solid #2E75B6;">
+          <div class="label">Cluster 2 (15 States/UTs)</div>
+          <div class="value" style="font-size:1.3rem;">Educational Hubs</div>
+          <div class="sub">Mean School: <strong>83.31</strong> | Higher Ed: <strong>57.48</strong> | Jobs: 52.42</div>
+          <p style="font-size:0.8rem; margin-top:0.5rem; color:var(--text-muted);">Chandigarh, Puducherry, Tamil Nadu, Kerala, Karnataka, Himachal, Delhi, Maharashtra, etc.</p>
+        </div>
+
+        <div class="kpi-card" style="border-top:4px solid #ED7D31;">
+          <div class="label">Cluster 3 (9 States/UTs)</div>
+          <div class="value" style="font-size:1.3rem;">Gender-Strong / School Lags</div>
+          <div class="sub">Mean Gender: <strong>55.16</strong> | Lowest School: <strong>50.64</strong> | Higher Ed: 40.42</div>
+          <p style="font-size:0.8rem; margin-top:0.5rem; color:var(--text-muted);">Meghalaya, Arunachal, Manipur, Mizoram, Nagaland, Assam, Tripura, Ladakh, West Bengal</p>
+        </div>
+
+        <div class="kpi-card" style="border-top:4px solid #C00000;">
+          <div class="label">Cluster 4 (8 States/UTs)</div>
+          <div class="value" style="font-size:1.3rem;">School-Led / Tertiary Constrained</div>
+          <div class="sub">School: <strong>62.02</strong> | Lowest Higher Ed: <strong>36.33</strong> | Lowest Gender: <strong>39.36</strong></div>
+          <p style="font-size:0.8rem; margin-top:0.5rem; color:var(--text-muted);">Bihar, Uttar Pradesh, Jharkhand, Rajasthan, Madhya Pradesh, Odisha, J&K, Andaman & Nicobar</p>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- TAB 5: INSIGHTS & POLICY -->
+  <div id="insights" class="tab-content">
+    <div class="card">
+      <h2>The Analyst's Five Core Empirical Insights</h2>
+      
+      <div class="insight-card">
+        <h3>1. A 25-point gap separates the top and bottom of the opportunity index</h3>
+        <p>Across 36 states and UTs, the top five average 67.8 and the bottom five 42.5. Among the 28 full states, Sikkim ranks first, with Tamil Nadu as the highest-ranked large state, and Bihar is last at 35.5. The ranking holds under three alternative weighting scenarios (four weighting schemes in total, Spearman $ho \ge 0.90$).</p>
+        <div class="caveat">Caveat: This is a relative index built from data of different years, so it ranks states against each other and says nothing about absolute levels.</div>
+      </div>
+
+      <div class="insight-card">
+        <h3>2. The gender gap appears at work, not in school</h3>
+        <p>Girls drop out of secondary school less than boys (9.6% vs 13.3%, UDISE+ AY 2024–25) and have a higher college enrolment ratio (31.2 vs 28.9, AISHE AY 2023–24). Yet male labour force participation is 79.1% against 40.0% for women, a 39.1 percentage point gap (PLFS CY 2025).</p>
+        <div class="caveat">Caveat: Three different years and sources, and participation covers all women aged 15+, not only graduates.</div>
+      </div>
+
+      <div class="insight-card">
+        <h3>3. Better school and college access go together, but neither lines up with youth job outcomes</h3>
+        <p>School and higher-education scores are moderately correlated (r = 0.51), while higher-education access and youth job scores show almost no relationship (r = 0.06). Kerala ranks near the top for schools and colleges but 27th on jobs, with youth unemployment of about 20.8%. Gujarat is first on jobs with 2.5% youth unemployment, yet 21st in college enrolment.</p>
+        <div class="caveat">Caveat: Only 36 observations, and half the jobs index is based on unemployment. Educated youth searching for better jobs and out-migration are possible explanations that this data cannot test.</div>
+      </div>
+
+      <div class="insight-card">
+        <h3>4. Two states can have the same score and need different help</h3>
+        <p>Clusters 3 and 4 have nearly identical composite scores (48.0 and 47.1), but different shapes. The first (mostly northeastern and hill states) is relatively strong on gender (55.2) and weak on schools (50.6). The second (including Bihar, UP, and Rajasthan) has better schools (62.0) but the weakest higher education (36.3) and gender scores (39.4). Meghalaya shows the same pattern: a top-tier gender score (64.8) alongside school electrification of only 28.1%.</p>
+        <div class="caveat">Caveat: Clusters are statistical groupings from k-means with k=4 and are not official categories.</div>
+      </div>
+
+      <div class="insight-card">
+        <h3>5. Higher literacy and urbanization do not guarantee higher female labour participation</h3>
+        <p>Delhi is 97.5% urban with female literacy of 84.4%, yet it has the lowest female labour force participation in the country at 13.1%. Among full states, Haryana (23.8%) and Bihar (24.7%) are lowest.</p>
+        <div class="caveat">Caveat: This describes a pattern in survey data, and the reasons (job availability, safety, social norms, how work is measured) are outside what this project tested.</div>
+      </div>
+    </div>
+
+    <div class="card">
+      <h2>Targeted Policy Recommendations</h2>
+      
+      <div class="insight-card" style="border-left-color:var(--green);">
+        <h3>Recommendation 1: Public School Infrastructure Funding</h3>
+        <p><strong>Target States (5 lowest School Access scores):</strong> Meghalaya (15.74), Arunachal Pradesh (38.70), Bihar (48.27), Manipur (50.18), Mizoram (50.84).</p>
+        <p>Meghalaya’s electrification figure (28.1%) shows basic facilities are the binding constraint. Check district-level data before allocating money, since state averages hide significant local variation.</p>
+      </div>
+
+      <div class="insight-card" style="border-left-color:var(--primary-light);">
+        <h3>Recommendation 2: College Capacity and Faculty Funding</h3>
+        <p><strong>Target States (5 lowest Higher Ed Access scores):</strong> Bihar (28.26), Jharkhand (29.21), D&NH and D&D (31.58), Ladakh (32.89), Andaman & Nicobar (33.78).</p>
+        <p>Focus college capacity and faculty funding on Bihar and Jharkhand first (Bihar has 61.3 students per teacher and only 8.07 colleges per lakh population). Small UTs on the same list probably need different solutions, such as scholarships to study elsewhere or distance learning options, because they cannot support many standalone colleges.</p>
+      </div>
+
+      <div class="insight-card" style="border-left-color:var(--gold);">
+        <h3>Recommendation 3: Female Workforce Transition Support</h3>
+        <p><strong>Target States (5 lowest Female LFPR):</strong> Delhi (13.1%), Lakshadweep (21.9%), Haryana (23.8%), Bihar (24.7%), Goa (27.4%).</p>
+        <p>Pair skilling programs for women with job-access support (safe transit, childcare). Female literacy is already high in several of them, so the data suggests the barrier lies after education. Start with a pilot, track employment outcomes, and test local reasons before scaling.</p>
+      </div>
+    </div>
+  </div>
+</main>
+
+<footer>
+  <p><strong>The Opportunity Lottery</strong> | Portfolio Project by Pratyush Das (B.Tech CS, AI/ML Specialization)</p>
+  <p>Code & Pipeline: <a href="https://github.com/Pratyushadas0108/opportunity-lottery" target="_blank" style="color:var(--primary);">GitHub Repository</a> | Data verified against official MoE & MoSPI publications.</p>
+</footer>
+
+<script>
+  const statesData = [
+  {
+    "state_code": "CH",
+    "state_name": "Chandigarh",
+    "entity_type": "Union Territory",
+    "norm_ptr_secondary": 80.0,
+    "norm_dropout_sec_total": 100.0,
+    "norm_transition_rate_upprim_to_sec": 98.27,
+    "norm_pct_schools_electricity": 100.0,
+    "norm_pct_schools_girls_toilet": 100.0,
+    "norm_pct_schools_computers": 100.0,
+    "norm_ger_higher_ed_total": 78.81,
+    "norm_colleges_per_lakh_pop": 9.7,
+    "norm_avg_enrolment_per_college": 100.0,
+    "norm_ptr_higher_ed": 77.33,
+    "norm_youth_unemployment_rate_15_29": 71.43,
+    "norm_overall_unemployment_rate": 47.25,
+    "norm_youth_lfpr_15_29": 70.17,
+    "norm_regular_wage_salaried_share": 82.99,
+    "norm_gpi_higher_ed": 39.2,
+    "norm_female_lfpr_15_plus": 41.98,
+    "norm_female_literacy_rate_plfs": 64.54,
+    "norm_literacy_gender_gap_plfs": 62.98,
+    "norm_youth_female_unemployment_rate": 50.51,
+    "norm_dropout_sec_gender_gap": 37.23,
+    "subindex_school": 96.38,
+    "subindex_higher_ed": 66.46,
+    "subindex_jobs": 67.96,
+    "subindex_gender": 49.41,
+    "opportunity_index": 70.05,
+    "rank_baseline": 1,
+    "index_jobs_focus": 69.63,
+    "rank_jobs_focus": 2,
+    "rank_shift_jobs": -1,
+    "index_school_focus": 75.32,
+    "rank_school_focus": 1,
+    "rank_shift_school": 0,
+    "index_gender_focus": 65.92,
+    "rank_gender_focus": 3,
+    "rank_shift_gender": -2,
+    "cluster_code": "Cluster 2",
+    "cluster_profile": "Cluster 2: Educational Infrastructure Hubs",
+    "rank_states_28": NaN,
+    "region": "North",
+    "transition_rate_upprim_to_sec": 99.0,
+    "dropout_sec_total": 2.0,
+    "dropout_sec_boys": 2.8,
+    "dropout_sec_girls": 1.1,
+    "pct_schools_electricity": 100.0,
+    "ger_higher_ed_total": 58.49,
+    "ger_higher_ed_male": 49.11,
+    "ger_higher_ed_female": 71.17,
+    "gpi_higher_ed": 1.45,
+    "colleges_per_lakh_pop": 13.96,
+    "ptr_higher_ed": 20.7,
+    "youth_unemployment_rate_15_29": 10.7,
+    "female_lfpr_15_plus": 35.6,
+    "regular_wage_salaried_share": 63.7,
+    "female_literacy_rate_plfs": 87.0,
+    "male_literacy_rate_plfs": 94.7,
+    "urban_population_pct_2011": 97.25
+  },
+  {
+    "state_code": "PY",
+    "state_name": "Puducherry",
+    "entity_type": "Union Territory",
+    "norm_ptr_secondary": 84.0,
+    "norm_dropout_sec_total": 78.33,
+    "norm_transition_rate_upprim_to_sec": 100.0,
+    "norm_pct_schools_electricity": 100.0,
+    "norm_pct_schools_girls_toilet": 99.68,
+    "norm_pct_schools_computers": 98.1,
+    "norm_ger_higher_ed_total": 100.0,
+    "norm_colleges_per_lakh_pop": 82.15,
+    "norm_avg_enrolment_per_college": 30.31,
+    "norm_ptr_higher_ed": 97.9,
+    "norm_youth_unemployment_rate_15_29": 42.16,
+    "norm_overall_unemployment_rate": 50.55,
+    "norm_youth_lfpr_15_29": 48.86,
+    "norm_regular_wage_salaried_share": 77.05,
+    "norm_gpi_higher_ed": 4.0,
+    "norm_female_lfpr_15_plus": 36.57,
+    "norm_female_literacy_rate_plfs": 77.01,
+    "norm_literacy_gender_gap_plfs": 68.27,
+    "norm_youth_female_unemployment_rate": 33.25,
+    "norm_dropout_sec_gender_gap": 78.72,
+    "subindex_school": 93.35,
+    "subindex_higher_ed": 77.59,
+    "subindex_jobs": 54.66,
+    "subindex_gender": 49.64,
+    "opportunity_index": 68.81,
+    "rank_baseline": 2,
+    "index_jobs_focus": 65.98,
+    "rank_jobs_focus": 4,
+    "rank_shift_jobs": -2,
+    "index_school_focus": 73.72,
+    "rank_school_focus": 2,
+    "rank_shift_school": 0,
+    "index_gender_focus": 64.98,
+    "rank_gender_focus": 4,
+    "rank_shift_gender": -2,
+    "cluster_code": "Cluster 2",
+    "cluster_profile": "Cluster 2: Educational Infrastructure Hubs",
+    "rank_states_28": NaN,
+    "region": "South",
+    "transition_rate_upprim_to_sec": 99.6,
+    "dropout_sec_total": 5.9,
+    "dropout_sec_boys": 8.7,
+    "dropout_sec_girls": 3.1,
+    "pct_schools_electricity": 100.0,
+    "ger_higher_ed_total": 72.31,
+    "ger_higher_ed_male": 71.79,
+    "ger_higher_ed_female": 72.8,
+    "gpi_higher_ed": 1.01,
+    "colleges_per_lakh_pop": 57.96,
+    "ptr_higher_ed": 9.9,
+    "youth_unemployment_rate_15_29": 19.1,
+    "female_lfpr_15_plus": 32.7,
+    "regular_wage_salaried_share": 60.0,
+    "female_literacy_rate_plfs": 91.5,
+    "male_literacy_rate_plfs": 98.1,
+    "urban_population_pct_2011": 68.33
+  },
+  {
+    "state_code": "DH",
+    "state_name": "Dadra and Nagar Haveli and Daman and Diu",
+    "entity_type": "Union Territory",
+    "norm_ptr_secondary": 44.0,
+    "norm_dropout_sec_total": 41.67,
+    "norm_transition_rate_upprim_to_sec": 86.71,
+    "norm_pct_schools_electricity": 100.0,
+    "norm_pct_schools_girls_toilet": 99.36,
+    "norm_pct_schools_computers": 94.09,
+    "norm_ger_higher_ed_total": 5.29,
+    "norm_colleges_per_lakh_pop": 11.46,
+    "norm_avg_enrolment_per_college": 30.12,
+    "norm_ptr_higher_ed": 79.43,
+    "norm_youth_unemployment_rate_15_29": 94.08,
+    "norm_overall_unemployment_rate": 92.31,
+    "norm_youth_lfpr_15_29": 84.94,
+    "norm_regular_wage_salaried_share": 100.0,
+    "norm_gpi_higher_ed": 89.6,
+    "norm_female_lfpr_15_plus": 47.01,
+    "norm_female_literacy_rate_plfs": 43.77,
+    "norm_literacy_gender_gap_plfs": 40.38,
+    "norm_youth_female_unemployment_rate": 98.73,
+    "norm_dropout_sec_gender_gap": 98.94,
+    "subindex_school": 77.64,
+    "subindex_higher_ed": 31.58,
+    "subindex_jobs": 92.83,
+    "subindex_gender": 69.74,
+    "opportunity_index": 67.95,
+    "rank_baseline": 3,
+    "index_jobs_focus": 72.92,
+    "rank_jobs_focus": 1,
+    "rank_shift_jobs": 2,
+    "index_school_focus": 69.89,
+    "rank_school_focus": 4,
+    "rank_shift_school": -1,
+    "index_gender_focus": 68.31,
+    "rank_gender_focus": 1,
+    "rank_shift_gender": 2,
+    "cluster_code": "Cluster 1",
+    "cluster_profile": "Cluster 1: Employment-Led Dynamism",
+    "rank_states_28": NaN,
+    "region": "West",
+    "transition_rate_upprim_to_sec": 95.0,
+    "dropout_sec_total": 12.5,
+    "dropout_sec_boys": 16.1,
+    "dropout_sec_girls": 8.6,
+    "pct_schools_electricity": 100.0,
+    "ger_higher_ed_total": 10.54,
+    "ger_higher_ed_male": 7.84,
+    "ger_higher_ed_female": 16.31,
+    "gpi_higher_ed": 2.08,
+    "colleges_per_lakh_pop": 15.03,
+    "ptr_higher_ed": 19.6,
+    "youth_unemployment_rate_15_29": 4.2,
+    "female_lfpr_15_plus": 38.3,
+    "regular_wage_salaried_share": 74.3,
+    "female_literacy_rate_plfs": 79.5,
+    "male_literacy_rate_plfs": 91.9,
+    "urban_population_pct_2011": 58.51
+  },
+  {
+    "state_code": "SK",
+    "state_name": "Sikkim",
+    "entity_type": "State",
+    "norm_ptr_secondary": 100.0,
+    "norm_dropout_sec_total": 47.78,
+    "norm_transition_rate_upprim_to_sec": 65.61,
+    "norm_pct_schools_electricity": 95.83,
+    "norm_pct_schools_girls_toilet": 92.65,
+    "norm_pct_schools_computers": 86.62,
+    "norm_ger_higher_ed_total": 54.31,
+    "norm_colleges_per_lakh_pop": 28.42,
+    "norm_avg_enrolment_per_college": 28.42,
+    "norm_ptr_higher_ed": 84.57,
+    "norm_youth_unemployment_rate_15_29": 73.87,
+    "norm_overall_unemployment_rate": 74.73,
+    "norm_youth_lfpr_15_29": 86.65,
+    "norm_regular_wage_salaried_share": 51.2,
+    "norm_gpi_higher_ed": 16.8,
+    "norm_female_lfpr_15_plus": 100.0,
+    "norm_female_literacy_rate_plfs": 60.11,
+    "norm_literacy_gender_gap_plfs": 71.63,
+    "norm_youth_female_unemployment_rate": 73.35,
+    "norm_dropout_sec_gender_gap": 82.98,
+    "subindex_school": 81.42,
+    "subindex_higher_ed": 48.93,
+    "subindex_jobs": 71.61,
+    "subindex_gender": 67.48,
+    "opportunity_index": 67.36,
+    "rank_baseline": 4,
+    "index_jobs_focus": 68.21,
+    "rank_jobs_focus": 3,
+    "rank_shift_jobs": 1,
+    "index_school_focus": 70.17,
+    "rank_school_focus": 3,
+    "rank_shift_school": 1,
+    "index_gender_focus": 67.38,
+    "rank_gender_focus": 2,
+    "rank_shift_gender": 2,
+    "cluster_code": "Cluster 1",
+    "cluster_profile": "Cluster 1: Employment-Led Dynamism",
+    "rank_states_28": 1.0,
+    "region": "North-East",
+    "transition_rate_upprim_to_sec": 87.7,
+    "dropout_sec_total": 11.4,
+    "dropout_sec_boys": 14.4,
+    "dropout_sec_girls": 8.4,
+    "pct_schools_electricity": 97.0,
+    "ger_higher_ed_total": 42.51,
+    "ger_higher_ed_male": 39.42,
+    "ger_higher_ed_female": 45.98,
+    "gpi_higher_ed": 1.17,
+    "colleges_per_lakh_pop": 25.33,
+    "ptr_higher_ed": 16.9,
+    "youth_unemployment_rate_15_29": 10.0,
+    "female_lfpr_15_plus": 66.7,
+    "regular_wage_salaried_share": 43.9,
+    "female_literacy_rate_plfs": 85.4,
+    "male_literacy_rate_plfs": 91.3,
+    "urban_population_pct_2011": 25.15
+  },
+  {
+    "state_code": "TN",
+    "state_name": "Tamil Nadu",
+    "entity_type": "State",
+    "norm_ptr_secondary": 72.0,
+    "norm_dropout_sec_total": 63.89,
+    "norm_transition_rate_upprim_to_sec": 91.33,
+    "norm_pct_schools_electricity": 99.44,
+    "norm_pct_schools_girls_toilet": 79.55,
+    "norm_pct_schools_computers": 99.11,
+    "norm_ger_higher_ed_total": 69.3,
+    "norm_colleges_per_lakh_pop": 58.5,
+    "norm_avg_enrolment_per_college": 39.56,
+    "norm_ptr_higher_ed": 88.19,
+    "norm_youth_unemployment_rate_15_29": 59.58,
+    "norm_overall_unemployment_rate": 72.53,
+    "norm_youth_lfpr_15_29": 57.67,
+    "norm_regular_wage_salaried_share": 40.61,
+    "norm_gpi_higher_ed": 5.6,
+    "norm_female_lfpr_15_plus": 63.81,
+    "norm_female_literacy_rate_plfs": 52.63,
+    "norm_literacy_gender_gap_plfs": 55.29,
+    "norm_youth_female_unemployment_rate": 60.41,
+    "norm_dropout_sec_gender_gap": 86.17,
+    "subindex_school": 84.22,
+    "subindex_higher_ed": 63.89,
+    "subindex_jobs": 57.6,
+    "subindex_gender": 53.98,
+    "opportunity_index": 64.92,
+    "rank_baseline": 5,
+    "index_jobs_focus": 63.46,
+    "rank_jobs_focus": 5,
+    "rank_shift_jobs": 0,
+    "index_school_focus": 68.78,
+    "rank_school_focus": 6,
+    "rank_shift_school": -1,
+    "index_gender_focus": 62.73,
+    "rank_gender_focus": 6,
+    "rank_shift_gender": -1,
+    "cluster_code": "Cluster 2",
+    "cluster_profile": "Cluster 2: Educational Infrastructure Hubs",
+    "rank_states_28": 2.0,
+    "region": "South",
+    "transition_rate_upprim_to_sec": 96.6,
+    "dropout_sec_total": 8.5,
+    "dropout_sec_boys": 11.6,
+    "dropout_sec_girls": 5.3,
+    "pct_schools_electricity": 99.6,
+    "ger_higher_ed_total": 52.29,
+    "ger_higher_ed_male": 51.57,
+    "ger_higher_ed_female": 53.06,
+    "gpi_higher_ed": 1.03,
+    "colleges_per_lakh_pop": 43.6,
+    "ptr_higher_ed": 15.0,
+    "youth_unemployment_rate_15_29": 14.1,
+    "female_lfpr_15_plus": 47.3,
+    "regular_wage_salaried_share": 37.3,
+    "female_literacy_rate_plfs": 82.7,
+    "male_literacy_rate_plfs": 92.0,
+    "urban_population_pct_2011": 48.4
+  },
+  {
+    "state_code": "KL",
+    "state_name": "Kerala",
+    "entity_type": "State",
+    "norm_ptr_secondary": 68.0,
+    "norm_dropout_sec_total": 84.44,
+    "norm_transition_rate_upprim_to_sec": 100.0,
+    "norm_pct_schools_electricity": 99.58,
+    "norm_pct_schools_girls_toilet": 98.72,
+    "norm_pct_schools_computers": 99.22,
+    "norm_ger_higher_ed_total": 52.22,
+    "norm_colleges_per_lakh_pop": 69.72,
+    "norm_avg_enrolment_per_college": 23.78,
+    "norm_ptr_higher_ed": 90.1,
+    "norm_youth_unemployment_rate_15_29": 45.3,
+    "norm_overall_unemployment_rate": 62.64,
+    "norm_youth_lfpr_15_29": 43.47,
+    "norm_regular_wage_salaried_share": 44.94,
+    "norm_gpi_higher_ed": 40.0,
+    "norm_female_lfpr_15_plus": 52.43,
+    "norm_female_literacy_rate_plfs": 85.04,
+    "norm_literacy_gender_gap_plfs": 87.98,
+    "norm_youth_female_unemployment_rate": 29.44,
+    "norm_dropout_sec_gender_gap": 41.49,
+    "subindex_school": 91.66,
+    "subindex_higher_ed": 58.96,
+    "subindex_jobs": 49.09,
+    "subindex_gender": 56.06,
+    "opportunity_index": 63.94,
+    "rank_baseline": 6,
+    "index_jobs_focus": 60.97,
+    "rank_jobs_focus": 7,
+    "rank_shift_jobs": -1,
+    "index_school_focus": 69.49,
+    "rank_school_focus": 5,
+    "rank_shift_school": 1,
+    "index_gender_focus": 62.37,
+    "rank_gender_focus": 7,
+    "rank_shift_gender": -1,
+    "cluster_code": "Cluster 2",
+    "cluster_profile": "Cluster 2: Educational Infrastructure Hubs",
+    "rank_states_28": 3.0,
+    "region": "South",
+    "transition_rate_upprim_to_sec": 99.6,
+    "dropout_sec_total": 4.8,
+    "dropout_sec_boys": 5.8,
+    "dropout_sec_girls": 3.7,
+    "pct_schools_electricity": 99.7,
+    "ger_higher_ed_total": 41.15,
+    "ger_higher_ed_male": 33.69,
+    "ger_higher_ed_female": 49.06,
+    "gpi_higher_ed": 1.46,
+    "colleges_per_lakh_pop": 50.41,
+    "ptr_higher_ed": 14.0,
+    "youth_unemployment_rate_15_29": 18.2,
+    "female_lfpr_15_plus": 41.2,
+    "regular_wage_salaried_share": 40.0,
+    "female_literacy_rate_plfs": 94.4,
+    "male_literacy_rate_plfs": 96.9,
+    "urban_population_pct_2011": 47.7
+  },
+  {
+    "state_code": "HP",
+    "state_name": "Himachal Pradesh",
+    "entity_type": "State",
+    "norm_ptr_secondary": 96.0,
+    "norm_dropout_sec_total": 76.67,
+    "norm_transition_rate_upprim_to_sec": 95.38,
+    "norm_pct_schools_electricity": 98.61,
+    "norm_pct_schools_girls_toilet": 97.12,
+    "norm_pct_schools_computers": 64.99,
+    "norm_ger_higher_ed_total": 60.24,
+    "norm_colleges_per_lakh_pop": 70.54,
+    "norm_avg_enrolment_per_college": 23.94,
+    "norm_ptr_higher_ed": 69.71,
+    "norm_youth_unemployment_rate_15_29": 39.72,
+    "norm_overall_unemployment_rate": 60.44,
+    "norm_youth_lfpr_15_29": 84.09,
+    "norm_regular_wage_salaried_share": 17.98,
+    "norm_gpi_higher_ed": 30.4,
+    "norm_female_lfpr_15_plus": 96.27,
+    "norm_female_literacy_rate_plfs": 61.5,
+    "norm_literacy_gender_gap_plfs": 61.06,
+    "norm_youth_female_unemployment_rate": 60.91,
+    "norm_dropout_sec_gender_gap": 46.81,
+    "subindex_school": 88.13,
+    "subindex_higher_ed": 56.11,
+    "subindex_jobs": 50.56,
+    "subindex_gender": 59.49,
+    "opportunity_index": 63.57,
+    "rank_baseline": 7,
+    "index_jobs_focus": 60.97,
+    "rank_jobs_focus": 7,
+    "rank_shift_jobs": 0,
+    "index_school_focus": 68.48,
+    "rank_school_focus": 7,
+    "rank_shift_school": 0,
+    "index_gender_focus": 62.76,
+    "rank_gender_focus": 5,
+    "rank_shift_gender": 2,
+    "cluster_code": "Cluster 2",
+    "cluster_profile": "Cluster 2: Educational Infrastructure Hubs",
+    "rank_states_28": 4.0,
+    "region": "North",
+    "transition_rate_upprim_to_sec": 98.0,
+    "dropout_sec_total": 6.2,
+    "dropout_sec_boys": 7.4,
+    "dropout_sec_girls": 4.8,
+    "pct_schools_electricity": 99.0,
+    "ger_higher_ed_total": 46.38,
+    "ger_higher_ed_male": 39.93,
+    "ger_higher_ed_female": 53.61,
+    "gpi_higher_ed": 1.34,
+    "colleges_per_lakh_pop": 50.91,
+    "ptr_higher_ed": 24.7,
+    "youth_unemployment_rate_15_29": 19.8,
+    "female_lfpr_15_plus": 64.7,
+    "regular_wage_salaried_share": 23.2,
+    "female_literacy_rate_plfs": 85.9,
+    "male_literacy_rate_plfs": 94.0,
+    "urban_population_pct_2011": 10.03
+  },
+  {
+    "state_code": "KA",
+    "state_name": "Karnataka",
+    "entity_type": "State",
+    "norm_ptr_secondary": 48.0,
+    "norm_dropout_sec_total": 9.44,
+    "norm_transition_rate_upprim_to_sec": 91.62,
+    "norm_pct_schools_electricity": 97.64,
+    "norm_pct_schools_girls_toilet": 95.21,
+    "norm_pct_schools_computers": 28.43,
+    "norm_ger_higher_ed_total": 53.4,
+    "norm_colleges_per_lakh_pop": 100.0,
+    "norm_avg_enrolment_per_college": 17.23,
+    "norm_ptr_higher_ed": 85.33,
+    "norm_youth_unemployment_rate_15_29": 78.75,
+    "norm_overall_unemployment_rate": 84.62,
+    "norm_youth_lfpr_15_29": 54.55,
+    "norm_regular_wage_salaried_share": 27.61,
+    "norm_gpi_higher_ed": 6.4,
+    "norm_female_lfpr_15_plus": 49.81,
+    "norm_female_literacy_rate_plfs": 40.44,
+    "norm_literacy_gender_gap_plfs": 46.15,
+    "norm_youth_female_unemployment_rate": 74.62,
+    "norm_dropout_sec_gender_gap": 96.81,
+    "subindex_school": 61.72,
+    "subindex_higher_ed": 63.99,
+    "subindex_jobs": 61.38,
+    "subindex_gender": 52.37,
+    "opportunity_index": 59.86,
+    "rank_baseline": 8,
+    "index_jobs_focus": 60.17,
+    "rank_jobs_focus": 9,
+    "rank_shift_jobs": -1,
+    "index_school_focus": 60.24,
+    "rank_school_focus": 15,
+    "rank_shift_school": -7,
+    "index_gender_focus": 58.37,
+    "rank_gender_focus": 8,
+    "rank_shift_gender": 0,
+    "cluster_code": "Cluster 2",
+    "cluster_profile": "Cluster 2: Educational Infrastructure Hubs",
+    "rank_states_28": 5.0,
+    "region": "South",
+    "transition_rate_upprim_to_sec": 96.7,
+    "dropout_sec_total": 18.3,
+    "dropout_sec_boys": 21.9,
+    "dropout_sec_girls": 14.6,
+    "pct_schools_electricity": 98.3,
+    "ger_higher_ed_total": 41.92,
+    "ger_higher_ed_male": 41.04,
+    "ger_higher_ed_female": 42.85,
+    "gpi_higher_ed": 1.04,
+    "colleges_per_lakh_pop": 68.8,
+    "ptr_higher_ed": 16.5,
+    "youth_unemployment_rate_15_29": 8.6,
+    "female_lfpr_15_plus": 39.8,
+    "regular_wage_salaried_share": 29.2,
+    "female_literacy_rate_plfs": 78.3,
+    "male_literacy_rate_plfs": 89.5,
+    "urban_population_pct_2011": 38.67
+  },
+  {
+    "state_code": "GA",
+    "state_name": "Goa",
+    "entity_type": "State",
+    "norm_ptr_secondary": 88.0,
+    "norm_dropout_sec_total": 59.44,
+    "norm_transition_rate_upprim_to_sec": 95.38,
+    "norm_pct_schools_electricity": 100.0,
+    "norm_pct_schools_girls_toilet": 99.68,
+    "norm_pct_schools_computers": 12.26,
+    "norm_ger_higher_ed_total": 41.05,
+    "norm_colleges_per_lakh_pop": 43.65,
+    "norm_avg_enrolment_per_college": 28.94,
+    "norm_ptr_higher_ed": 89.71,
+    "norm_youth_unemployment_rate_15_29": 57.14,
+    "norm_overall_unemployment_rate": 18.68,
+    "norm_youth_lfpr_15_29": 80.4,
+    "norm_regular_wage_salaried_share": 69.18,
+    "norm_gpi_higher_ed": 16.8,
+    "norm_female_lfpr_15_plus": 26.68,
+    "norm_female_literacy_rate_plfs": 68.98,
+    "norm_literacy_gender_gap_plfs": 59.62,
+    "norm_youth_female_unemployment_rate": 64.97,
+    "norm_dropout_sec_gender_gap": 81.91,
+    "subindex_school": 75.79,
+    "subindex_higher_ed": 50.84,
+    "subindex_jobs": 56.35,
+    "subindex_gender": 53.16,
+    "opportunity_index": 59.04,
+    "rank_baseline": 9,
+    "index_jobs_focus": 58.5,
+    "rank_jobs_focus": 12,
+    "rank_shift_jobs": -3,
+    "index_school_focus": 62.39,
+    "rank_school_focus": 12,
+    "rank_shift_school": -3,
+    "index_gender_focus": 57.86,
+    "rank_gender_focus": 9,
+    "rank_shift_gender": 0,
+    "cluster_code": "Cluster 2",
+    "cluster_profile": "Cluster 2: Educational Infrastructure Hubs",
+    "rank_states_28": 6.0,
+    "region": "West",
+    "transition_rate_upprim_to_sec": 98.0,
+    "dropout_sec_total": 9.3,
+    "dropout_sec_boys": 12.2,
+    "dropout_sec_girls": 6.3,
+    "pct_schools_electricity": 100.0,
+    "ger_higher_ed_total": 33.86,
+    "ger_higher_ed_male": 31.45,
+    "ger_higher_ed_female": 36.73,
+    "gpi_higher_ed": 1.17,
+    "colleges_per_lakh_pop": 34.58,
+    "ptr_higher_ed": 14.2,
+    "youth_unemployment_rate_15_29": 14.8,
+    "female_lfpr_15_plus": 27.4,
+    "regular_wage_salaried_share": 55.1,
+    "female_literacy_rate_plfs": 88.6,
+    "male_literacy_rate_plfs": 97.0,
+    "urban_population_pct_2011": 62.17
+  },
+  {
+    "state_code": "GJ",
+    "state_name": "Gujarat",
+    "entity_type": "State",
+    "norm_ptr_secondary": 12.0,
+    "norm_dropout_sec_total": 17.22,
+    "norm_transition_rate_upprim_to_sec": 57.8,
+    "norm_pct_schools_electricity": 99.86,
+    "norm_pct_schools_girls_toilet": 93.29,
+    "norm_pct_schools_computers": 96.1,
+    "norm_ger_higher_ed_total": 29.38,
+    "norm_colleges_per_lakh_pop": 42.83,
+    "norm_avg_enrolment_per_college": 21.75,
+    "norm_ptr_higher_ed": 66.1,
+    "norm_youth_unemployment_rate_15_29": 100.0,
+    "norm_overall_unemployment_rate": 100.0,
+    "norm_youth_lfpr_15_29": 90.91,
+    "norm_regular_wage_salaried_share": 28.89,
+    "norm_gpi_higher_ed": 0.8,
+    "norm_female_lfpr_15_plus": 61.75,
+    "norm_female_literacy_rate_plfs": 37.95,
+    "norm_literacy_gender_gap_plfs": 32.69,
+    "norm_youth_female_unemployment_rate": 100.0,
+    "norm_dropout_sec_gender_gap": 63.83,
+    "subindex_school": 62.71,
+    "subindex_higher_ed": 40.02,
+    "subindex_jobs": 79.95,
+    "subindex_gender": 49.5,
+    "opportunity_index": 58.04,
+    "rank_baseline": 10,
+    "index_jobs_focus": 62.43,
+    "rank_jobs_focus": 6,
+    "rank_shift_jobs": 4,
+    "index_school_focus": 58.98,
+    "rank_school_focus": 18,
+    "rank_shift_school": -8,
+    "index_gender_focus": 56.34,
+    "rank_gender_focus": 11,
+    "rank_shift_gender": -1,
+    "cluster_code": "Cluster 1",
+    "cluster_profile": "Cluster 1: Employment-Led Dynamism",
+    "rank_states_28": 7.0,
+    "region": "West",
+    "transition_rate_upprim_to_sec": 85.0,
+    "dropout_sec_total": 16.9,
+    "dropout_sec_boys": 18.8,
+    "dropout_sec_girls": 14.6,
+    "pct_schools_electricity": 99.9,
+    "ger_higher_ed_total": 26.25,
+    "ger_higher_ed_male": 26.66,
+    "ger_higher_ed_female": 25.79,
+    "gpi_higher_ed": 0.97,
+    "colleges_per_lakh_pop": 34.08,
+    "ptr_higher_ed": 26.6,
+    "youth_unemployment_rate_15_29": 2.5,
+    "female_lfpr_15_plus": 46.2,
+    "regular_wage_salaried_share": 30.0,
+    "female_literacy_rate_plfs": 77.4,
+    "male_literacy_rate_plfs": 91.4,
+    "urban_population_pct_2011": 42.6
+  },
+  {
+    "state_code": "DL",
+    "state_name": "Delhi",
+    "entity_type": "Union Territory",
+    "norm_ptr_secondary": 52.0,
+    "norm_dropout_sec_total": 69.44,
+    "norm_transition_rate_upprim_to_sec": 63.29,
+    "norm_pct_schools_electricity": 100.0,
+    "norm_pct_schools_girls_toilet": 100.0,
+    "norm_pct_schools_computers": 100.0,
+    "norm_ger_higher_ed_total": 70.32,
+    "norm_colleges_per_lakh_pop": 0.41,
+    "norm_avg_enrolment_per_college": 89.32,
+    "norm_ptr_higher_ed": 77.71,
+    "norm_youth_unemployment_rate_15_29": 58.54,
+    "norm_overall_unemployment_rate": 45.05,
+    "norm_youth_lfpr_15_29": 27.84,
+    "norm_regular_wage_salaried_share": 68.54,
+    "norm_gpi_higher_ed": 8.0,
+    "norm_female_lfpr_15_plus": 0.0,
+    "norm_female_literacy_rate_plfs": 57.34,
+    "norm_literacy_gender_gap_plfs": 58.65,
+    "norm_youth_female_unemployment_rate": 72.59,
+    "norm_dropout_sec_gender_gap": 54.26,
+    "subindex_school": 80.79,
+    "subindex_higher_ed": 59.44,
+    "subindex_jobs": 49.99,
+    "subindex_gender": 41.81,
+    "opportunity_index": 58.01,
+    "rank_baseline": 11,
+    "index_jobs_focus": 56.4,
+    "rank_jobs_focus": 14,
+    "rank_shift_jobs": -3,
+    "index_school_focus": 62.56,
+    "rank_school_focus": 11,
+    "rank_shift_school": 0,
+    "index_gender_focus": 54.77,
+    "rank_gender_focus": 14,
+    "rank_shift_gender": -3,
+    "cluster_code": "Cluster 2",
+    "cluster_profile": "Cluster 2: Educational Infrastructure Hubs",
+    "rank_states_28": NaN,
+    "region": "North",
+    "transition_rate_upprim_to_sec": 86.9,
+    "dropout_sec_total": 7.5,
+    "dropout_sec_boys": 9.1,
+    "dropout_sec_girls": 5.8,
+    "pct_schools_electricity": 100.0,
+    "ger_higher_ed_total": 52.95,
+    "ger_higher_ed_male": 51.47,
+    "ger_higher_ed_female": 54.49,
+    "gpi_higher_ed": 1.06,
+    "colleges_per_lakh_pop": 8.32,
+    "ptr_higher_ed": 20.5,
+    "youth_unemployment_rate_15_29": 14.4,
+    "female_lfpr_15_plus": 13.1,
+    "regular_wage_salaried_share": 54.7,
+    "female_literacy_rate_plfs": 84.4,
+    "male_literacy_rate_plfs": 93.0,
+    "urban_population_pct_2011": 97.5
+  },
+  {
+    "state_code": "UK",
+    "state_name": "Uttarakhand",
+    "entity_type": "State",
+    "norm_ptr_secondary": 80.0,
+    "norm_dropout_sec_total": 85.56,
+    "norm_transition_rate_upprim_to_sec": 81.5,
+    "norm_pct_schools_electricity": 92.07,
+    "norm_pct_schools_girls_toilet": 70.93,
+    "norm_pct_schools_computers": 84.73,
+    "norm_ger_higher_ed_total": 63.52,
+    "norm_colleges_per_lakh_pop": 56.84,
+    "norm_avg_enrolment_per_college": 28.06,
+    "norm_ptr_higher_ed": 73.14,
+    "norm_youth_unemployment_rate_15_29": 60.28,
+    "norm_overall_unemployment_rate": 53.85,
+    "norm_youth_lfpr_15_29": 55.68,
+    "norm_regular_wage_salaried_share": 27.77,
+    "norm_gpi_higher_ed": 14.4,
+    "norm_female_lfpr_15_plus": 46.08,
+    "norm_female_literacy_rate_plfs": 41.27,
+    "norm_literacy_gender_gap_plfs": 42.31,
+    "norm_youth_female_unemployment_rate": 69.29,
+    "norm_dropout_sec_gender_gap": 51.06,
+    "subindex_school": 82.46,
+    "subindex_higher_ed": 55.39,
+    "subindex_jobs": 49.4,
+    "subindex_gender": 44.07,
+    "opportunity_index": 57.83,
+    "rank_baseline": 12,
+    "index_jobs_focus": 56.14,
+    "rank_jobs_focus": 15,
+    "rank_shift_jobs": -3,
+    "index_school_focus": 62.76,
+    "rank_school_focus": 9,
+    "rank_shift_school": 3,
+    "index_gender_focus": 55.08,
+    "rank_gender_focus": 13,
+    "rank_shift_gender": -1,
+    "cluster_code": "Cluster 2",
+    "cluster_profile": "Cluster 2: Educational Infrastructure Hubs",
+    "rank_states_28": 8.0,
+    "region": "North",
+    "transition_rate_upprim_to_sec": 93.2,
+    "dropout_sec_total": 4.6,
+    "dropout_sec_boys": 6.0,
+    "dropout_sec_girls": 3.0,
+    "pct_schools_electricity": 94.3,
+    "ger_higher_ed_total": 48.52,
+    "ger_higher_ed_male": 45.5,
+    "ger_higher_ed_female": 51.72,
+    "gpi_higher_ed": 1.14,
+    "colleges_per_lakh_pop": 42.59,
+    "ptr_higher_ed": 22.9,
+    "youth_unemployment_rate_15_29": 13.9,
+    "female_lfpr_15_plus": 37.8,
+    "regular_wage_salaried_share": 29.3,
+    "female_literacy_rate_plfs": 78.6,
+    "male_literacy_rate_plfs": 90.6,
+    "urban_population_pct_2011": 30.23
+  },
+  {
+    "state_code": "HR",
+    "state_name": "Haryana",
+    "entity_type": "State",
+    "norm_ptr_secondary": 80.0,
+    "norm_dropout_sec_total": 74.44,
+    "norm_transition_rate_upprim_to_sec": 80.92,
+    "norm_pct_schools_electricity": 100.0,
+    "norm_pct_schools_girls_toilet": 99.36,
+    "norm_pct_schools_computers": 97.21,
+    "norm_ger_higher_ed_total": 42.99,
+    "norm_colleges_per_lakh_pop": 44.64,
+    "norm_avg_enrolment_per_college": 26.49,
+    "norm_ptr_higher_ed": 73.71,
+    "norm_youth_unemployment_rate_15_29": 67.6,
+    "norm_overall_unemployment_rate": 60.44,
+    "norm_youth_lfpr_15_29": 37.78,
+    "norm_regular_wage_salaried_share": 43.98,
+    "norm_gpi_higher_ed": 25.6,
+    "norm_female_lfpr_15_plus": 19.96,
+    "norm_female_literacy_rate_plfs": 36.29,
+    "norm_literacy_gender_gap_plfs": 35.1,
+    "norm_youth_female_unemployment_rate": 68.78,
+    "norm_dropout_sec_gender_gap": 68.09,
+    "subindex_school": 88.66,
+    "subindex_higher_ed": 46.96,
+    "subindex_jobs": 52.45,
+    "subindex_gender": 42.3,
+    "opportunity_index": 57.59,
+    "rank_baseline": 13,
+    "index_jobs_focus": 56.56,
+    "rank_jobs_focus": 13,
+    "rank_shift_jobs": 0,
+    "index_school_focus": 63.81,
+    "rank_school_focus": 8,
+    "rank_shift_school": 5,
+    "index_gender_focus": 54.53,
+    "rank_gender_focus": 15,
+    "rank_shift_gender": -2,
+    "cluster_code": "Cluster 2",
+    "cluster_profile": "Cluster 2: Educational Infrastructure Hubs",
+    "rank_states_28": 9.0,
+    "region": "North",
+    "transition_rate_upprim_to_sec": 93.0,
+    "dropout_sec_total": 6.6,
+    "dropout_sec_boys": 8.7,
+    "dropout_sec_girls": 4.1,
+    "pct_schools_electricity": 100.0,
+    "ger_higher_ed_total": 35.13,
+    "ger_higher_ed_male": 31.1,
+    "ger_higher_ed_female": 39.85,
+    "gpi_higher_ed": 1.28,
+    "colleges_per_lakh_pop": 35.18,
+    "ptr_higher_ed": 22.6,
+    "youth_unemployment_rate_15_29": 11.8,
+    "female_lfpr_15_plus": 23.8,
+    "regular_wage_salaried_share": 39.4,
+    "female_literacy_rate_plfs": 76.8,
+    "male_literacy_rate_plfs": 90.3,
+    "urban_population_pct_2011": 34.88
+  },
+  {
+    "state_code": "MH",
+    "state_name": "Maharashtra",
+    "entity_type": "State",
+    "norm_ptr_secondary": 40.0,
+    "norm_dropout_sec_total": 47.22,
+    "norm_transition_rate_upprim_to_sec": 96.53,
+    "norm_pct_schools_electricity": 84.56,
+    "norm_pct_schools_girls_toilet": 82.11,
+    "norm_pct_schools_computers": 61.76,
+    "norm_ger_higher_ed_total": 45.0,
+    "norm_colleges_per_lakh_pop": 56.08,
+    "norm_avg_enrolment_per_college": 26.79,
+    "norm_ptr_higher_ed": 73.9,
+    "norm_youth_unemployment_rate_15_29": 81.88,
+    "norm_overall_unemployment_rate": 83.52,
+    "norm_youth_lfpr_15_29": 55.97,
+    "norm_regular_wage_salaried_share": 33.39,
+    "norm_gpi_higher_ed": 1.6,
+    "norm_female_lfpr_15_plus": 50.0,
+    "norm_female_literacy_rate_plfs": 51.8,
+    "norm_literacy_gender_gap_plfs": 48.08,
+    "norm_youth_female_unemployment_rate": 85.03,
+    "norm_dropout_sec_gender_gap": 43.62,
+    "subindex_school": 68.7,
+    "subindex_higher_ed": 50.44,
+    "subindex_jobs": 63.69,
+    "subindex_gender": 46.69,
+    "opportunity_index": 57.38,
+    "rank_baseline": 14,
+    "index_jobs_focus": 58.64,
+    "rank_jobs_focus": 11,
+    "rank_shift_jobs": 3,
+    "index_school_focus": 59.64,
+    "rank_school_focus": 16,
+    "rank_shift_school": -2,
+    "index_gender_focus": 55.24,
+    "rank_gender_focus": 12,
+    "rank_shift_gender": 2,
+    "cluster_code": "Cluster 2",
+    "cluster_profile": "Cluster 2: Educational Infrastructure Hubs",
+    "rank_states_28": 10.0,
+    "region": "West",
+    "transition_rate_upprim_to_sec": 98.4,
+    "dropout_sec_total": 11.5,
+    "dropout_sec_boys": 12.6,
+    "dropout_sec_girls": 10.3,
+    "pct_schools_electricity": 88.9,
+    "ger_higher_ed_total": 36.44,
+    "ger_higher_ed_male": 36.71,
+    "ger_higher_ed_female": 36.15,
+    "gpi_higher_ed": 0.98,
+    "colleges_per_lakh_pop": 42.13,
+    "ptr_higher_ed": 22.5,
+    "youth_unemployment_rate_15_29": 7.7,
+    "female_lfpr_15_plus": 39.9,
+    "regular_wage_salaried_share": 32.8,
+    "female_literacy_rate_plfs": 82.4,
+    "male_literacy_rate_plfs": 93.2,
+    "urban_population_pct_2011": 45.22
+  },
+  {
+    "state_code": "CT",
+    "state_name": "Chhattisgarh",
+    "entity_type": "State",
+    "norm_ptr_secondary": 64.0,
+    "norm_dropout_sec_total": 26.11,
+    "norm_transition_rate_upprim_to_sec": 67.34,
+    "norm_pct_schools_electricity": 87.34,
+    "norm_pct_schools_girls_toilet": 68.05,
+    "norm_pct_schools_computers": 25.86,
+    "norm_ger_higher_ed_total": 27.15,
+    "norm_colleges_per_lakh_pop": 38.32,
+    "norm_avg_enrolment_per_college": 19.94,
+    "norm_ptr_higher_ed": 72.95,
+    "norm_youth_unemployment_rate_15_29": 87.46,
+    "norm_overall_unemployment_rate": 84.62,
+    "norm_youth_lfpr_15_29": 99.43,
+    "norm_regular_wage_salaried_share": 9.31,
+    "norm_gpi_higher_ed": 28.0,
+    "norm_female_lfpr_15_plus": 87.13,
+    "norm_female_literacy_rate_plfs": 29.09,
+    "norm_literacy_gender_gap_plfs": 33.65,
+    "norm_youth_female_unemployment_rate": 89.34,
+    "norm_dropout_sec_gender_gap": 100.0,
+    "subindex_school": 56.45,
+    "subindex_higher_ed": 39.59,
+    "subindex_jobs": 70.2,
+    "subindex_gender": 61.2,
+    "opportunity_index": 56.86,
+    "rank_baseline": 15,
+    "index_jobs_focus": 59.53,
+    "rank_jobs_focus": 10,
+    "rank_shift_jobs": 5,
+    "index_school_focus": 56.78,
+    "rank_school_focus": 21,
+    "rank_shift_school": -6,
+    "index_gender_focus": 57.73,
+    "rank_gender_focus": 10,
+    "rank_shift_gender": 5,
+    "cluster_code": "Cluster 1",
+    "cluster_profile": "Cluster 1: Employment-Led Dynamism",
+    "rank_states_28": 11.0,
+    "region": "Central",
+    "transition_rate_upprim_to_sec": 88.3,
+    "dropout_sec_total": 15.3,
+    "dropout_sec_boys": 19.2,
+    "dropout_sec_girls": 11.6,
+    "pct_schools_electricity": 90.9,
+    "ger_higher_ed_total": 24.8,
+    "ger_higher_ed_male": 21.5,
+    "ger_higher_ed_female": 28.18,
+    "gpi_higher_ed": 1.31,
+    "colleges_per_lakh_pop": 31.34,
+    "ptr_higher_ed": 23.0,
+    "youth_unemployment_rate_15_29": 6.1,
+    "female_lfpr_15_plus": 59.8,
+    "regular_wage_salaried_share": 17.8,
+    "female_literacy_rate_plfs": 74.2,
+    "male_literacy_rate_plfs": 88.0,
+    "urban_population_pct_2011": 23.24
+  },
+  {
+    "state_code": "TS",
+    "state_name": "Telangana",
+    "entity_type": "State",
+    "norm_ptr_secondary": 84.0,
+    "norm_dropout_sec_total": 37.78,
+    "norm_transition_rate_upprim_to_sec": 97.98,
+    "norm_pct_schools_electricity": 93.18,
+    "norm_pct_schools_girls_toilet": 77.32,
+    "norm_pct_schools_computers": 76.14,
+    "norm_ger_higher_ed_total": 60.56,
+    "norm_colleges_per_lakh_pop": 79.42,
+    "norm_avg_enrolment_per_college": 27.4,
+    "norm_ptr_higher_ed": 84.38,
+    "norm_youth_unemployment_rate_15_29": 45.64,
+    "norm_overall_unemployment_rate": 54.95,
+    "norm_youth_lfpr_15_29": 55.4,
+    "norm_regular_wage_salaried_share": 24.24,
+    "norm_gpi_higher_ed": 12.0,
+    "norm_female_lfpr_15_plus": 62.13,
+    "norm_female_literacy_rate_plfs": 10.8,
+    "norm_literacy_gender_gap_plfs": 32.21,
+    "norm_youth_female_unemployment_rate": 54.57,
+    "norm_dropout_sec_gender_gap": 71.28,
+    "subindex_school": 77.73,
+    "subindex_higher_ed": 62.94,
+    "subindex_jobs": 45.06,
+    "subindex_gender": 40.5,
+    "opportunity_index": 56.56,
+    "rank_baseline": 16,
+    "index_jobs_focus": 54.26,
+    "rank_jobs_focus": 18,
+    "rank_shift_jobs": -2,
+    "index_school_focus": 60.79,
+    "rank_school_focus": 14,
+    "rank_shift_school": 2,
+    "index_gender_focus": 53.35,
+    "rank_gender_focus": 17,
+    "rank_shift_gender": -1,
+    "cluster_code": "Cluster 2",
+    "cluster_profile": "Cluster 2: Educational Infrastructure Hubs",
+    "rank_states_28": 12.0,
+    "region": "South",
+    "transition_rate_upprim_to_sec": 98.9,
+    "dropout_sec_total": 13.2,
+    "dropout_sec_boys": 15.6,
+    "dropout_sec_girls": 10.7,
+    "pct_schools_electricity": 95.1,
+    "ger_higher_ed_total": 46.59,
+    "ger_higher_ed_male": 44.19,
+    "ger_higher_ed_female": 49.17,
+    "gpi_higher_ed": 1.11,
+    "colleges_per_lakh_pop": 56.3,
+    "ptr_higher_ed": 17.0,
+    "youth_unemployment_rate_15_29": 18.1,
+    "female_lfpr_15_plus": 46.4,
+    "regular_wage_salaried_share": 27.1,
+    "female_literacy_rate_plfs": 67.6,
+    "male_literacy_rate_plfs": 81.7,
+    "urban_population_pct_2011": 38.67
+  },
+  {
+    "state_code": "PB",
+    "state_name": "Punjab",
+    "entity_type": "State",
+    "norm_ptr_secondary": 84.0,
+    "norm_dropout_sec_total": 76.67,
+    "norm_transition_rate_upprim_to_sec": 84.39,
+    "norm_pct_schools_electricity": 99.86,
+    "norm_pct_schools_girls_toilet": 95.53,
+    "norm_pct_schools_computers": 98.1,
+    "norm_ger_higher_ed_total": 36.37,
+    "norm_colleges_per_lakh_pop": 43.82,
+    "norm_avg_enrolment_per_college": 21.24,
+    "norm_ptr_higher_ed": 85.14,
+    "norm_youth_unemployment_rate_15_29": 49.48,
+    "norm_overall_unemployment_rate": 51.65,
+    "norm_youth_lfpr_15_29": 58.52,
+    "norm_regular_wage_salaried_share": 38.84,
+    "norm_gpi_higher_ed": 21.6,
+    "norm_female_lfpr_15_plus": 31.9,
+    "norm_female_literacy_rate_plfs": 39.06,
+    "norm_literacy_gender_gap_plfs": 59.13,
+    "norm_youth_female_unemployment_rate": 34.77,
+    "norm_dropout_sec_gender_gap": 38.3,
+    "subindex_school": 89.76,
+    "subindex_higher_ed": 46.64,
+    "subindex_jobs": 49.62,
+    "subindex_gender": 37.46,
+    "opportunity_index": 55.87,
+    "rank_baseline": 17,
+    "index_jobs_focus": 54.62,
+    "rank_jobs_focus": 16,
+    "rank_shift_jobs": 1,
+    "index_school_focus": 62.65,
+    "rank_school_focus": 10,
+    "rank_shift_school": 7,
+    "index_gender_focus": 52.19,
+    "rank_gender_focus": 21,
+    "rank_shift_gender": -4,
+    "cluster_code": "Cluster 2",
+    "cluster_profile": "Cluster 2: Educational Infrastructure Hubs",
+    "rank_states_28": 13.0,
+    "region": "North",
+    "transition_rate_upprim_to_sec": 94.2,
+    "dropout_sec_total": 6.2,
+    "dropout_sec_boys": 7.0,
+    "dropout_sec_girls": 5.2,
+    "pct_schools_electricity": 99.9,
+    "ger_higher_ed_total": 30.81,
+    "ger_higher_ed_male": 27.89,
+    "ger_higher_ed_female": 34.36,
+    "gpi_higher_ed": 1.23,
+    "colleges_per_lakh_pop": 34.68,
+    "ptr_higher_ed": 16.6,
+    "youth_unemployment_rate_15_29": 17.0,
+    "female_lfpr_15_plus": 30.2,
+    "regular_wage_salaried_share": 36.2,
+    "female_literacy_rate_plfs": 77.8,
+    "male_literacy_rate_plfs": 86.3,
+    "urban_population_pct_2011": 37.48
+  },
+  {
+    "state_code": "AP",
+    "state_name": "Andhra Pradesh",
+    "entity_type": "State",
+    "norm_ptr_secondary": 80.0,
+    "norm_dropout_sec_total": 25.0,
+    "norm_transition_rate_upprim_to_sec": 84.39,
+    "norm_pct_schools_electricity": 99.58,
+    "norm_pct_schools_girls_toilet": 96.17,
+    "norm_pct_schools_computers": 65.44,
+    "norm_ger_higher_ed_total": 43.62,
+    "norm_colleges_per_lakh_pop": 70.61,
+    "norm_avg_enrolment_per_college": 21.85,
+    "norm_ptr_higher_ed": 88.57,
+    "norm_youth_unemployment_rate_15_29": 52.26,
+    "norm_overall_unemployment_rate": 63.74,
+    "norm_youth_lfpr_15_29": 56.82,
+    "norm_regular_wage_salaried_share": 18.62,
+    "norm_gpi_higher_ed": 3.2,
+    "norm_female_lfpr_15_plus": 59.14,
+    "norm_female_literacy_rate_plfs": 4.99,
+    "norm_literacy_gender_gap_plfs": 41.35,
+    "norm_youth_female_unemployment_rate": 55.33,
+    "norm_dropout_sec_gender_gap": 81.91,
+    "subindex_school": 75.1,
+    "subindex_higher_ed": 56.16,
+    "subindex_jobs": 47.86,
+    "subindex_gender": 40.99,
+    "opportunity_index": 55.03,
+    "rank_baseline": 18,
+    "index_jobs_focus": 53.59,
+    "rank_jobs_focus": 20,
+    "rank_shift_jobs": -2,
+    "index_school_focus": 59.04,
+    "rank_school_focus": 17,
+    "rank_shift_school": 1,
+    "index_gender_focus": 52.22,
+    "rank_gender_focus": 20,
+    "rank_shift_gender": -2,
+    "cluster_code": "Cluster 2",
+    "cluster_profile": "Cluster 2: Educational Infrastructure Hubs",
+    "rank_states_28": 14.0,
+    "region": "South",
+    "transition_rate_upprim_to_sec": 94.2,
+    "dropout_sec_total": 15.5,
+    "dropout_sec_boys": 18.4,
+    "dropout_sec_girls": 12.5,
+    "pct_schools_electricity": 99.7,
+    "ger_higher_ed_total": 35.54,
+    "ger_higher_ed_male": 35.5,
+    "ger_higher_ed_female": 35.57,
+    "gpi_higher_ed": 1.0,
+    "colleges_per_lakh_pop": 50.95,
+    "ptr_higher_ed": 14.8,
+    "youth_unemployment_rate_15_29": 16.2,
+    "female_lfpr_15_plus": 44.8,
+    "regular_wage_salaried_share": 23.6,
+    "female_literacy_rate_plfs": 65.5,
+    "male_literacy_rate_plfs": 77.7,
+    "urban_population_pct_2011": 29.47
+  },
+  {
+    "state_code": "LD",
+    "state_name": "Lakshadweep",
+    "entity_type": "Union Territory",
+    "norm_ptr_secondary": 88.0,
+    "norm_dropout_sec_total": 88.33,
+    "norm_transition_rate_upprim_to_sec": 98.27,
+    "norm_pct_schools_electricity": 100.0,
+    "norm_pct_schools_girls_toilet": 100.0,
+    "norm_pct_schools_computers": 96.88,
+    "norm_ger_higher_ed_total": 0.0,
+    "norm_colleges_per_lakh_pop": 85.33,
+    "norm_avg_enrolment_per_college": 0.0,
+    "norm_ptr_higher_ed": 100.0,
+    "norm_youth_unemployment_rate_15_29": 17.07,
+    "norm_overall_unemployment_rate": 34.07,
+    "norm_youth_lfpr_15_29": 37.5,
+    "norm_regular_wage_salaried_share": 33.87,
+    "norm_gpi_higher_ed": 100.0,
+    "norm_female_lfpr_15_plus": 16.42,
+    "norm_female_literacy_rate_plfs": 75.62,
+    "norm_literacy_gender_gap_plfs": 69.71,
+    "norm_youth_female_unemployment_rate": 2.54,
+    "norm_dropout_sec_gender_gap": 0.0,
+    "subindex_school": 95.25,
+    "subindex_higher_ed": 46.33,
+    "subindex_jobs": 30.63,
+    "subindex_gender": 44.05,
+    "opportunity_index": 54.06,
+    "rank_baseline": 19,
+    "index_jobs_focus": 49.38,
+    "rank_jobs_focus": 24,
+    "rank_shift_jobs": -5,
+    "index_school_focus": 62.3,
+    "rank_school_focus": 13,
+    "rank_shift_school": 6,
+    "index_gender_focus": 52.06,
+    "rank_gender_focus": 23,
+    "rank_shift_gender": -4,
+    "cluster_code": "Cluster 2",
+    "cluster_profile": "Cluster 2: Educational Infrastructure Hubs",
+    "rank_states_28": NaN,
+    "region": "South",
+    "transition_rate_upprim_to_sec": 99.0,
+    "dropout_sec_total": 4.1,
+    "dropout_sec_boys": 3.2,
+    "dropout_sec_girls": 5.0,
+    "pct_schools_electricity": 100.0,
+    "ger_higher_ed_total": 7.09,
+    "ger_higher_ed_male": 4.51,
+    "ger_higher_ed_female": 9.97,
+    "gpi_higher_ed": 2.21,
+    "colleges_per_lakh_pop": 59.89,
+    "ptr_higher_ed": 8.8,
+    "youth_unemployment_rate_15_29": 26.3,
+    "female_lfpr_15_plus": 21.9,
+    "regular_wage_salaried_share": 33.1,
+    "female_literacy_rate_plfs": 91.0,
+    "male_literacy_rate_plfs": 97.3,
+    "urban_population_pct_2011": 78.07
+  },
+  {
+    "state_code": "OD",
+    "state_name": "Odisha",
+    "entity_type": "State",
+    "norm_ptr_secondary": 56.0,
+    "norm_dropout_sec_total": 27.78,
+    "norm_transition_rate_upprim_to_sec": 77.17,
+    "norm_pct_schools_electricity": 95.69,
+    "norm_pct_schools_girls_toilet": 93.93,
+    "norm_pct_schools_computers": 67.67,
+    "norm_ger_higher_ed_total": 27.25,
+    "norm_colleges_per_lakh_pop": 39.32,
+    "norm_avg_enrolment_per_college": 22.3,
+    "norm_ptr_higher_ed": 70.86,
+    "norm_youth_unemployment_rate_15_29": 71.78,
+    "norm_overall_unemployment_rate": 78.02,
+    "norm_youth_lfpr_15_29": 70.74,
+    "norm_regular_wage_salaried_share": 4.82,
+    "norm_gpi_higher_ed": 0.0,
+    "norm_female_lfpr_15_plus": 63.81,
+    "norm_female_literacy_rate_plfs": 31.58,
+    "norm_literacy_gender_gap_plfs": 45.67,
+    "norm_youth_female_unemployment_rate": 80.46,
+    "norm_dropout_sec_gender_gap": 69.15,
+    "subindex_school": 69.71,
+    "subindex_higher_ed": 39.93,
+    "subindex_jobs": 56.34,
+    "subindex_gender": 48.44,
+    "opportunity_index": 53.6,
+    "rank_baseline": 20,
+    "index_jobs_focus": 54.15,
+    "rank_jobs_focus": 19,
+    "rank_shift_jobs": 1,
+    "index_school_focus": 56.83,
+    "rank_school_focus": 20,
+    "rank_shift_school": 0,
+    "index_gender_focus": 52.57,
+    "rank_gender_focus": 19,
+    "rank_shift_gender": 1,
+    "cluster_code": "Cluster 4",
+    "cluster_profile": "Cluster 4: Schooling-Active / Tertiary & Gender Constrained",
+    "rank_states_28": 15.0,
+    "region": "East",
+    "transition_rate_upprim_to_sec": 91.7,
+    "dropout_sec_total": 15.0,
+    "dropout_sec_boys": 17.3,
+    "dropout_sec_girls": 12.6,
+    "pct_schools_electricity": 96.9,
+    "ger_higher_ed_total": 24.86,
+    "ger_higher_ed_male": 25.3,
+    "ger_higher_ed_female": 24.41,
+    "gpi_higher_ed": 0.96,
+    "colleges_per_lakh_pop": 31.95,
+    "ptr_higher_ed": 24.1,
+    "youth_unemployment_rate_15_29": 10.6,
+    "female_lfpr_15_plus": 47.3,
+    "regular_wage_salaried_share": 15.0,
+    "female_literacy_rate_plfs": 75.1,
+    "male_literacy_rate_plfs": 86.4,
+    "urban_population_pct_2011": 16.69
+  },
+  {
+    "state_code": "NL",
+    "state_name": "Nagaland",
+    "entity_type": "State",
+    "norm_ptr_secondary": 88.0,
+    "norm_dropout_sec_total": 43.89,
+    "norm_transition_rate_upprim_to_sec": 54.34,
+    "norm_pct_schools_electricity": 69.68,
+    "norm_pct_schools_girls_toilet": 38.02,
+    "norm_pct_schools_computers": 73.13,
+    "norm_ger_higher_ed_total": 17.36,
+    "norm_colleges_per_lakh_pop": 31.04,
+    "norm_avg_enrolment_per_college": 19.74,
+    "norm_ptr_higher_ed": 84.38,
+    "norm_youth_unemployment_rate_15_29": 47.74,
+    "norm_overall_unemployment_rate": 36.26,
+    "norm_youth_lfpr_15_29": 86.65,
+    "norm_regular_wage_salaried_share": 17.66,
+    "norm_gpi_higher_ed": 29.6,
+    "norm_female_lfpr_15_plus": 95.9,
+    "norm_female_literacy_rate_plfs": 80.06,
+    "norm_literacy_gender_gap_plfs": 82.21,
+    "norm_youth_female_unemployment_rate": 45.43,
+    "norm_dropout_sec_gender_gap": 38.3,
+    "subindex_school": 61.18,
+    "subindex_higher_ed": 38.13,
+    "subindex_jobs": 47.08,
+    "subindex_gender": 61.92,
+    "opportunity_index": 52.08,
+    "rank_baseline": 21,
+    "index_jobs_focus": 51.08,
+    "rank_jobs_focus": 22,
+    "rank_shift_jobs": -1,
+    "index_school_focus": 53.9,
+    "rank_school_focus": 22,
+    "rank_shift_school": -1,
+    "index_gender_focus": 54.05,
+    "rank_gender_focus": 16,
+    "rank_shift_gender": 5,
+    "cluster_code": "Cluster 3",
+    "cluster_profile": "Cluster 3: Gender-Strong / School Infrastructure Lags",
+    "rank_states_28": 16.0,
+    "region": "North-East",
+    "transition_rate_upprim_to_sec": 83.8,
+    "dropout_sec_total": 12.1,
+    "dropout_sec_boys": 13.0,
+    "dropout_sec_girls": 11.2,
+    "pct_schools_electricity": 78.2,
+    "ger_higher_ed_total": 18.41,
+    "ger_higher_ed_male": 15.9,
+    "ger_higher_ed_female": 21.15,
+    "gpi_higher_ed": 1.33,
+    "colleges_per_lakh_pop": 26.92,
+    "ptr_higher_ed": 17.0,
+    "youth_unemployment_rate_15_29": 17.5,
+    "female_lfpr_15_plus": 64.5,
+    "regular_wage_salaried_share": 23.0,
+    "female_literacy_rate_plfs": 92.6,
+    "male_literacy_rate_plfs": 96.3,
+    "urban_population_pct_2011": 28.86
+  },
+  {
+    "state_code": "WB",
+    "state_name": "West Bengal",
+    "entity_type": "State",
+    "norm_ptr_secondary": 48.0,
+    "norm_dropout_sec_total": 0.0,
+    "norm_transition_rate_upprim_to_sec": 77.75,
+    "norm_pct_schools_electricity": 95.97,
+    "norm_pct_schools_girls_toilet": 98.72,
+    "norm_pct_schools_computers": 11.48,
+    "norm_ger_higher_ed_total": 26.77,
+    "norm_colleges_per_lakh_pop": 12.88,
+    "norm_avg_enrolment_per_college": 52.95,
+    "norm_ptr_higher_ed": 63.24,
+    "norm_youth_unemployment_rate_15_29": 71.78,
+    "norm_overall_unemployment_rate": 79.12,
+    "norm_youth_lfpr_15_29": 56.25,
+    "norm_regular_wage_salaried_share": 16.53,
+    "norm_gpi_higher_ed": 11.2,
+    "norm_female_lfpr_15_plus": 45.52,
+    "norm_female_literacy_rate_plfs": 47.09,
+    "norm_literacy_gender_gap_plfs": 61.54,
+    "norm_youth_female_unemployment_rate": 75.38,
+    "norm_dropout_sec_gender_gap": 90.43,
+    "subindex_school": 55.32,
+    "subindex_higher_ed": 38.96,
+    "subindex_jobs": 55.92,
+    "subindex_gender": 55.19,
+    "opportunity_index": 51.35,
+    "rank_baseline": 22,
+    "index_jobs_focus": 52.26,
+    "rank_jobs_focus": 21,
+    "rank_shift_jobs": 1,
+    "index_school_focus": 52.14,
+    "rank_school_focus": 24,
+    "rank_shift_school": -2,
+    "index_gender_focus": 52.12,
+    "rank_gender_focus": 22,
+    "rank_shift_gender": 0,
+    "cluster_code": "Cluster 3",
+    "cluster_profile": "Cluster 3: Gender-Strong / School Infrastructure Lags",
+    "rank_states_28": 17.0,
+    "region": "East",
+    "transition_rate_upprim_to_sec": 91.9,
+    "dropout_sec_total": 20.0,
+    "dropout_sec_boys": 23.4,
+    "dropout_sec_girls": 16.7,
+    "pct_schools_electricity": 97.1,
+    "ger_higher_ed_total": 24.55,
+    "ger_higher_ed_male": 23.44,
+    "ger_higher_ed_female": 25.72,
+    "gpi_higher_ed": 1.1,
+    "colleges_per_lakh_pop": 15.89,
+    "ptr_higher_ed": 28.1,
+    "youth_unemployment_rate_15_29": 10.6,
+    "female_lfpr_15_plus": 37.5,
+    "regular_wage_salaried_share": 22.3,
+    "female_literacy_rate_plfs": 80.7,
+    "male_literacy_rate_plfs": 88.7,
+    "urban_population_pct_2011": 31.87
+  },
+  {
+    "state_code": "MP",
+    "state_name": "Madhya Pradesh",
+    "entity_type": "State",
+    "norm_ptr_secondary": 64.0,
+    "norm_dropout_sec_total": 17.78,
+    "norm_transition_rate_upprim_to_sec": 36.99,
+    "norm_pct_schools_electricity": 83.03,
+    "norm_pct_schools_girls_toilet": 63.58,
+    "norm_pct_schools_computers": 42.47,
+    "norm_ger_higher_ed_total": 33.61,
+    "norm_colleges_per_lakh_pop": 33.43,
+    "norm_avg_enrolment_per_college": 32.39,
+    "norm_ptr_higher_ed": 63.62,
+    "norm_youth_unemployment_rate_15_29": 94.08,
+    "norm_overall_unemployment_rate": 93.41,
+    "norm_youth_lfpr_15_29": 77.84,
+    "norm_regular_wage_salaried_share": 3.37,
+    "norm_gpi_higher_ed": 3.2,
+    "norm_female_lfpr_15_plus": 61.57,
+    "norm_female_literacy_rate_plfs": 16.9,
+    "norm_literacy_gender_gap_plfs": 27.88,
+    "norm_youth_female_unemployment_rate": 96.45,
+    "norm_dropout_sec_gender_gap": 64.89,
+    "subindex_school": 51.31,
+    "subindex_higher_ed": 40.76,
+    "subindex_jobs": 67.18,
+    "subindex_gender": 45.15,
+    "opportunity_index": 51.1,
+    "rank_baseline": 23,
+    "index_jobs_focus": 54.32,
+    "rank_jobs_focus": 17,
+    "rank_shift_jobs": 6,
+    "index_school_focus": 51.14,
+    "rank_school_focus": 26,
+    "rank_shift_school": -3,
+    "index_gender_focus": 49.91,
+    "rank_gender_focus": 25,
+    "rank_shift_gender": -2,
+    "cluster_code": "Cluster 4",
+    "cluster_profile": "Cluster 4: Schooling-Active / Tertiary & Gender Constrained",
+    "rank_states_28": 18.0,
+    "region": "Central",
+    "transition_rate_upprim_to_sec": 77.8,
+    "dropout_sec_total": 16.8,
+    "dropout_sec_boys": 18.9,
+    "dropout_sec_girls": 14.6,
+    "pct_schools_electricity": 87.8,
+    "ger_higher_ed_total": 29.01,
+    "ger_higher_ed_male": 28.98,
+    "ger_higher_ed_female": 29.05,
+    "gpi_higher_ed": 1.0,
+    "colleges_per_lakh_pop": 28.37,
+    "ptr_higher_ed": 27.9,
+    "youth_unemployment_rate_15_29": 4.2,
+    "female_lfpr_15_plus": 46.1,
+    "regular_wage_salaried_share": 14.1,
+    "female_literacy_rate_plfs": 69.8,
+    "male_literacy_rate_plfs": 84.8,
+    "urban_population_pct_2011": 27.63
+  },
+  {
+    "state_code": "MZ",
+    "state_name": "Mizoram",
+    "entity_type": "State",
+    "norm_ptr_secondary": 88.0,
+    "norm_dropout_sec_total": 14.44,
+    "norm_transition_rate_upprim_to_sec": 36.99,
+    "norm_pct_schools_electricity": 72.6,
+    "norm_pct_schools_girls_toilet": 33.23,
+    "norm_pct_schools_computers": 59.75,
+    "norm_ger_higher_ed_total": 37.49,
+    "norm_colleges_per_lakh_pop": 32.49,
+    "norm_avg_enrolment_per_college": 26.49,
+    "norm_ptr_higher_ed": 86.67,
+    "norm_youth_unemployment_rate_15_29": 58.19,
+    "norm_overall_unemployment_rate": 83.52,
+    "norm_youth_lfpr_15_29": 0.0,
+    "norm_regular_wage_salaried_share": 22.95,
+    "norm_gpi_higher_ed": 8.0,
+    "norm_female_lfpr_15_plus": 46.46,
+    "norm_female_literacy_rate_plfs": 100.0,
+    "norm_literacy_gender_gap_plfs": 100.0,
+    "norm_youth_female_unemployment_rate": 76.4,
+    "norm_dropout_sec_gender_gap": 50.0,
+    "subindex_school": 50.84,
+    "subindex_higher_ed": 45.78,
+    "subindex_jobs": 41.16,
+    "subindex_gender": 63.48,
+    "opportunity_index": 50.32,
+    "rank_baseline": 24,
+    "index_jobs_focus": 48.48,
+    "rank_jobs_focus": 27,
+    "rank_shift_jobs": -3,
+    "index_school_focus": 50.42,
+    "rank_school_focus": 29,
+    "rank_shift_school": -5,
+    "index_gender_focus": 52.95,
+    "rank_gender_focus": 18,
+    "rank_shift_gender": 6,
+    "cluster_code": "Cluster 3",
+    "cluster_profile": "Cluster 3: Gender-Strong / School Infrastructure Lags",
+    "rank_states_28": 19.0,
+    "region": "North-East",
+    "transition_rate_upprim_to_sec": 77.8,
+    "dropout_sec_total": 17.4,
+    "dropout_sec_boys": 18.9,
+    "dropout_sec_girls": 16.0,
+    "pct_schools_electricity": 80.3,
+    "ger_higher_ed_total": 31.54,
+    "ger_higher_ed_male": 30.7,
+    "ger_higher_ed_female": 32.41,
+    "gpi_higher_ed": 1.06,
+    "colleges_per_lakh_pop": 27.8,
+    "ptr_higher_ed": 15.8,
+    "youth_unemployment_rate_15_29": 14.5,
+    "female_lfpr_15_plus": 38.0,
+    "regular_wage_salaried_share": 26.3,
+    "female_literacy_rate_plfs": 99.8,
+    "male_literacy_rate_plfs": 99.8,
+    "urban_population_pct_2011": 52.11
+  },
+  {
+    "state_code": "AS",
+    "state_name": "Assam",
+    "entity_type": "State",
+    "norm_ptr_secondary": 72.0,
+    "norm_dropout_sec_total": 13.89,
+    "norm_transition_rate_upprim_to_sec": 64.45,
+    "norm_pct_schools_electricity": 84.42,
+    "norm_pct_schools_girls_toilet": 66.45,
+    "norm_pct_schools_computers": 71.01,
+    "norm_ger_higher_ed_total": 19.44,
+    "norm_colleges_per_lakh_pop": 14.33,
+    "norm_avg_enrolment_per_college": 40.89,
+    "norm_ptr_higher_ed": 68.76,
+    "norm_youth_unemployment_rate_15_29": 64.81,
+    "norm_overall_unemployment_rate": 69.23,
+    "norm_youth_lfpr_15_29": 62.5,
+    "norm_regular_wage_salaried_share": 9.47,
+    "norm_gpi_higher_ed": 20.0,
+    "norm_female_lfpr_15_plus": 55.41,
+    "norm_female_literacy_rate_plfs": 59.0,
+    "norm_literacy_gender_gap_plfs": 70.19,
+    "norm_youth_female_unemployment_rate": 64.72,
+    "norm_dropout_sec_gender_gap": 38.3,
+    "subindex_school": 62.04,
+    "subindex_higher_ed": 35.86,
+    "subindex_jobs": 51.5,
+    "subindex_gender": 51.27,
+    "opportunity_index": 50.17,
+    "rank_baseline": 25,
+    "index_jobs_focus": 50.43,
+    "rank_jobs_focus": 23,
+    "rank_shift_jobs": 2,
+    "index_school_focus": 52.54,
+    "rank_school_focus": 23,
+    "rank_shift_school": 2,
+    "index_gender_focus": 50.39,
+    "rank_gender_focus": 24,
+    "rank_shift_gender": 1,
+    "cluster_code": "Cluster 3",
+    "cluster_profile": "Cluster 3: Gender-Strong / School Infrastructure Lags",
+    "rank_states_28": 20.0,
+    "region": "North-East",
+    "transition_rate_upprim_to_sec": 87.3,
+    "dropout_sec_total": 17.5,
+    "dropout_sec_boys": 18.5,
+    "dropout_sec_girls": 16.7,
+    "pct_schools_electricity": 88.8,
+    "ger_higher_ed_total": 19.77,
+    "ger_higher_ed_male": 17.93,
+    "ger_higher_ed_female": 21.7,
+    "gpi_higher_ed": 1.21,
+    "colleges_per_lakh_pop": 16.77,
+    "ptr_higher_ed": 25.2,
+    "youth_unemployment_rate_15_29": 12.6,
+    "female_lfpr_15_plus": 42.8,
+    "regular_wage_salaried_share": 17.9,
+    "female_literacy_rate_plfs": 85.0,
+    "male_literacy_rate_plfs": 91.2,
+    "urban_population_pct_2011": 14.1
+  },
+  {
+    "state_code": "AN",
+    "state_name": "Andaman and Nicobar Islands",
+    "entity_type": "Union Territory",
+    "norm_ptr_secondary": 96.0,
+    "norm_dropout_sec_total": 81.11,
+    "norm_transition_rate_upprim_to_sec": 92.77,
+    "norm_pct_schools_electricity": 89.15,
+    "norm_pct_schools_girls_toilet": 100.0,
+    "norm_pct_schools_computers": 75.36,
+    "norm_ger_higher_ed_total": 9.86,
+    "norm_colleges_per_lakh_pop": 14.82,
+    "norm_avg_enrolment_per_college": 23.6,
+    "norm_ptr_higher_ed": 86.86,
+    "norm_youth_unemployment_rate_15_29": 0.0,
+    "norm_overall_unemployment_rate": 0.0,
+    "norm_youth_lfpr_15_29": 100.0,
+    "norm_regular_wage_salaried_share": 41.89,
+    "norm_gpi_higher_ed": 15.2,
+    "norm_female_lfpr_15_plus": 69.4,
+    "norm_female_literacy_rate_plfs": 52.91,
+    "norm_literacy_gender_gap_plfs": 54.33,
+    "norm_youth_female_unemployment_rate": 0.0,
+    "norm_dropout_sec_gender_gap": 59.57,
+    "subindex_school": 89.06,
+    "subindex_higher_ed": 33.78,
+    "subindex_jobs": 35.47,
+    "subindex_gender": 41.9,
+    "opportunity_index": 50.05,
+    "rank_baseline": 26,
+    "index_jobs_focus": 47.14,
+    "rank_jobs_focus": 30,
+    "rank_shift_jobs": -4,
+    "index_school_focus": 57.85,
+    "rank_school_focus": 19,
+    "rank_shift_school": 7,
+    "index_gender_focus": 48.42,
+    "rank_gender_focus": 28,
+    "rank_shift_gender": -2,
+    "cluster_code": "Cluster 4",
+    "cluster_profile": "Cluster 4: Schooling-Active / Tertiary & Gender Constrained",
+    "rank_states_28": NaN,
+    "region": "East",
+    "transition_rate_upprim_to_sec": 97.1,
+    "dropout_sec_total": 5.4,
+    "dropout_sec_boys": 7.3,
+    "dropout_sec_girls": 3.5,
+    "pct_schools_electricity": 92.2,
+    "ger_higher_ed_total": 13.52,
+    "ger_higher_ed_male": 12.62,
+    "ger_higher_ed_female": 14.51,
+    "gpi_higher_ed": 1.15,
+    "colleges_per_lakh_pop": 17.07,
+    "ptr_higher_ed": 15.7,
+    "youth_unemployment_rate_15_29": 31.2,
+    "female_lfpr_15_plus": 50.3,
+    "regular_wage_salaried_share": 38.1,
+    "female_literacy_rate_plfs": 82.8,
+    "male_literacy_rate_plfs": 92.3,
+    "urban_population_pct_2011": 37.7
+  },
+  {
+    "state_code": "TR",
+    "state_name": "Tripura",
+    "entity_type": "State",
+    "norm_ptr_secondary": 76.0,
+    "norm_dropout_sec_total": 48.33,
+    "norm_transition_rate_upprim_to_sec": 69.08,
+    "norm_pct_schools_electricity": 72.18,
+    "norm_pct_schools_girls_toilet": 21.41,
+    "norm_pct_schools_computers": 57.3,
+    "norm_ger_higher_ed_total": 24.26,
+    "norm_colleges_per_lakh_pop": 7.56,
+    "norm_avg_enrolment_per_college": 69.86,
+    "norm_ptr_higher_ed": 48.0,
+    "norm_youth_unemployment_rate_15_29": 69.34,
+    "norm_overall_unemployment_rate": 80.22,
+    "norm_youth_lfpr_15_29": 44.6,
+    "norm_regular_wage_salaried_share": 8.51,
+    "norm_gpi_higher_ed": 4.8,
+    "norm_female_lfpr_15_plus": 61.94,
+    "norm_female_literacy_rate_plfs": 65.1,
+    "norm_literacy_gender_gap_plfs": 78.37,
+    "norm_youth_female_unemployment_rate": 52.79,
+    "norm_dropout_sec_gender_gap": 41.49,
+    "subindex_school": 57.38,
+    "subindex_higher_ed": 37.42,
+    "subindex_jobs": 50.67,
+    "subindex_gender": 50.75,
+    "opportunity_index": 49.06,
+    "rank_baseline": 27,
+    "index_jobs_focus": 49.38,
+    "rank_jobs_focus": 24,
+    "rank_shift_jobs": 3,
+    "index_school_focus": 50.72,
+    "rank_school_focus": 28,
+    "rank_shift_school": -1,
+    "index_gender_focus": 49.39,
+    "rank_gender_focus": 26,
+    "rank_shift_gender": 1,
+    "cluster_code": "Cluster 3",
+    "cluster_profile": "Cluster 3: Gender-Strong / School Infrastructure Lags",
+    "rank_states_28": 21.0,
+    "region": "North-East",
+    "transition_rate_upprim_to_sec": 88.9,
+    "dropout_sec_total": 11.3,
+    "dropout_sec_boys": 12.3,
+    "dropout_sec_girls": 10.2,
+    "pct_schools_electricity": 80.0,
+    "ger_higher_ed_total": 22.91,
+    "ger_higher_ed_male": 22.72,
+    "ger_higher_ed_female": 23.1,
+    "gpi_higher_ed": 1.02,
+    "colleges_per_lakh_pop": 12.66,
+    "ptr_higher_ed": 36.1,
+    "youth_unemployment_rate_15_29": 11.3,
+    "female_lfpr_15_plus": 46.3,
+    "regular_wage_salaried_share": 17.3,
+    "female_literacy_rate_plfs": 87.2,
+    "male_literacy_rate_plfs": 91.7,
+    "urban_population_pct_2011": 26.17
+  },
+  {
+    "state_code": "RJ",
+    "state_name": "Rajasthan",
+    "entity_type": "State",
+    "norm_ptr_secondary": 76.0,
+    "norm_dropout_sec_total": 68.33,
+    "norm_transition_rate_upprim_to_sec": 72.83,
+    "norm_pct_schools_electricity": 87.9,
+    "norm_pct_schools_girls_toilet": 59.42,
+    "norm_pct_schools_computers": 28.65,
+    "norm_ger_higher_ed_total": 34.38,
+    "norm_colleges_per_lakh_pop": 63.82,
+    "norm_avg_enrolment_per_college": 18.28,
+    "norm_ptr_higher_ed": 66.86,
+    "norm_youth_unemployment_rate_15_29": 65.85,
+    "norm_overall_unemployment_rate": 61.54,
+    "norm_youth_lfpr_15_29": 70.17,
+    "norm_regular_wage_salaried_share": 9.79,
+    "norm_gpi_higher_ed": 7.2,
+    "norm_female_lfpr_15_plus": 73.13,
+    "norm_female_literacy_rate_plfs": 0.0,
+    "norm_literacy_gender_gap_plfs": 0.0,
+    "norm_youth_female_unemployment_rate": 69.8,
+    "norm_dropout_sec_gender_gap": 29.79,
+    "subindex_school": 65.52,
+    "subindex_higher_ed": 45.84,
+    "subindex_jobs": 51.84,
+    "subindex_gender": 29.99,
+    "opportunity_index": 48.3,
+    "rank_baseline": 28,
+    "index_jobs_focus": 49.01,
+    "rank_jobs_focus": 26,
+    "rank_shift_jobs": 2,
+    "index_school_focus": 51.74,
+    "rank_school_focus": 25,
+    "rank_shift_school": 3,
+    "index_gender_focus": 44.64,
+    "rank_gender_focus": 34,
+    "rank_shift_gender": -6,
+    "cluster_code": "Cluster 4",
+    "cluster_profile": "Cluster 4: Schooling-Active / Tertiary & Gender Constrained",
+    "rank_states_28": 22.0,
+    "region": "North",
+    "transition_rate_upprim_to_sec": 90.2,
+    "dropout_sec_total": 7.7,
+    "dropout_sec_boys": 8.1,
+    "dropout_sec_girls": 7.1,
+    "pct_schools_electricity": 91.3,
+    "ger_higher_ed_total": 29.51,
+    "ger_higher_ed_male": 28.77,
+    "ger_higher_ed_female": 30.32,
+    "gpi_higher_ed": 1.05,
+    "colleges_per_lakh_pop": 46.83,
+    "ptr_higher_ed": 26.2,
+    "youth_unemployment_rate_15_29": 12.3,
+    "female_lfpr_15_plus": 52.3,
+    "regular_wage_salaried_share": 18.1,
+    "female_literacy_rate_plfs": 63.7,
+    "male_literacy_rate_plfs": 84.5,
+    "urban_population_pct_2011": 24.87
+  },
+  {
+    "state_code": "LA",
+    "state_name": "Ladakh",
+    "entity_type": "Union Territory",
+    "norm_ptr_secondary": 100.0,
+    "norm_dropout_sec_total": 21.11,
+    "norm_transition_rate_upprim_to_sec": 84.68,
+    "norm_pct_schools_electricity": 67.18,
+    "norm_pct_schools_girls_toilet": 66.45,
+    "norm_pct_schools_computers": 46.82,
+    "norm_ger_higher_ed_total": 7.31,
+    "norm_colleges_per_lakh_pop": 15.41,
+    "norm_avg_enrolment_per_college": 17.21,
+    "norm_ptr_higher_ed": 91.62,
+    "norm_youth_unemployment_rate_15_29": 43.55,
+    "norm_overall_unemployment_rate": 65.93,
+    "norm_youth_lfpr_15_29": 15.91,
+    "norm_regular_wage_salaried_share": 15.57,
+    "norm_gpi_higher_ed": 96.8,
+    "norm_female_lfpr_15_plus": 89.37,
+    "norm_female_literacy_rate_plfs": 22.16,
+    "norm_literacy_gender_gap_plfs": 16.35,
+    "norm_youth_female_unemployment_rate": 57.61,
+    "norm_dropout_sec_gender_gap": 60.64,
+    "subindex_school": 64.37,
+    "subindex_higher_ed": 32.89,
+    "subindex_jobs": 35.24,
+    "subindex_gender": 57.16,
+    "opportunity_index": 47.42,
+    "rank_baseline": 29,
+    "index_jobs_focus": 44.98,
+    "rank_jobs_focus": 33,
+    "rank_shift_jobs": -4,
+    "index_school_focus": 50.81,
+    "rank_school_focus": 27,
+    "rank_shift_school": 2,
+    "index_gender_focus": 49.36,
+    "rank_gender_focus": 27,
+    "rank_shift_gender": 2,
+    "cluster_code": "Cluster 3",
+    "cluster_profile": "Cluster 3: Gender-Strong / School Infrastructure Lags",
+    "rank_states_28": NaN,
+    "region": "North",
+    "transition_rate_upprim_to_sec": 94.3,
+    "dropout_sec_total": 16.2,
+    "dropout_sec_boys": 18.3,
+    "dropout_sec_girls": 14.4,
+    "pct_schools_electricity": 76.4,
+    "ger_higher_ed_total": 11.86,
+    "ger_higher_ed_male": 7.79,
+    "ger_higher_ed_female": 16.87,
+    "gpi_higher_ed": 2.17,
+    "colleges_per_lakh_pop": 17.43,
+    "ptr_higher_ed": 13.2,
+    "youth_unemployment_rate_15_29": 18.7,
+    "female_lfpr_15_plus": 61.0,
+    "regular_wage_salaried_share": 21.7,
+    "female_literacy_rate_plfs": 71.7,
+    "male_literacy_rate_plfs": 89.1,
+    "urban_population_pct_2011": 22.61
+  },
+  {
+    "state_code": "UP",
+    "state_name": "Uttar Pradesh",
+    "entity_type": "State",
+    "norm_ptr_secondary": 32.0,
+    "norm_dropout_sec_total": 72.22,
+    "norm_transition_rate_upprim_to_sec": 37.86,
+    "norm_pct_schools_electricity": 80.53,
+    "norm_pct_schools_girls_toilet": 80.83,
+    "norm_pct_schools_computers": 47.49,
+    "norm_ger_higher_ed_total": 28.95,
+    "norm_colleges_per_lakh_pop": 37.44,
+    "norm_avg_enrolment_per_college": 33.3,
+    "norm_ptr_higher_ed": 49.9,
+    "norm_youth_unemployment_rate_15_29": 81.88,
+    "norm_overall_unemployment_rate": 80.22,
+    "norm_youth_lfpr_15_29": 42.61,
+    "norm_regular_wage_salaried_share": 4.65,
+    "norm_gpi_higher_ed": 10.4,
+    "norm_female_lfpr_15_plus": 36.01,
+    "norm_female_literacy_rate_plfs": 15.51,
+    "norm_literacy_gender_gap_plfs": 23.08,
+    "norm_youth_female_unemployment_rate": 85.53,
+    "norm_dropout_sec_gender_gap": 57.45,
+    "subindex_school": 58.49,
+    "subindex_higher_ed": 37.4,
+    "subindex_jobs": 52.34,
+    "subindex_gender": 38.0,
+    "opportunity_index": 46.56,
+    "rank_baseline": 30,
+    "index_jobs_focus": 47.71,
+    "rank_jobs_focus": 29,
+    "rank_shift_jobs": 1,
+    "index_school_focus": 48.94,
+    "rank_school_focus": 30,
+    "rank_shift_school": 0,
+    "index_gender_focus": 44.85,
+    "rank_gender_focus": 32,
+    "rank_shift_gender": -2,
+    "cluster_code": "Cluster 4",
+    "cluster_profile": "Cluster 4: Schooling-Active / Tertiary & Gender Constrained",
+    "rank_states_28": 23.0,
+    "region": "North",
+    "transition_rate_upprim_to_sec": 78.1,
+    "dropout_sec_total": 7.0,
+    "dropout_sec_boys": 8.7,
+    "dropout_sec_girls": 5.1,
+    "pct_schools_electricity": 86.0,
+    "ger_higher_ed_total": 25.97,
+    "ger_higher_ed_male": 24.95,
+    "ger_higher_ed_female": 27.11,
+    "gpi_higher_ed": 1.09,
+    "colleges_per_lakh_pop": 30.81,
+    "ptr_higher_ed": 35.1,
+    "youth_unemployment_rate_15_29": 7.7,
+    "female_lfpr_15_plus": 32.4,
+    "regular_wage_salaried_share": 14.9,
+    "female_literacy_rate_plfs": 69.3,
+    "male_literacy_rate_plfs": 85.3,
+    "urban_population_pct_2011": 22.27
+  },
+  {
+    "state_code": "JH",
+    "state_name": "Jharkhand",
+    "entity_type": "State",
+    "norm_ptr_secondary": 0.0,
+    "norm_dropout_sec_total": 91.67,
+    "norm_transition_rate_upprim_to_sec": 47.11,
+    "norm_pct_schools_electricity": 89.85,
+    "norm_pct_schools_girls_toilet": 86.9,
+    "norm_pct_schools_computers": 31.55,
+    "norm_ger_higher_ed_total": 18.92,
+    "norm_colleges_per_lakh_pop": 1.78,
+    "norm_avg_enrolment_per_college": 81.85,
+    "norm_ptr_higher_ed": 14.29,
+    "norm_youth_unemployment_rate_15_29": 80.14,
+    "norm_overall_unemployment_rate": 80.22,
+    "norm_youth_lfpr_15_29": 55.11,
+    "norm_regular_wage_salaried_share": 2.73,
+    "norm_gpi_higher_ed": 9.6,
+    "norm_female_lfpr_15_plus": 57.09,
+    "norm_female_literacy_rate_plfs": 26.04,
+    "norm_literacy_gender_gap_plfs": 37.5,
+    "norm_youth_female_unemployment_rate": 89.85,
+    "norm_dropout_sec_gender_gap": 42.55,
+    "subindex_school": 57.85,
+    "subindex_higher_ed": 29.21,
+    "subindex_jobs": 54.55,
+    "subindex_gender": 43.77,
+    "opportunity_index": 46.35,
+    "rank_baseline": 31,
+    "index_jobs_focus": 47.99,
+    "rank_jobs_focus": 28,
+    "rank_shift_jobs": 3,
+    "index_school_focus": 48.65,
+    "rank_school_focus": 31,
+    "rank_shift_school": 0,
+    "index_gender_focus": 45.83,
+    "rank_gender_focus": 30,
+    "rank_shift_gender": 1,
+    "cluster_code": "Cluster 4",
+    "cluster_profile": "Cluster 4: Schooling-Active / Tertiary & Gender Constrained",
+    "rank_states_28": 24.0,
+    "region": "East",
+    "transition_rate_upprim_to_sec": 81.3,
+    "dropout_sec_total": 3.5,
+    "dropout_sec_boys": 4.6,
+    "dropout_sec_girls": 2.4,
+    "pct_schools_electricity": 92.7,
+    "ger_higher_ed_total": 19.43,
+    "ger_higher_ed_male": 18.65,
+    "ger_higher_ed_female": 20.24,
+    "gpi_higher_ed": 1.08,
+    "colleges_per_lakh_pop": 9.15,
+    "ptr_higher_ed": 53.8,
+    "youth_unemployment_rate_15_29": 8.2,
+    "female_lfpr_15_plus": 43.7,
+    "regular_wage_salaried_share": 13.7,
+    "female_literacy_rate_plfs": 73.1,
+    "male_literacy_rate_plfs": 86.1,
+    "urban_population_pct_2011": 24.05
+  },
+  {
+    "state_code": "MN",
+    "state_name": "Manipur",
+    "entity_type": "State",
+    "norm_ptr_secondary": 84.0,
+    "norm_dropout_sec_total": 60.56,
+    "norm_transition_rate_upprim_to_sec": 74.86,
+    "norm_pct_schools_electricity": 48.96,
+    "norm_pct_schools_girls_toilet": 18.53,
+    "norm_pct_schools_computers": 14.16,
+    "norm_ger_higher_ed_total": 36.25,
+    "norm_colleges_per_lakh_pop": 38.94,
+    "norm_avg_enrolment_per_college": 34.18,
+    "norm_ptr_higher_ed": 86.29,
+    "norm_youth_unemployment_rate_15_29": 28.92,
+    "norm_overall_unemployment_rate": 52.75,
+    "norm_youth_lfpr_15_29": 45.17,
+    "norm_regular_wage_salaried_share": 22.95,
+    "norm_gpi_higher_ed": 7.2,
+    "norm_female_lfpr_15_plus": 73.69,
+    "norm_female_literacy_rate_plfs": 69.53,
+    "norm_literacy_gender_gap_plfs": 65.87,
+    "norm_youth_female_unemployment_rate": 31.47,
+    "norm_dropout_sec_gender_gap": 29.79,
+    "subindex_school": 50.18,
+    "subindex_higher_ed": 48.92,
+    "subindex_jobs": 37.45,
+    "subindex_gender": 46.26,
+    "opportunity_index": 45.7,
+    "rank_baseline": 32,
+    "index_jobs_focus": 44.05,
+    "rank_jobs_focus": 34,
+    "rank_shift_jobs": -2,
+    "index_school_focus": 46.6,
+    "rank_school_focus": 33,
+    "rank_shift_school": -1,
+    "index_gender_focus": 45.81,
+    "rank_gender_focus": 31,
+    "rank_shift_gender": 1,
+    "cluster_code": "Cluster 3",
+    "cluster_profile": "Cluster 3: Gender-Strong / School Infrastructure Lags",
+    "rank_states_28": 25.0,
+    "region": "North-East",
+    "transition_rate_upprim_to_sec": 90.9,
+    "dropout_sec_total": 9.1,
+    "dropout_sec_boys": 9.6,
+    "dropout_sec_girls": 8.6,
+    "pct_schools_electricity": 63.3,
+    "ger_higher_ed_total": 30.73,
+    "ger_higher_ed_male": 29.96,
+    "ger_higher_ed_female": 31.53,
+    "gpi_higher_ed": 1.05,
+    "colleges_per_lakh_pop": 31.72,
+    "ptr_higher_ed": 16.0,
+    "youth_unemployment_rate_15_29": 22.9,
+    "female_lfpr_15_plus": 52.6,
+    "regular_wage_salaried_share": 26.3,
+    "female_literacy_rate_plfs": 88.8,
+    "male_literacy_rate_plfs": 95.9,
+    "urban_population_pct_2011": 29.21
+  },
+  {
+    "state_code": "JK",
+    "state_name": "Jammu and Kashmir",
+    "entity_type": "Union Territory",
+    "norm_ptr_secondary": 72.0,
+    "norm_dropout_sec_total": 39.44,
+    "norm_transition_rate_upprim_to_sec": 74.28,
+    "norm_pct_schools_electricity": 82.2,
+    "norm_pct_schools_girls_toilet": 50.16,
+    "norm_pct_schools_computers": 17.5,
+    "norm_ger_higher_ed_total": 22.03,
+    "norm_colleges_per_lakh_pop": 20.4,
+    "norm_avg_enrolment_per_college": 23.35,
+    "norm_ptr_higher_ed": 76.0,
+    "norm_youth_unemployment_rate_15_29": 59.58,
+    "norm_overall_unemployment_rate": 56.04,
+    "norm_youth_lfpr_15_29": 65.91,
+    "norm_regular_wage_salaried_share": 16.69,
+    "norm_gpi_higher_ed": 30.4,
+    "norm_female_lfpr_15_plus": 74.63,
+    "norm_female_literacy_rate_plfs": 21.88,
+    "norm_literacy_gender_gap_plfs": 26.92,
+    "norm_youth_female_unemployment_rate": 60.41,
+    "norm_dropout_sec_gender_gap": 34.04,
+    "subindex_school": 55.93,
+    "subindex_higher_ed": 35.44,
+    "subindex_jobs": 49.56,
+    "subindex_gender": 41.38,
+    "opportunity_index": 45.58,
+    "rank_baseline": 33,
+    "index_jobs_focus": 46.37,
+    "rank_jobs_focus": 31,
+    "rank_shift_jobs": 2,
+    "index_school_focus": 47.65,
+    "rank_school_focus": 32,
+    "rank_shift_school": 1,
+    "index_gender_focus": 44.74,
+    "rank_gender_focus": 33,
+    "rank_shift_gender": 0,
+    "cluster_code": "Cluster 4",
+    "cluster_profile": "Cluster 4: Schooling-Active / Tertiary & Gender Constrained",
+    "rank_states_28": NaN,
+    "region": "North",
+    "transition_rate_upprim_to_sec": 90.7,
+    "dropout_sec_total": 12.9,
+    "dropout_sec_boys": 13.6,
+    "dropout_sec_girls": 12.2,
+    "pct_schools_electricity": 87.2,
+    "ger_higher_ed_total": 21.46,
+    "ger_higher_ed_male": 18.5,
+    "ger_higher_ed_female": 24.83,
+    "gpi_higher_ed": 1.34,
+    "colleges_per_lakh_pop": 20.46,
+    "ptr_higher_ed": 21.4,
+    "youth_unemployment_rate_15_29": 14.1,
+    "female_lfpr_15_plus": 53.1,
+    "regular_wage_salaried_share": 22.4,
+    "female_literacy_rate_plfs": 71.6,
+    "male_literacy_rate_plfs": 86.8,
+    "urban_population_pct_2011": 27.38
+  },
+  {
+    "state_code": "ML",
+    "state_name": "Meghalaya",
+    "entity_type": "State",
+    "norm_ptr_secondary": 80.0,
+    "norm_dropout_sec_total": 14.44,
+    "norm_transition_rate_upprim_to_sec": 0.0,
+    "norm_pct_schools_electricity": 0.0,
+    "norm_pct_schools_girls_toilet": 0.0,
+    "norm_pct_schools_computers": 0.0,
+    "norm_ger_higher_ed_total": 33.72,
+    "norm_colleges_per_lakh_pop": 22.03,
+    "norm_avg_enrolment_per_college": 46.2,
+    "norm_ptr_higher_ed": 69.33,
+    "norm_youth_unemployment_rate_15_29": 66.2,
+    "norm_overall_unemployment_rate": 58.24,
+    "norm_youth_lfpr_15_29": 79.26,
+    "norm_regular_wage_salaried_share": 6.26,
+    "norm_gpi_higher_ed": 27.2,
+    "norm_female_lfpr_15_plus": 95.52,
+    "norm_female_literacy_rate_plfs": 78.67,
+    "norm_literacy_gender_gap_plfs": 90.87,
+    "norm_youth_female_unemployment_rate": 58.38,
+    "norm_dropout_sec_gender_gap": 38.3,
+    "subindex_school": 15.74,
+    "subindex_higher_ed": 42.82,
+    "subindex_jobs": 52.49,
+    "subindex_gender": 64.82,
+    "opportunity_index": 43.97,
+    "rank_baseline": 34,
+    "index_jobs_focus": 45.67,
+    "rank_jobs_focus": 32,
+    "rank_shift_jobs": 2,
+    "index_school_focus": 38.32,
+    "rank_school_focus": 35,
+    "rank_shift_school": -1,
+    "index_gender_focus": 48.14,
+    "rank_gender_focus": 29,
+    "rank_shift_gender": 5,
+    "cluster_code": "Cluster 3",
+    "cluster_profile": "Cluster 3: Gender-Strong / School Infrastructure Lags",
+    "rank_states_28": 26.0,
+    "region": "North-East",
+    "transition_rate_upprim_to_sec": 65.0,
+    "dropout_sec_total": 17.4,
+    "dropout_sec_boys": 18.4,
+    "dropout_sec_girls": 16.6,
+    "pct_schools_electricity": 28.1,
+    "ger_higher_ed_total": 29.08,
+    "ger_higher_ed_male": 25.37,
+    "ger_higher_ed_female": 32.86,
+    "gpi_higher_ed": 1.3,
+    "colleges_per_lakh_pop": 21.45,
+    "ptr_higher_ed": 24.9,
+    "youth_unemployment_rate_15_29": 12.2,
+    "female_lfpr_15_plus": 64.3,
+    "regular_wage_salaried_share": 15.9,
+    "female_literacy_rate_plfs": 92.1,
+    "male_literacy_rate_plfs": 94.0,
+    "urban_population_pct_2011": 20.07
+  },
+  {
+    "state_code": "AR",
+    "state_name": "Arunachal Pradesh",
+    "entity_type": "State",
+    "norm_ptr_secondary": 84.0,
+    "norm_dropout_sec_total": 9.44,
+    "norm_transition_rate_upprim_to_sec": 52.89,
+    "norm_pct_schools_electricity": 47.57,
+    "norm_pct_schools_girls_toilet": 15.97,
+    "norm_pct_schools_computers": 22.3,
+    "norm_ger_higher_ed_total": 41.66,
+    "norm_colleges_per_lakh_pop": 26.84,
+    "norm_avg_enrolment_per_college": 28.74,
+    "norm_ptr_higher_ed": 74.86,
+    "norm_youth_unemployment_rate_15_29": 39.37,
+    "norm_overall_unemployment_rate": 37.36,
+    "norm_youth_lfpr_15_29": 67.33,
+    "norm_regular_wage_salaried_share": 14.45,
+    "norm_gpi_higher_ed": 1.6,
+    "norm_female_lfpr_15_plus": 90.67,
+    "norm_female_literacy_rate_plfs": 49.58,
+    "norm_literacy_gender_gap_plfs": 54.81,
+    "norm_youth_female_unemployment_rate": 44.16,
+    "norm_dropout_sec_gender_gap": 32.98,
+    "subindex_school": 38.7,
+    "subindex_higher_ed": 43.02,
+    "subindex_jobs": 39.63,
+    "subindex_gender": 45.63,
+    "opportunity_index": 41.74,
+    "rank_baseline": 35,
+    "index_jobs_focus": 41.32,
+    "rank_jobs_focus": 35,
+    "rank_shift_jobs": 0,
+    "index_school_focus": 41.14,
+    "rank_school_focus": 34,
+    "rank_shift_school": 1,
+    "index_gender_focus": 42.52,
+    "rank_gender_focus": 35,
+    "rank_shift_gender": 0,
+    "cluster_code": "Cluster 3",
+    "cluster_profile": "Cluster 3: Gender-Strong / School Infrastructure Lags",
+    "rank_states_28": 27.0,
+    "region": "North-East",
+    "transition_rate_upprim_to_sec": 83.3,
+    "dropout_sec_total": 18.3,
+    "dropout_sec_boys": 19.0,
+    "dropout_sec_girls": 17.7,
+    "pct_schools_electricity": 62.3,
+    "ger_higher_ed_total": 34.26,
+    "ger_higher_ed_male": 34.67,
+    "ger_higher_ed_female": 33.82,
+    "gpi_higher_ed": 0.98,
+    "colleges_per_lakh_pop": 24.37,
+    "ptr_higher_ed": 22.0,
+    "youth_unemployment_rate_15_29": 19.9,
+    "female_lfpr_15_plus": 61.7,
+    "regular_wage_salaried_share": 21.0,
+    "female_literacy_rate_plfs": 81.6,
+    "male_literacy_rate_plfs": 91.0,
+    "urban_population_pct_2011": 22.94
+  },
+  {
+    "state_code": "BR",
+    "state_name": "Bihar",
+    "entity_type": "State",
+    "norm_ptr_secondary": 16.0,
+    "norm_dropout_sec_total": 72.78,
+    "norm_transition_rate_upprim_to_sec": 4.91,
+    "norm_pct_schools_electricity": 95.97,
+    "norm_pct_schools_girls_toilet": 93.93,
+    "norm_pct_schools_computers": 6.02,
+    "norm_ger_higher_ed_total": 16.21,
+    "norm_colleges_per_lakh_pop": 0.0,
+    "norm_avg_enrolment_per_college": 96.84,
+    "norm_ptr_higher_ed": 0.0,
+    "norm_youth_unemployment_rate_15_29": 66.55,
+    "norm_overall_unemployment_rate": 68.13,
+    "norm_youth_lfpr_15_29": 22.44,
+    "norm_regular_wage_salaried_share": 0.0,
+    "norm_gpi_higher_ed": 13.6,
+    "norm_female_lfpr_15_plus": 21.64,
+    "norm_female_literacy_rate_plfs": 4.99,
+    "norm_literacy_gender_gap_plfs": 25.48,
+    "norm_youth_female_unemployment_rate": 70.56,
+    "norm_dropout_sec_gender_gap": 21.28,
+    "subindex_school": 48.27,
+    "subindex_higher_ed": 28.26,
+    "subindex_jobs": 39.28,
+    "subindex_gender": 26.26,
+    "opportunity_index": 35.52,
+    "rank_baseline": 36,
+    "index_jobs_focus": 36.27,
+    "rank_jobs_focus": 36,
+    "rank_shift_jobs": 0,
+    "index_school_focus": 38.07,
+    "rank_school_focus": 36,
+    "rank_shift_school": 0,
+    "index_gender_focus": 33.67,
+    "rank_gender_focus": 36,
+    "rank_shift_gender": 0,
+    "cluster_code": "Cluster 4",
+    "cluster_profile": "Cluster 4: Schooling-Active / Tertiary & Gender Constrained",
+    "rank_states_28": 28.0,
+    "region": "East",
+    "transition_rate_upprim_to_sec": 66.7,
+    "dropout_sec_total": 6.9,
+    "dropout_sec_boys": 7.0,
+    "dropout_sec_girls": 6.8,
+    "pct_schools_electricity": 97.1,
+    "ger_higher_ed_total": 17.66,
+    "ger_higher_ed_male": 16.64,
+    "ger_higher_ed_female": 18.78,
+    "gpi_higher_ed": 1.13,
+    "colleges_per_lakh_pop": 8.07,
+    "ptr_higher_ed": 61.3,
+    "youth_unemployment_rate_15_29": 12.1,
+    "female_lfpr_15_plus": 24.7,
+    "regular_wage_salaried_share": 12.0,
+    "female_literacy_rate_plfs": 65.5,
+    "male_literacy_rate_plfs": 81.0,
+    "urban_population_pct_2011": 11.29
+  }
+];
+
+  function getScoreColor(val) {
+    if (val >= 64) return '#1F497D'; // Top
+    if (val >= 55) return '#2E75B6'; // High
+    if (val >= 47) return '#ED7D31'; // Mid
+    return '#C00000'; // Low
+  }
+
+  function renderTable(data) {
+    const tbody = document.getElementById('tableBody');
+    tbody.innerHTML = '';
+    data.forEach((s) => {
+      const tr = document.createElement('tr');
+      tr.onclick = () => inspectState(s);
+      
+      const rank = document.getElementById('frameworkFilter').value === 'states' ? s.rank_states_28 : s.rank_baseline;
+      if (!rank) return;
+
+      tr.innerHTML = `
+        <td style="font-weight:700; color:var(--primary);">#${rank}</td>
+        <td><strong>${s.state_name}</strong></td>
+        <td><span style="font-size:0.75rem; color:var(--text-muted);">${s.entity_type}</span></td>
+        <td><span style="font-size:0.75rem; color:var(--text-muted);">${s.region}</span></td>
+        <td class="num">${s.subindex_school.toFixed(1)}</td>
+        <td class="num">${s.subindex_higher_ed.toFixed(1)}</td>
+        <td class="num">${s.subindex_jobs.toFixed(1)}</td>
+        <td class="num">${s.subindex_gender.toFixed(1)}</td>
+        <td class="num">
+          <span class="score-pill" style="background:${getScoreColor(s.opportunity_index)}">
+            ${s.opportunity_index.toFixed(2)}
+          </span>
+        </td>
+      `;
+      tbody.appendChild(tr);
+    });
+  }
+
+  function filterData() {
+    const framework = document.getElementById('frameworkFilter').value;
+    const region = document.getElementById('regionFilter').value;
+    const search = document.getElementById('searchInput').value.toLowerCase();
+
+    let filtered = statesData.filter(s => {
+      if (framework === 'states' && s.entity_type !== 'State') return false;
+      if (region !== 'all' && s.region !== region) return false;
+      if (search && !s.state_name.toLowerCase().includes(search)) return false;
+      return true;
+    });
+
+    if (framework === 'states') {
+      filtered.sort((a,b) => a.rank_states_28 - b.rank_states_28);
+    } else {
+      filtered.sort((a,b) => a.rank_baseline - b.rank_baseline);
+    }
+
+    renderTable(filtered);
+  }
+
+  function inspectState(s) {
+    const panel = document.getElementById('inspectorPanel');
+    panel.style.display = 'block';
+    document.getElementById('inspectStateName').innerText = `${s.state_name} (Overall Rank: #${s.rank_baseline} | Score: ${s.opportunity_index.toFixed(2)})`;
+    document.getElementById('inspectClusterProfile').innerText = `Structural Profile: ${s.cluster_profile}`;
+    document.getElementById('inspectTrans').innerText = `${s.transition_rate_upprim_to_sec.toFixed(1)}%`;
+    document.getElementById('inspectElec').innerText = `${s.pct_schools_electricity.toFixed(1)}%`;
+    document.getElementById('inspectGER').innerText = `${s.ger_higher_ed_total.toFixed(1)}%`;
+    document.getElementById('inspectDensity').innerText = `${s.colleges_per_lakh_pop.toFixed(1)} / lakh`;
+    document.getElementById('inspectUR').innerText = `${s.youth_unemployment_rate_15_29.toFixed(1)}%`;
+    document.getElementById('inspectLFPR').innerText = `${s.female_lfpr_15_plus.toFixed(1)}%`;
+    panel.scrollIntoView({ behavior: 'smooth' });
+  }
+
+  function showTab(tabId) {
+    document.querySelectorAll('.tab-content').forEach(el => el.classList.remove('active'));
+    document.querySelectorAll('.nav-btn').forEach(el => el.classList.remove('active'));
+    document.getElementById(tabId).classList.add('active');
+    event.target.classList.add('active');
+  }
+
+  // Initial load
+  filterData();
+</script>
+
+</body>
+</html>
