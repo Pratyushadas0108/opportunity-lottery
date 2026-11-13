@@ -31,3 +31,6 @@ raw_data/*
 
 # Matplotlib cache
 dashboard/charts/.mpl_cache/
+
+# Private study files (kept local, untracked)
+interview_notes.txt

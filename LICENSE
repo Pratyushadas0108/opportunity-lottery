@@ -1,0 +1,32 @@
+MIT License
+
+Copyright (c) 2026 Pratyusha Das
+
+Permission is hereby granted, free of charge, to any person obtaining a copy
+of this software and associated documentation files (the "Software"), to deal
+in the Software without restriction, including without limitation the rights
+to use, copy, modify, merge, publish, distribute, sublicense, and/or sell
+copies of the Software, and to permit persons to whom the Software is
+furnished to do so, subject to the following conditions:
+
+The above copyright notice and this permission notice shall be included in all
+copies or substantial portions of the Software.
+
+THE SOFTWARE IS PROVIDED "AS IS", WITHOUT WARRANTY OF ANY KIND, EXPRESS OR
+IMPLIED, INCLUDING BUT NOT LIMITED TO THE WARRANTIES OF MERCHANTABILITY,
+FITNESS FOR A PARTICULAR PURPOSE AND NONINFRINGEMENT. IN NO EVENT SHALL THE
+AUTHORS OR COPYRIGHT HOLDERS BE LIABLE FOR ANY CLAIM, DAMAGES OR OTHER
+LIABILITY, WHETHER IN AN ACTION OF CONTRACT, TORT OR OTHERWISE, ARISING FROM,
+OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE
+SOFTWARE.
+
+---
+
+### Data License & Attribution Notice
+This repository contains analytical code, data processing pipelines, and index models. The underlying raw datasets analyzed are public statistical publications of the Government of India:
+1. **UDISE+ (Unified District Information System for Education Plus) AY 2024–25**: Department of School Education & Literacy, Ministry of Education, Government of India.
+2. **AISHE (All India Survey on Higher Education) AY 2023–24**: Department of Higher Education, Ministry of Education, Government of India.
+3. **PLFS (Periodic Labour Force Survey) CY 2025**: National Sample Survey Office (NSSO), Ministry of Statistics and Programme Implementation (MoSPI), Government of India.
+4. **Primary Census Abstract (Census 2011)**: Office of the Registrar General & Census Commissioner, Ministry of Home Affairs, Government of India.
+
+All raw government datasets remain the intellectual property of their respective issuing bodies and are accessed under the provisions of the National Data Sharing and Accessibility Policy (NDSAP) of the Government of India for non-commercial research, analysis, and educational purposes with appropriate attribution.

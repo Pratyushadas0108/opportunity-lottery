@@ -136,3 +136,33 @@ Every entry must record:
 - **Category**: Methodological Limitations
 - **Decision**: The mechanisms of "educated youth queueing for formal jobs" and "interstate graduate migration" are explicitly designated as untested hypotheses in all reports and interview talking points.
 - **Justification**: Aggregate cross-sectional state-level data can establish that higher education access does not linearly correlate with youth jobs ($r = +0.058$), but cannot observe individual-level job search duration or interstate mobility.
+
+
+---
+
+### Log Entry 010: Manual 10-Point PDF Tabular Extraction Spot-Check
+- **Date**: 2026-11-13
+- **Category**: Data Verification & Quality Assurance
+- **Problem Statement**: Automated extraction from multi-column PDFs poses a risk of subtle column shifting or row misalignment that aggregate null-check scripts might overlook.
+- **Verification Performed**: 10 distinct values across 10 different States/UTs and indicators were manually audited against the original raw PDF pages:
+  1. **Karnataka** | `ptr_secondary` = `18.0` | Verified against UDISE+ Table 4.12, p. 63.
+  2. **Kerala** | `pct_schools_electricity` = `99.7%` | Verified against UDISE+ Table 8.6, p. 161.
+  3. **Meghalaya** | `pct_schools_electricity` = `28.1%` | Verified against UDISE+ Table 8.6, p. 161.
+  4. **Bihar** | `transition_rate_upprim_to_sec` = `66.7%` | Verified against UDISE+ Table 6.14, p. 121.
+  5. **Assam** | `dropout_sec_total` = `17.5%` | Verified against UDISE+ Table 6.13, p. 120.
+  6. **Gujarat** | `youth_unemployment_rate_15_29` = `2.5%` | Verified against PLFS Table 18.0, p. 152.
+  7. **Delhi** | `female_lfpr_15_plus` = `13.1%` | Verified against PLFS Table 16.0, p. 144.
+  8. **Tamil Nadu** | `male_literacy_rate_plfs` = `92.0%` | Verified against PLFS Table 7, p. 87.
+  9. **Himachal Pradesh** | `female_literacy_rate_plfs` = `85.9%` | Verified against PLFS Table 7, p. 87.
+  10. **Maharashtra** | `regular_wage_salaried_share` = `32.8%` | Verified against PLFS Table 19, p. 162.
+- **Result**: 100% concordance between raw tables and `clean_data/state_master.csv`. Zero column-shift errors found.
+
+---
+
+### Log Entry 011: Methodological Limitations Acknowledgment
+- **Date**: 2026-11-13
+- **Category**: Index Construction Limitations
+- **Decisions Recorded**:
+  1. **Cluster Separation**: With a Silhouette Score of 0.271, clusters are explicitly defined as *descriptive groupings reflecting continuous gradients*, not sharply separated distinct classes. $k=4$ was selected based on the inertia elbow curve (dropping from 101.91 at $k=2$ to 61.33 at $k=4$).
+  2. **Indicator Overlap / Double Counting**: The Gender Sub-Index includes both female literacy and the literacy gap, as well as female LFPR (which also conceptually touches labor participation in the Jobs Sub-Index). This design intentionally elevates female inclusion across life stages, but sensitivity tests confirm the state ranking remains robust ($\rho \ge 0.90$) under alternate weightings.
+  3. **Temporal Asynchrony**: While educational and labor indicators cover modern AY 2023–25 releases, demographic denominators rely on Census 2011 figures pending the publication of Census 2021.

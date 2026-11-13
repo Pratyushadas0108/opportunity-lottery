@@ -176,7 +176,7 @@ To eliminate researcher discretion, each program list is computed from a **singl
 ---
 
 ## Part II: Analytical Insights & Strategic Recommendations
-*Authored by: Pratyush Das (Lead Data Analyst)*
+*Authored by: Pratyusha Das (Lead Data Analyst)*
 
 ### Five Core Empirical Insights
 

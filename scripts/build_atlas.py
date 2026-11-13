@@ -511,7 +511,7 @@ html_template = f"""<!DOCTYPE html>
 </main>
 
 <footer>
-  <p><strong>The Opportunity Lottery</strong> | Portfolio Project by Pratyush Das (B.Tech CS, AI/ML Specialization)</p>
+  <p><strong>The Opportunity Lottery</strong> | Portfolio Project by Pratyusha Das (B.Tech CS, AI/ML Specialization)</p>
   <p>Code & Pipeline: <a href="https://github.com/Pratyushadas0108/opportunity-lottery" target="_blank" style="color:var(--primary);">GitHub Repository</a> | Data verified against official MoE & MoSPI publications.</p>
 </footer>
 
