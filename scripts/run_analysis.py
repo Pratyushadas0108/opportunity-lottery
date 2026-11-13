@@ -235,12 +235,12 @@ for _ in range(50):
 df_all['cluster'] = best_k4_labels
 
 cluster_means = df_all.groupby('cluster')['opportunity_index'].mean().sort_values(ascending=False)
-tier_map = {cluster_id: f"Tier {idx+1}" for idx, cluster_id in enumerate(cluster_means.index)}
+tier_map = {cluster_id: f"Cluster {idx+1}" for idx, cluster_id in enumerate(cluster_means.index)}
 tier_names = {
-    cluster_means.index[0]: "Tier 1: High Opportunity (Universal Schooling & High Tertiary Access)",
-    cluster_means.index[1]: "Tier 2: Developing Opportunity (School Strength, Employment Friction)",
-    cluster_means.index[2]: "Tier 3: Constrained Opportunity (Pockets of Industry, Gender Deficits)",
-    cluster_means.index[3]: "Tier 4: Critical Bottleneck (Severe Multi-Stage Infrastructure Deficits)"
+    cluster_means.index[0]: "Cluster 1: Employment-Led Dynamism",
+    cluster_means.index[1]: "Cluster 2: Educational Infrastructure Hubs",
+    cluster_means.index[2]: "Cluster 3: Gender-Strong / School Infrastructure Lags",
+    cluster_means.index[3]: "Cluster 4: Schooling-Active / Tertiary & Gender Constrained"
 }
 
 df_all['tier_code'] = df_all['cluster'].map(tier_map)
@@ -254,21 +254,50 @@ print(tier_summary.to_string())
 
 # Chart 6: Cluster Tiers Visualization
 plt.figure(figsize=(9, 6))
-colors_tier = {'Tier 1': '#1F497D', 'Tier 2': '#2E75B6', 'Tier 3': '#ED7D31', 'Tier 4': '#C00000'}
-for tier in ['Tier 1', 'Tier 2', 'Tier 3', 'Tier 4']:
+colors_tier = {'Cluster 1': '#1F497D', 'Cluster 2': '#2E75B6', 'Cluster 3': '#ED7D31', 'Cluster 4': '#C00000'}
+for tier in ['Cluster 1', 'Cluster 2', 'Cluster 3', 'Cluster 4']:
     sub = df_all[df_all['tier_code'] == tier]
-    plt.scatter(sub['subindex_school'], sub['subindex_jobs'], s=sub['subindex_higher_ed']*2.5, label=tier, alpha=0.8, color=colors_tier[tier])
+    plt.scatter(sub['subindex_school'], sub['subindex_jobs'], s=sub['subindex_higher_ed']*2.5, label=tier_names[cluster_means.index[int(tier[-1])-1]], alpha=0.8, color=colors_tier[tier])
 
 for st in ['Chandigarh', 'Kerala', 'Tamil Nadu', 'Gujarat', 'Bihar', 'Meghalaya', 'Delhi']:
     row = df_all[df_all['state_name'] == st].iloc[0]
     plt.annotate(st, (row['subindex_school'] + 1, row['subindex_jobs'] + 0.5), fontsize=8, fontweight='semibold')
 
-plt.title('K-Means Clustering: Four Distinct Opportunity Tiers Across Indian States', fontsize=12, pad=12, fontweight='bold', color='#1F497D')
+plt.title('K-Means Clustering: Four Structural Profiles Across Indian States & UTs', fontsize=12, pad=12, fontweight='bold', color='#1F497D')
 plt.xlabel('School Access & Quality Sub-Index (0–100)', fontsize=11)
 plt.ylabel('Jobs & Economy Sub-Index (0–100)', fontsize=11)
-plt.legend(title='Opportunity Tier', loc='lower right')
+plt.legend(title='Opportunity Profile', loc='lower right', fontsize=8)
 plt.tight_layout()
 plt.savefig('dashboard/charts/cluster_tiers_scatter.png')
 plt.close()
+
+# Export Q6 Targeted Interventions via Explicit Single-Column Calculation
+p_a = df_all[['state_name', 'subindex_school']].sort_values(by='subindex_school').head(5).copy()
+p_a['program'] = 'Program A: Public School Infrastructure'
+p_a['selection_rule'] = 'Lowest 5 subindex_school'
+p_a['metric_name'] = 'subindex_school'
+p_a['metric_value'] = p_a['subindex_school']
+
+p_b = df_all[['state_name', 'subindex_higher_ed']].sort_values(by='subindex_higher_ed').head(5).copy()
+p_b['program'] = 'Program B: Higher Education Capacity'
+p_b['selection_rule'] = 'Lowest 5 subindex_higher_ed'
+p_b['metric_name'] = 'subindex_higher_ed'
+p_b['metric_value'] = p_b['subindex_higher_ed']
+
+p_c = df_all[['state_name', 'female_lfpr_15_plus']].sort_values(by='female_lfpr_15_plus').head(5).copy()
+p_c['program'] = 'Program C: Female Workforce Inclusion'
+p_c['selection_rule'] = 'Lowest 5 female_lfpr_15_plus'
+p_c['metric_name'] = 'female_lfpr_15_plus'
+p_c['metric_value'] = p_c['female_lfpr_15_plus']
+
+q6_df = pd.concat([
+    p_a[['program', 'selection_rule', 'state_name', 'metric_name', 'metric_value']],
+    p_b[['program', 'selection_rule', 'state_name', 'metric_name', 'metric_value']],
+    p_c[['program', 'selection_rule', 'state_name', 'metric_name', 'metric_value']]
+]).reset_index(drop=True)
+
+q6_df.to_csv('clean_data/q6_targeted_interventions.csv', index=False)
+print("\nTargeted interventions exported to clean_data/q6_targeted_interventions.csv:")
+print(q6_df.to_string())
 
 print("\nAll 6 presentation charts created successfully in dashboard/charts/!")

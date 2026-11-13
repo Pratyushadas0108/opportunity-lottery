@@ -12,14 +12,14 @@ TABLE OF CONTENTS
 --------------------------------------------------------------------------------
 1. Elevator Pitches (30-Second & 2-Minute Versions)
 2. The Core Research Question & The Golden Methodological Rule
-3. Official Government Data Sources & Verified Benchmarks
+3. Official Government Data Sources & Verified Reference Periods
 4. Data Cleaning, Pipeline Integrity & Engineering Defense
 5. The Opportunity Index Framework & Mathematical Formulation
 6. State Rankings & The 53-Point Opportunity Divide (36 Entities vs. 28 States)
 7. The Four Headline Paradoxes (Must-Know Interview Talking Points)
 8. The Gender Funnel: The Reversal & The Post-College Gap
-9. Machine Learning Clustering: The 4 Opportunity Tiers (k-means)
-10. Targeted Interventions & Capital Allocation Framework (Top 5 States Rules)
+9. Machine Learning Clustering: The 4 Structural Profiles (k-means)
+10. Targeted Interventions & Capital Allocation Framework (Explicit Rules & Target Lists)
 11. Sensitivity Testing & Ranking Stability Defense
 12. Top 10 Anticipated Technical Interview Questions & Model Answers
 
@@ -31,10 +31,10 @@ TABLE OF CONTENTS
 "I built 'The Opportunity Lottery', an end-to-end data analytics project investigating 
 how strongly a student's educational and economic life chances in India are associated 
 with the state they grow up in. I extracted, cleaned, and reconciled over 40 indicators 
-across all 36 Indian States and UTs from 4 official government releases—UDISE+ 2024-25, 
-AISHE 2023-24, PLFS 2025, and Census. I engineered a composite Opportunity Index across 
-four sub-indices, performed k-means clustering to segment states into 4 actionable 
-tiers, and examined counter-intuitive patterns—such as Kerala's educated youth unemployment 
+across all 36 Indian States and UTs from 4 official government releases—UDISE+ AY 2024-25, 
+AISHE AY 2023-24, PLFS CY 2025, and Census 2011. I engineered a composite Opportunity Index 
+across four sub-indices, performed k-means clustering to segment states into 4 structural 
+profiles, and analyzed counter-intuitive patterns—such as Kerala's educated youth unemployment 
 and Delhi's low female workforce participation. The entire pipeline is built in Python, 
 modeled with live Excel formulas, and visualized through Power BI and an interactive web atlas."
 
@@ -42,26 +42,27 @@ modeled with live Excel formulas, and visualized through Power BI and an interac
 "Most macro analyses of Indian education treat schooling, higher education, and 
 employment as separate silos. In 'The Opportunity Lottery', I analyzed them as an 
 interconnected progression pipeline. Using raw data from the Ministry of Education's 
-UDISE+ 2024-25, AISHE 2023-24, MoSPI's PLFS 2025, and Census, I built an automated, 
-zero-null data cleaning engine in Python reconciling historical administrative and 
-name variations across all 36 states and union territories.
+UDISE+ Academic Year 2024-25, AISHE Academic Year 2023-24, MoSPI's PLFS Calendar Year 2025, 
+and Census 2011, I built an automated, zero-null data cleaning engine in Python reconciling 
+historical administrative and name variations across all 36 states and union territories.
 
 I constructed a Min-Max normalized composite Opportunity Index spanning School 
 Quality, Higher Education Access, Youth Jobs & Economy, and Gender Equality. Through 
 correlation analysis across the 36 entities, I observed that while school infrastructure 
 shows a moderate-to-strong positive association with higher education access (r = +0.51), 
 higher education access shows no clear linear association with immediate youth employment 
-dynamism (r = +0.06), reflecting the tendency of educated youth to spend time searching 
-for formal jobs.
+dynamism (r = +0.06). In development economics, educated youth often have higher reservation 
+wages leading to job queueing, though this remains an untested hypothesis in cross-sectional macro data.
 
 Furthermore, by tracking gender parity across stages, I found that young women outperform 
-young men in secondary school retention (by 3.5 percentage points) and college enrolment 
-(by 4.5 percentage points), but a substantial 33.4 percentage point gap appears upon 
-entering the labor market. Using unsupervised k-means clustering (k=4), I grouped states 
-into four distinct structural tiers and validated ranking robustness through sensitivity 
-analysis across three distinct weighting scenarios, maintaining Spearman rank correlations 
-above 0.90. The project includes a live dynamic Excel model, presentation charts, an 
-interactive GeoJSON Opportunity Atlas, and a Power BI executive dashboard."
+young men in secondary school retention (by 3.5 percentage points in state averages) and 
+college enrolment (by 4.5 percentage points in state averages), but a substantial 33.4 
+percentage point gap appears upon entering the labor market. Using unsupervised k-means 
+clustering (k=4), I grouped states into four distinct structural profiles and validated 
+ranking robustness through sensitivity analysis across three distinct weighting scenarios, 
+maintaining Spearman rank correlations above 0.90. The project includes a live dynamic 
+Excel model, presentation charts, an interactive GeoJSON Opportunity Atlas, and a Power BI 
+executive dashboard."
 
 ================================================================================
 2. THE CORE RESEARCH QUESTION & THE GOLDEN METHODOLOGICAL RULE
@@ -85,14 +86,14 @@ THE GOLDEN RULE: ASSOCIATION vs. CAUSATION
   analytical and statistical maturity.
 
 ================================================================================
-3. OFFICIAL GOVERNMENT DATA SOURCES & VERIFIED BENCHMARKS
+3. OFFICIAL GOVERNMENT DATA SOURCES & VERIFIED REFERENCE PERIODS
 ================================================================================
 
 Every single number in this project is sourced directly from official Government 
-of India publications with verified release years:
+of India publications with verified reference periods:
 
-1. UDISE+ 2024-25 (Unified District Information System for Education Plus)
-   - Issuing Body: Department of School Education & Literacy, Ministry of Education.
+1. UDISE+ (Department of School Education & Literacy, Ministry of Education)
+   - Reference Period: Academic Year 2024-25.
    - Core Indicators Used: Pupil-Teacher Ratio (PTR), Upper Primary to Secondary 
      Transition Rate, Secondary Dropout Rate (by gender), Functional Electricity 
      Connection in Schools (%), Functional Girls' Toilets (%), Computer/Digital Access (%).
@@ -100,19 +101,19 @@ of India publications with verified release years:
      * Meghalaya School Electricity = 28.1% (All Schools), 18.2% (Govt Schools).
      * Lowest in India; 71.9% of schools operate without functional power.
 
-2. AISHE 2023-24 (All India Survey on Higher Education)
-   - Issuing Body: Department of Higher Education, Ministry of Education.
+2. AISHE (Department of Higher Education, Ministry of Education)
+   - Reference Period: Academic Year 2023-24.
    - Core Indicators Used: Gross Enrolment Ratio (GER) 18-23 years (Total, Male, 
      Female), Gender Parity Index (GPI), College Density (colleges per lakh eligible 
      population), Pupil-Teacher Ratio (PTR) in Higher Education.
-   - Spot-Check Benchmark (Verified from Sheet 19GER, Row 26):
+   - Spot-Check Benchmark (Verified from Sheet 19GER(2011), Row 26):
      * Puducherry Higher-Ed GER: Male = 71.8%, Female = 72.8%, Total = 72.3%.
      * SC Category GER: Male = 53.0%, Female = 52.4%, Total = 52.7%.
      * Context: Outlier driven by Puducherry functioning as a concentrated regional 
        higher-education hub with premier medical (JIPMER) and central institutions.
 
-3. PLFS 2025 Annual Report (Calendar Year 2025, Jan-Dec 2025)
-   - Issuing Body: National Sample Survey Office (NSSO), MoSPI (Released 2026).
+3. PLFS Annual Report (National Sample Survey Office, MoSPI)
+   - Reference Period: Calendar Year 2025 (January - December 2025 survey period).
    - Core Indicators Used: Labor Force Participation Rate (LFPR 15+ years), 
      Worker Population Ratio (WPR), Youth Unemployment Rate (UR 15-29 years), 
      Female Youth Unemployment Rate, Percentage of Regular Wage/Salaried Workers, 
@@ -126,8 +127,8 @@ of India publications with verified release years:
      * Context on 28 States: Among the 28 full states, Haryana (23.8%) and Bihar 
        (24.7%) exhibit the lowest female LFPR.
 
-4. Primary Census Abstract (PCA), Census of India (2011)
-   - Issuing Body: Office of the Registrar General & Census Commissioner, India.
+4. Primary Census Abstract (Office of the Registrar General & Census Commissioner, India)
+   - Reference Period: Census 2011 (as of 1 March 2011).
    - Core Indicators Used: Total Population, Sex Ratio, Proportion of Urban Population (%).
 
 ================================================================================
@@ -201,26 +202,27 @@ Framework B: 28 States Only (Excluding Union Territories)
 
 1. THE KERALA PARADOX (Education Peak vs. Youth Employment Search Friction)
    - Data: School Quality: 91.66 (#2 of 36), Higher Ed: 58.96 (#6 of 36), Jobs Index: 49.09 (#27 of 36).
-   - Metrics: Youth unemployment (15-29, PLFS 2025) is 20.8%; Female youth unemployment is 22.8%.
-   - Defense: High educational attainment raises reservation wages; educated youth queue for formal 
-     or overseas employment rather than taking informal low-wage jobs.
+   - Metrics: Youth unemployment (15-29, PLFS CY 2025) is 20.8%; Female youth unemployment is 22.8%.
+   - Defense: High educational attainment increases reservation wages; educated youth often wait 
+     for formal white-collar or overseas opportunities rather than taking informal low-wage jobs. 
+     *(Note: This queueing effect is a widely cited hypothesis, though untested in cross-sectional macro data).*
 
 2. THE DELHI URBAN PARADOX (High Literacy, Lowest Female Workforce)
-   - Data: Urbanization: 97.5% (Census 2011), Female Literacy: 84.4% (PLFS 2025).
-   - Metric: Female LFPR (15+, PLFS 2025) is 13.1% (lowest across all 36 entities).
+   - Data: Urbanization: 97.5% (Census 2011), Female Literacy: 84.4% (PLFS CY 2025).
+   - Metric: Female LFPR (15+, PLFS CY 2025) is 13.1% (lowest across all 36 entities).
    - Defense: Reflects the U-shaped female labor curve; higher household incomes enable withdrawal 
      from manual informal work, while transit safety, childcare, and formal white-collar job constraints 
      limit entry into formal jobs. (Note: Haryana at 23.8% and Bihar at 24.7% are lowest among the 28 states).
 
 3. THE MEGHALAYA INVERSION (Gender Strength vs. Physical Infrastructure Deficit)
-   - Data: Gender Equality Index: 64.82 (#3 of 36; Female LFPR: 64.3%, PLFS 2025).
-   - Metric: School Infrastructure Index is 15.74 (Rank #36 of 36). School electrification is only 28.1%.
+   - Data: Gender Equality Index: 64.82 (#3 of 36; Female LFPR: 64.3%, PLFS CY 2025).
+   - Metric: School Infrastructure Index is 15.74 (Rank #36 of 36). School electrification is only 28.1% (UDISE+ AY 2024-25).
    - Defense: Matrilineal cultural traditions support female autonomy and economic participation, 
      but hilly terrain and capital constraints create severe physical school infrastructure backlogs.
 
 4. THE GUJARAT JOBS ENGINE vs. COLLEGE PIPELINE
-   - Data: Jobs Index: 79.95 (#1 among major states), Youth Unemployment: 2.5% (lowest in India, PLFS 2025).
-   - Metric: Higher Ed GER (AISHE 2023-24): 26.5% (Sub-index: 40.02, Rank #21 of 36).
+   - Data: Jobs Index: 79.95 (#1 among major states), Youth Unemployment: 2.5% (lowest in India, PLFS CY 2025).
+   - Metric: Higher Ed GER (AISHE AY 2023-24): 26.5% (Sub-index: 40.02, Rank #21 of 36).
    - Defense: Strong manufacturing and enterprise networks absorb youth into production directly after 
      secondary school, reducing the relative economic incentive for 3-4 year non-vocational college degrees.
 
@@ -229,56 +231,88 @@ Framework B: 28 States Only (Excluding Union Territories)
 ================================================================================
 
 Tracking the gender gap across 4 sequential stages (differences in percentage points):
-1. Adult Literacy (Age 7+, PLFS 2025): Male 90.5%, Female 80.5% -> +10.0 percentage points (Male lead).
-2. Secondary Retention (Class 9-10, UDISE+ 2024-25): Male 87.3%, Female 90.8% -> -3.5 percentage points (Female lead).
-3. Higher-Ed GER (18-23, AISHE 2023-24): Male 29.8%, Female 34.3% -> -4.5 percentage points (Female lead, GPI: 1.22).
-4. Workforce Entry (LFPR 15+, PLFS 2025): Male 77.2%, Female 43.8% -> +33.4 percentage points (Substantial male lead).
 
-Interview Formulation:
-"The data shows that young women outperform young men in secondary school retention 
-(by 3.5 percentage points) and college enrolment (by 4.5 percentage points), but a 
-substantial 33.4 percentage point gap appears upon entering the labor market."
+1. Adult Literacy (Age 7+, PLFS CY 2025):
+   - Official All-India: Male 87.5%, Female 74.9% -> +12.6 percentage points (Male lead).
+   - Unweighted 36-State Mean: Male 90.5%, Female 80.5% -> +10.0 percentage points (Male lead).
+
+2. Secondary Retention (Class 9-10, UDISE+ AY 2024-25):
+   - Official All-India: Boys 86.7% (Dropout 13.3%), Girls 90.4% (Dropout 9.6%) -> -3.7 percentage points (Female lead).
+   - Unweighted 36-State Mean: Boys 87.3% (Dropout 12.7%), Girls 90.8% (Dropout 9.2%) -> -3.5 percentage points (Female lead).
+
+3. Higher-Ed Enrolment (GER 18-23, AISHE AY 2023-24):
+   - Official All-India: Male 28.9%, Female 31.2% -> -2.3 percentage points (Female lead; National GPI = 1.08).
+   - Unweighted 36-State Mean: Male 29.8%, Female 34.3% -> -4.5 percentage points (Female lead; Ratio of means = 1.15; Mean State GPI = 1.22).
+
+4. Workforce Entry (LFPR 15+, PLFS CY 2025):
+   - Official All-India: Male 79.1%, Female 40.0% -> +39.1 percentage points (Male lead).
+   - Unweighted 36-State Mean: Male 77.2%, Female 43.8% -> +33.4 percentage points (Male lead).
+
+*Explanation of GPI (1.22 vs 1.15 vs 1.08)*:
+The ratio of the unweighted means (34.31 / 29.83) is 1.15. The unweighted arithmetic average 
+of the 36 individual state GPIs is 1.22 (because small states like Chandigarh with GPI 1.63 
+and Kerala with 1.52 pull up the average). The official national population-weighted GPI is 1.08.
 
 ================================================================================
-9. MACHINE LEARNING CLUSTERING: THE 4 OPPORTUNITY TIERS (k-means)
+9. MACHINE LEARNING CLUSTERING: THE 4 STRUCTURAL PROFILES (k-means)
 ================================================================================
 
 Model: k-means clustering on the 4 normalized sub-index vectors (k=4, Inertia=61.33, Silhouette=0.271).
+Profiles are named after their multidimensional balance rather than false ordinal severity labels:
 
 EXACT CLUSTER AVERAGES:
-- Tier 1 (4 states: D&NH/D&D, Sikkim, Gujarat, Chhattisgarh):
+- Cluster 1: Employment-Led Dynamism (4 states: D&NH/D&D, Sikkim, Gujarat, Chhattisgarh)
   Mean School: 69.56 | Higher Ed: 40.03 | Jobs: 78.65 | Gender: 61.98 | Composite: 62.55
   Profile: High employment dynamism and regular wage shares; moderate college enrolment.
-- Tier 2 (15 states/UTs: Chandigarh, Puducherry, Tamil Nadu, Kerala, Himachal, Karnataka, Goa, Delhi, Uttarakhand, Haryana, Maharashtra, Telangana, Punjab, Andhra Pradesh, Lakshadweep):
+
+- Cluster 2: Educational Infrastructure Hubs (15 states/UTs: Chandigarh, Puducherry, Tamil Nadu, Kerala, Himachal, Karnataka, Goa, Delhi, Uttarakhand, Haryana, Maharashtra, Telangana, Punjab, Andhra Pradesh, Lakshadweep)
   Mean School: 83.31 | Higher Ed: 57.48 | Jobs: 52.42 | Gender: 47.47 | Composite: 60.17
-  Profile: High education pipeline (school + college); moderate jobs index due to youth search unemployment.
-- Tier 3 (9 states: Nagaland, West Bengal, Mizoram, Assam, Tripura, Ladakh, Manipur, Meghalaya, Arunachal Pradesh):
+  Profile: Highest schooling and college access; moderate jobs index due to youth search unemployment.
+
+- Cluster 3: Gender-Strong / School Infrastructure Lags (9 states: Nagaland, West Bengal, Mizoram, Assam, Tripura, Ladakh, Manipur, Meghalaya, Arunachal Pradesh)
   Mean School: 50.64 | Higher Ed: 40.42 | Jobs: 45.68 | Gender: 55.16 | Composite: 47.98
-  Profile: Northeastern & hill states; strong gender parity but physical infrastructure constraints.
-- Tier 4 (8 states: Odisha, Madhya Pradesh, Andaman & Nicobar, Rajasthan, Uttar Pradesh, Jharkhand, Jammu & Kashmir, Bihar):
+  Profile: Northeastern & hill states; strong gender parity but lowest public school infrastructure scores.
+
+- Cluster 4: Schooling-Active / Tertiary & Gender Constrained (8 states: Odisha, Madhya Pradesh, Andaman & Nicobar, Rajasthan, Uttar Pradesh, Jharkhand, Jammu & Kashmir, Bihar)
   Mean School: 62.02 | Higher Ed: 36.33 | Jobs: 50.82 | Gender: 39.36 | Composite: 47.13
-  Profile: Severe higher education capacity bottlenecks (high PTR, low college density) and low gender scores.
+  Profile: Moderate school score (higher than Cluster 3), but lowest college capacity (high PTR, low density) and lowest gender equity.
 
 ================================================================================
-10. TARGETED INTERVENTIONS & CAPITAL ALLOCATION FRAMEWORK (Top 5 States Rules)
+10. TARGETED INTERVENTIONS & CAPITAL ALLOCATION FRAMEWORK (Explicit Rules & Target Lists)
 ================================================================================
 
-States were selected strictly by empirical sorting rules:
+Each program list is generated programmatically from a single explicit column sort 
+and saved directly to `clean_data/q6_targeted_interventions.csv`:
 
 1. Program A: Public School Infrastructure Upgrades
-   - Selection Rule: 5 lowest scores on School Quality Sub-Index.
-   - Target States: Meghalaya (15.74), Arunachal Pradesh (38.70), Bihar (48.27), Manipur (50.18), Mizoram (50.84).
-   - Focus: Power connection (Meghalaya 28.1%), girls' sanitation, secondary retention.
+   - Explicit Calculation Rule: 5 lowest values of `subindex_school`.
+   - Target States: 
+     1. Meghalaya (`15.74`)
+     2. Arunachal Pradesh (`38.70`)
+     3. Bihar (`48.27`)
+     4. Manipur (`50.18`)
+     5. Mizoram (`50.84`)
+   - Source: UDISE+ AY 2024-25. Focus on power connections, toilets, secondary retention.
 
 2. Program B: College Capacity & Faculty Expansion
-   - Selection Rule: 5 lowest scores on Higher Education Sub-Index.
-   - Target States: Bihar (28.26), Jharkhand (29.21), D&NH and D&D (31.58), Ladakh (32.89), Andaman & Nicobar (33.78).
-   - Focus: Faculty hiring (Bihar PTR: 61.3, Jharkhand PTR: 53.8) and new college sanctions.
+   - Explicit Calculation Rule: 5 lowest values of `subindex_higher_ed`.
+   - Target States: 
+     1. Bihar (`28.26`)
+     2. Jharkhand (`29.21`)
+     3. Dadra & Nagar Haveli and Daman & Diu (`31.58`)
+     4. Ladakh (`32.89`)
+     5. Andaman & Nicobar Islands (`33.78`)
+   - Source: AISHE AY 2023-24. Focus on faculty recruitment (Bihar PTR: 61.3, Jharkhand: 53.8) and college sanctions.
 
 3. Program C: Female Workforce Transition Support
-   - Selection Rule: Lowest Female LFPR & Highest Youth Unemployment.
-   - Target States: Delhi (LFPR: 13.1%), Lakshadweep (LFPR: 21.9%, Youth UR: 26.3%), Haryana (LFPR: 23.8%), Bihar (LFPR: 24.7%), Andaman & Nicobar (Youth UR: 31.2%).
-   - Focus: Urban childcare infrastructure, safe transit, and formal skilling-to-placement links.
+   - Explicit Calculation Rule: 5 lowest values of `female_lfpr_15_plus`.
+   - Target States: 
+     1. Delhi (`13.10%`)
+     2. Lakshadweep (`21.90%`)
+     3. Haryana (`23.80%`)
+     4. Bihar (`24.70%`)
+     5. Goa (`27.40%`)
+   - Source: PLFS CY 2025 Table 16.0. Focus on urban childcare, safe transit, and formal skilling.
 
 ================================================================================
 11. SENSITIVITY TESTING & RANKING STABILITY DEFENSE
@@ -299,12 +333,12 @@ rather than arbitrary weighting choices."
 ================================================================================
 
 Q1: Why is the correlation between Higher Education and Youth Jobs r = +0.058?
-A: "On 36 macro data points, r = +0.058 means there is no clear linear association in this 
-cross-sectional dataset. This occurs because the Jobs Sub-Index includes youth unemployment 
-and female youth unemployment (50% of its weight). In developing economies, educated youth 
-have higher reservation wages and spend time queueing for formal jobs rather than accepting 
-informal manual work, which depresses the jobs score for education-heavy states like Kerala. 
-Additionally, macro state data cannot capture interstate migration of graduates."
+A: "On 36 macro data points, r = +0.058 indicates no clear linear association in this cross-sectional 
+dataset. The Jobs Sub-Index includes youth unemployment and overall unemployment (50% of its weight). 
+In developing economies, educated youth often have higher reservation wages and spend time queueing for 
+formal jobs rather than accepting informal manual work, which depresses the jobs score for education-heavy 
+states like Kerala. However, 'youth queueing' and 'interstate migration' remain untested hypotheses in 
+this study since cross-sectional aggregate data cannot track individual career search duration."
 
 Q2: Why Min-Max normalization instead of Z-Score Standardization?
 A: "Min-Max bounds all indicators strictly between 0 and 100, where 0 represents the state 
@@ -312,7 +346,7 @@ with the lowest performance in India and 100 represents the benchmark leader. Th
 an intuitive scale for policy makers, whereas Z-scores generate negative values centered around zero."
 
 Q3: Did you cap or Winsorize Puducherry's 72.3% Higher Ed GER?
-A: "No. Puducherry's 72.3% GER was verified directly from AISHE 2023-24 Sheet 19GER. It reflects 
+A: "No. Puducherry's 72.3% GER was verified directly from AISHE AY 2023-24 Sheet 19GER(2011). It reflects 
 Puducherry's real role as a regional medical and central university hub serving students from 
 neighboring states. Min-Max naturally assigned it a score of 100 without distorting the data."
 
@@ -328,30 +362,30 @@ Daman & Diu—using population-weighted aggregation, and corrected table paginat
 
 Q6: Why did you choose k=4 in k-means clustering?
 A: "Inertia dropped sharply from 101.91 at k=2 to 61.33 at k=4, after which gains flattened. 
-The resulting 4 clusters provided clear, interpretable policy tiers: High Employment Dynamism, 
-Education Hubs with Search Friction, Geographic Constraints, and Severe Capacity Bottlenecks."
+The resulting 4 clusters provided clear, interpretable structural profiles: Employment-Led Dynamism, 
+Educational Infrastructure Hubs, Gender-Strong with School Lags, and Schooling-Active with Tertiary Constraints."
 
 Q7: What is the difference between quoting ranks out of 36 vs 28?
 A: "Small Union Territories (Chandigarh, Puducherry, D&NH/D&D) have high urbanization and small 
 populations, placing them in the top 3 overall. When evaluating the 28 full states, Tamil Nadu 
 is the #1 ranked major state (and #2 among all states behind Sikkim)."
 
-Q8: Why does the gender gap reverse in secondary school and college?
-A: "UDISE+ 2024-25 and AISHE 2023-24 show that female secondary retention exceeds male retention 
-by 3.5 percentage points, and female college GER exceeds male GER by 4.5 percentage points. 
-This reflects higher male opportunity costs pulling boys into informal labor earlier, combined 
-with state incentives (scholarships, hostels) supporting female educational continuation."
+Q8: Why does female GER exceed male GER, and why is GPI 1.22?
+A: "AISHE AY 2023-24 shows female college GER is 34.3% vs male 29.8% (state averages), reflecting 
+higher male opportunity costs pulling boys into informal labor earlier. The ratio of these unweighted 
+means is 1.15, while the unweighted average of individual state GPIs is 1.22 because small states with 
+very high female enrolment pull up the arithmetic average."
 
 Q9: What are the main limitations of this study?
 A: "First, aggregate state data can mask intra-state rural-urban disparities (ecological fallacy). 
-Second, it is cross-sectional across 2024-2025 releases rather than tracking student cohorts longitudinally. 
+Second, it is cross-sectional across AY 2023-25 releases rather than tracking student cohorts longitudinally. 
 Third, demographic baselines rely on Census 2011 aggregations as Census 2021 was delayed."
 
 Q10: If you have capital for 5 states, how do you decide?
-A: "I use an empirical bottleneck rule: for school infrastructure, target the 5 states with the lowest 
-school index (Meghalaya, Arunachal, Bihar, Manipur, Mizoram); for college capacity, target the 5 lowest 
-higher-ed scores (Bihar, Jharkhand, D&NH/D&D, Ladakh, A&N); for female labor transition, target the 
-lowest female LFPR (Delhi, Lakshadweep, Haryana, Bihar)."
+A: "I use an explicit single-column rule from `clean_data/q6_targeted_interventions.csv`: for school 
+infrastructure, target the 5 lowest school scores (Meghalaya, Arunachal, Bihar, Manipur, Mizoram); 
+for college capacity, target the 5 lowest higher-ed scores (Bihar, Jharkhand, D&NH/D&D, Ladakh, A&N); 
+for female labor transition, target the 5 lowest female LFPRs (Delhi, Lakshadweep, Haryana, Bihar, Goa)."
 
 ================================================================================
 END OF INTERVIEW NOTES COMPENDIUM

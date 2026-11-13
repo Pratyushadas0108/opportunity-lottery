@@ -103,3 +103,36 @@ Every entry must record:
    - **Year**: 2011 (Official Primary Census Abstract - State Level)
    - **Source**: Office of the Registrar General & Census Commissioner, India
    - **Metrics Verified**: Total Population (`TOT_P`), Male (`TOT_M`), Female (`TOT_F`), Population 0–6 (`P_06`, `M_06`, `F_06`), Literate Population (`P_LIT`, `M_LIT`, `F_LIT`).
+
+---
+
+### Log Entry 007: Standardization of Question 6 Target Selection Rules
+- **Date**: 2026-11-13
+- **Category**: Policy Targeting Methodology
+- **Problem Statement**: Initial draft of Question 6 lists contained subjective combinations (e.g. blending LFPR and youth unemployment for Program C, resulting in manual listing discrepancies).
+- **Decision Taken**: Standardized each intervention list to a single, explicit column calculation computed programmatically and exported to `clean_data/q6_targeted_interventions.csv`:
+  1. **Program A (Public School Infrastructure)**: Strictly the 5 lowest values of `subindex_school`. (Meghalaya, Arunachal Pradesh, Bihar, Manipur, Mizoram).
+  2. **Program B (Higher Education Capacity)**: Strictly the 5 lowest values of `subindex_higher_ed`. (Bihar, Jharkhand, D&NH and D&D, Ladakh, Andaman & Nicobar).
+  3. **Program C (Female Workforce Transition)**: Strictly the 5 lowest values of `female_lfpr_15_plus`. (Delhi, Lakshadweep, Haryana, Bihar, Goa).
+- **Justification**: Eliminates researcher discretion and ensures 100% computational reproducibility.
+
+---
+
+### Log Entry 008: Profile-Based Cluster Naming
+- **Date**: 2026-11-13
+- **Category**: Cluster Interpretation & Taxonomy
+- **Problem Statement**: Earlier tier labels ("Tier 1: High Opportunity" to "Tier 4: Critical Bottleneck") implied an ordinal hierarchy of overall deprivation. However, cluster averages show multidimensional trade-offs: Tier 4 has a higher mean school score (62.02) than Tier 3 (50.64), and Tier 1 has a lower higher education score (40.03) than Tier 2 (57.48).
+- **Decision Taken**: Replaced hierarchical labels with descriptive structural profile names reflecting the actual cluster vectors:
+  - Cluster 1: **Employment-Led Dynamism** (Mean Jobs: 78.65, Higher Ed: 40.03)
+  - Cluster 2: **Educational Infrastructure Hubs** (Mean School: 83.31, Higher Ed: 57.48, Jobs: 52.42)
+  - Cluster 3: **Gender-Strong / School Infrastructure Lags** (Mean Gender: 55.16, School: 50.64)
+  - Cluster 4: **Schooling-Active / Tertiary & Gender Constrained** (Mean School: 62.02, Higher Ed: 36.33, Gender: 39.36)
+- **Justification**: Accurately reflects k-means clustering in 4-dimensional sub-index space without imposing false ordinal hierarchies.
+
+---
+
+### Log Entry 009: Untested Hypotheses on Youth Queueing and Migration
+- **Date**: 2026-11-13
+- **Category**: Methodological Limitations
+- **Decision**: The mechanisms of "educated youth queueing for formal jobs" and "interstate graduate migration" are explicitly designated as untested hypotheses in all reports and interview talking points.
+- **Justification**: Aggregate cross-sectional state-level data can establish that higher education access does not linearly correlate with youth jobs ($r = +0.058$), but cannot observe individual-level job search duration or interstate mobility.

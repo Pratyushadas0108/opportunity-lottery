@@ -127,3 +127,4 @@ with open('notebooks/03_analysis.ipynb', 'w', encoding='utf-8') as f:
     nbf.write(nb, f)
 
 print('notebooks/03_analysis.ipynb created successfully!')
+

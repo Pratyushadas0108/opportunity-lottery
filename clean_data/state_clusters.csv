@@ -1,37 +1,37 @@
 state_code,state_name,tier_code,opportunity_tier,subindex_school,subindex_higher_ed,subindex_jobs,subindex_gender,opportunity_index
-CH,Chandigarh,Tier 2,"Tier 2: Developing Opportunity (School Strength, Employment Friction)",96.38,66.46,67.96,49.41,70.05
-PY,Puducherry,Tier 2,"Tier 2: Developing Opportunity (School Strength, Employment Friction)",93.35,77.59,54.66,49.64,68.81
-DH,Dadra and Nagar Haveli and Daman and Diu,Tier 1,Tier 1: High Opportunity (Universal Schooling & High Tertiary Access),77.64,31.58,92.83,69.74,67.95
-SK,Sikkim,Tier 1,Tier 1: High Opportunity (Universal Schooling & High Tertiary Access),81.42,48.93,71.61,67.48,67.36
-TN,Tamil Nadu,Tier 2,"Tier 2: Developing Opportunity (School Strength, Employment Friction)",84.22,63.89,57.6,53.98,64.92
-KL,Kerala,Tier 2,"Tier 2: Developing Opportunity (School Strength, Employment Friction)",91.66,58.96,49.09,56.06,63.94
-HP,Himachal Pradesh,Tier 2,"Tier 2: Developing Opportunity (School Strength, Employment Friction)",88.13,56.11,50.56,59.49,63.57
-KA,Karnataka,Tier 2,"Tier 2: Developing Opportunity (School Strength, Employment Friction)",61.72,63.99,61.38,52.37,59.86
-GA,Goa,Tier 2,"Tier 2: Developing Opportunity (School Strength, Employment Friction)",75.79,50.84,56.35,53.16,59.04
-GJ,Gujarat,Tier 1,Tier 1: High Opportunity (Universal Schooling & High Tertiary Access),62.71,40.02,79.95,49.5,58.04
-DL,Delhi,Tier 2,"Tier 2: Developing Opportunity (School Strength, Employment Friction)",80.79,59.44,49.99,41.81,58.01
-UK,Uttarakhand,Tier 2,"Tier 2: Developing Opportunity (School Strength, Employment Friction)",82.46,55.39,49.4,44.07,57.83
-HR,Haryana,Tier 2,"Tier 2: Developing Opportunity (School Strength, Employment Friction)",88.66,46.96,52.45,42.3,57.59
-MH,Maharashtra,Tier 2,"Tier 2: Developing Opportunity (School Strength, Employment Friction)",68.7,50.44,63.69,46.69,57.38
-CT,Chhattisgarh,Tier 1,Tier 1: High Opportunity (Universal Schooling & High Tertiary Access),56.45,39.59,70.2,61.2,56.86
-TS,Telangana,Tier 2,"Tier 2: Developing Opportunity (School Strength, Employment Friction)",77.73,62.94,45.06,40.5,56.56
-PB,Punjab,Tier 2,"Tier 2: Developing Opportunity (School Strength, Employment Friction)",89.76,46.64,49.62,37.46,55.87
-AP,Andhra Pradesh,Tier 2,"Tier 2: Developing Opportunity (School Strength, Employment Friction)",75.1,56.16,47.86,40.99,55.03
-LD,Lakshadweep,Tier 2,"Tier 2: Developing Opportunity (School Strength, Employment Friction)",95.25,46.33,30.63,44.05,54.06
-OD,Odisha,Tier 4,Tier 4: Critical Bottleneck (Severe Multi-Stage Infrastructure Deficits),69.71,39.93,56.34,48.44,53.6
-NL,Nagaland,Tier 3,"Tier 3: Constrained Opportunity (Pockets of Industry, Gender Deficits)",61.18,38.13,47.08,61.92,52.08
-WB,West Bengal,Tier 3,"Tier 3: Constrained Opportunity (Pockets of Industry, Gender Deficits)",55.32,38.96,55.92,55.19,51.35
-MP,Madhya Pradesh,Tier 4,Tier 4: Critical Bottleneck (Severe Multi-Stage Infrastructure Deficits),51.31,40.76,67.18,45.15,51.1
-MZ,Mizoram,Tier 3,"Tier 3: Constrained Opportunity (Pockets of Industry, Gender Deficits)",50.84,45.78,41.16,63.48,50.32
-AS,Assam,Tier 3,"Tier 3: Constrained Opportunity (Pockets of Industry, Gender Deficits)",62.04,35.86,51.5,51.27,50.17
-AN,Andaman and Nicobar Islands,Tier 4,Tier 4: Critical Bottleneck (Severe Multi-Stage Infrastructure Deficits),89.06,33.78,35.47,41.9,50.05
-TR,Tripura,Tier 3,"Tier 3: Constrained Opportunity (Pockets of Industry, Gender Deficits)",57.38,37.42,50.67,50.75,49.06
-RJ,Rajasthan,Tier 4,Tier 4: Critical Bottleneck (Severe Multi-Stage Infrastructure Deficits),65.52,45.84,51.84,29.99,48.3
-LA,Ladakh,Tier 3,"Tier 3: Constrained Opportunity (Pockets of Industry, Gender Deficits)",64.37,32.89,35.24,57.16,47.42
-UP,Uttar Pradesh,Tier 4,Tier 4: Critical Bottleneck (Severe Multi-Stage Infrastructure Deficits),58.49,37.4,52.34,38.0,46.56
-JH,Jharkhand,Tier 4,Tier 4: Critical Bottleneck (Severe Multi-Stage Infrastructure Deficits),57.85,29.21,54.55,43.77,46.35
-MN,Manipur,Tier 3,"Tier 3: Constrained Opportunity (Pockets of Industry, Gender Deficits)",50.18,48.92,37.45,46.26,45.7
-JK,Jammu and Kashmir,Tier 4,Tier 4: Critical Bottleneck (Severe Multi-Stage Infrastructure Deficits),55.93,35.44,49.56,41.38,45.58
-ML,Meghalaya,Tier 3,"Tier 3: Constrained Opportunity (Pockets of Industry, Gender Deficits)",15.74,42.82,52.49,64.82,43.97
-AR,Arunachal Pradesh,Tier 3,"Tier 3: Constrained Opportunity (Pockets of Industry, Gender Deficits)",38.7,43.02,39.63,45.63,41.74
-BR,Bihar,Tier 4,Tier 4: Critical Bottleneck (Severe Multi-Stage Infrastructure Deficits),48.27,28.26,39.28,26.26,35.52
+CH,Chandigarh,Cluster 2,Cluster 2: Educational Infrastructure Hubs,96.38,66.46,67.96,49.41,70.05
+PY,Puducherry,Cluster 2,Cluster 2: Educational Infrastructure Hubs,93.35,77.59,54.66,49.64,68.81
+DH,Dadra and Nagar Haveli and Daman and Diu,Cluster 1,Cluster 1: Employment-Led Dynamism,77.64,31.58,92.83,69.74,67.95
+SK,Sikkim,Cluster 1,Cluster 1: Employment-Led Dynamism,81.42,48.93,71.61,67.48,67.36
+TN,Tamil Nadu,Cluster 2,Cluster 2: Educational Infrastructure Hubs,84.22,63.89,57.6,53.98,64.92
+KL,Kerala,Cluster 2,Cluster 2: Educational Infrastructure Hubs,91.66,58.96,49.09,56.06,63.94
+HP,Himachal Pradesh,Cluster 2,Cluster 2: Educational Infrastructure Hubs,88.13,56.11,50.56,59.49,63.57
+KA,Karnataka,Cluster 2,Cluster 2: Educational Infrastructure Hubs,61.72,63.99,61.38,52.37,59.86
+GA,Goa,Cluster 2,Cluster 2: Educational Infrastructure Hubs,75.79,50.84,56.35,53.16,59.04
+GJ,Gujarat,Cluster 1,Cluster 1: Employment-Led Dynamism,62.71,40.02,79.95,49.5,58.04
+DL,Delhi,Cluster 2,Cluster 2: Educational Infrastructure Hubs,80.79,59.44,49.99,41.81,58.01
+UK,Uttarakhand,Cluster 2,Cluster 2: Educational Infrastructure Hubs,82.46,55.39,49.4,44.07,57.83
+HR,Haryana,Cluster 2,Cluster 2: Educational Infrastructure Hubs,88.66,46.96,52.45,42.3,57.59
+MH,Maharashtra,Cluster 2,Cluster 2: Educational Infrastructure Hubs,68.7,50.44,63.69,46.69,57.38
+CT,Chhattisgarh,Cluster 1,Cluster 1: Employment-Led Dynamism,56.45,39.59,70.2,61.2,56.86
+TS,Telangana,Cluster 2,Cluster 2: Educational Infrastructure Hubs,77.73,62.94,45.06,40.5,56.56
+PB,Punjab,Cluster 2,Cluster 2: Educational Infrastructure Hubs,89.76,46.64,49.62,37.46,55.87
+AP,Andhra Pradesh,Cluster 2,Cluster 2: Educational Infrastructure Hubs,75.1,56.16,47.86,40.99,55.03
+LD,Lakshadweep,Cluster 2,Cluster 2: Educational Infrastructure Hubs,95.25,46.33,30.63,44.05,54.06
+OD,Odisha,Cluster 4,Cluster 4: Schooling-Active / Tertiary & Gender Constrained,69.71,39.93,56.34,48.44,53.6
+NL,Nagaland,Cluster 3,Cluster 3: Gender-Strong / School Infrastructure Lags,61.18,38.13,47.08,61.92,52.08
+WB,West Bengal,Cluster 3,Cluster 3: Gender-Strong / School Infrastructure Lags,55.32,38.96,55.92,55.19,51.35
+MP,Madhya Pradesh,Cluster 4,Cluster 4: Schooling-Active / Tertiary & Gender Constrained,51.31,40.76,67.18,45.15,51.1
+MZ,Mizoram,Cluster 3,Cluster 3: Gender-Strong / School Infrastructure Lags,50.84,45.78,41.16,63.48,50.32
+AS,Assam,Cluster 3,Cluster 3: Gender-Strong / School Infrastructure Lags,62.04,35.86,51.5,51.27,50.17
+AN,Andaman and Nicobar Islands,Cluster 4,Cluster 4: Schooling-Active / Tertiary & Gender Constrained,89.06,33.78,35.47,41.9,50.05
+TR,Tripura,Cluster 3,Cluster 3: Gender-Strong / School Infrastructure Lags,57.38,37.42,50.67,50.75,49.06
+RJ,Rajasthan,Cluster 4,Cluster 4: Schooling-Active / Tertiary & Gender Constrained,65.52,45.84,51.84,29.99,48.3
+LA,Ladakh,Cluster 3,Cluster 3: Gender-Strong / School Infrastructure Lags,64.37,32.89,35.24,57.16,47.42
+UP,Uttar Pradesh,Cluster 4,Cluster 4: Schooling-Active / Tertiary & Gender Constrained,58.49,37.4,52.34,38.0,46.56
+JH,Jharkhand,Cluster 4,Cluster 4: Schooling-Active / Tertiary & Gender Constrained,57.85,29.21,54.55,43.77,46.35
+MN,Manipur,Cluster 3,Cluster 3: Gender-Strong / School Infrastructure Lags,50.18,48.92,37.45,46.26,45.7
+JK,Jammu and Kashmir,Cluster 4,Cluster 4: Schooling-Active / Tertiary & Gender Constrained,55.93,35.44,49.56,41.38,45.58
+ML,Meghalaya,Cluster 3,Cluster 3: Gender-Strong / School Infrastructure Lags,15.74,42.82,52.49,64.82,43.97
+AR,Arunachal Pradesh,Cluster 3,Cluster 3: Gender-Strong / School Infrastructure Lags,38.7,43.02,39.63,45.63,41.74
+BR,Bihar,Cluster 4,Cluster 4: Schooling-Active / Tertiary & Gender Constrained,48.27,28.26,39.28,26.26,35.52

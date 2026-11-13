@@ -1,0 +1,16 @@
+program,selection_rule,state_name,metric_name,metric_value
+Program A: Public School Infrastructure,Lowest 5 subindex_school,Meghalaya,subindex_school,15.74
+Program A: Public School Infrastructure,Lowest 5 subindex_school,Arunachal Pradesh,subindex_school,38.7
+Program A: Public School Infrastructure,Lowest 5 subindex_school,Bihar,subindex_school,48.27
+Program A: Public School Infrastructure,Lowest 5 subindex_school,Manipur,subindex_school,50.18
+Program A: Public School Infrastructure,Lowest 5 subindex_school,Mizoram,subindex_school,50.84
+Program B: Higher Education Capacity,Lowest 5 subindex_higher_ed,Bihar,subindex_higher_ed,28.26
+Program B: Higher Education Capacity,Lowest 5 subindex_higher_ed,Jharkhand,subindex_higher_ed,29.21
+Program B: Higher Education Capacity,Lowest 5 subindex_higher_ed,Dadra and Nagar Haveli and Daman and Diu,subindex_higher_ed,31.58
+Program B: Higher Education Capacity,Lowest 5 subindex_higher_ed,Ladakh,subindex_higher_ed,32.89
+Program B: Higher Education Capacity,Lowest 5 subindex_higher_ed,Andaman and Nicobar Islands,subindex_higher_ed,33.78
+Program C: Female Workforce Inclusion,Lowest 5 female_lfpr_15_plus,Delhi,female_lfpr_15_plus,13.1
+Program C: Female Workforce Inclusion,Lowest 5 female_lfpr_15_plus,Lakshadweep,female_lfpr_15_plus,21.9
+Program C: Female Workforce Inclusion,Lowest 5 female_lfpr_15_plus,Haryana,female_lfpr_15_plus,23.8
+Program C: Female Workforce Inclusion,Lowest 5 female_lfpr_15_plus,Bihar,female_lfpr_15_plus,24.7
+Program C: Female Workforce Inclusion,Lowest 5 female_lfpr_15_plus,Goa,female_lfpr_15_plus,27.4
