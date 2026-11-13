@@ -181,3 +181,4 @@ with open('notebooks/02_index_building.ipynb', 'w', encoding='utf-8') as f:
     nbf.write(nb, f)
 
 print('notebooks/02_index_building.ipynb created successfully!')
+

@@ -46,3 +46,4 @@ Outliers were identified using the standard Tukey Interquartile Range method ($\
 ## 3. Exclusion / Weighting Recommendation
 - **No States or UTs are excluded**: All 36 entities are retained in the master dataset to provide full geographic coverage of the Republic of India.
 - **Handling Small UTs in Analysis**: In subsequent clustering and correlation analysis, small UTs (e.g. Lakshadweep, Ladakh, Puducherry) will be evaluated alongside states, but flagged when institutional scale or small sample size produces high variance.
+

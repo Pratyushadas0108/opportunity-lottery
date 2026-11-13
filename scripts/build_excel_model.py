@@ -299,3 +299,4 @@ for idx, w in enumerate(col_widths_index, 1):
 # Save Workbook
 wb.save('Opportunity_Lottery.xlsx')
 print("Opportunity_Lottery.xlsx created successfully with live Excel formulas!")
+

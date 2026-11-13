@@ -138,3 +138,4 @@ All indicators scaled 0–100 via Min-Max. Inverted indicators flipped via $100 
 | `index_gender_focus` | $0.40 \times \text{Gender} + 0.20 \times (\text{School} + \text{HigherEd} + \text{Jobs})$ | 0–100 | Tests priority of girls' education & empowerment funds. |
 | `rank_gender_focus` | State rank on `index_gender_focus` | 1–36 | Rank under gender-heavy model. |
 | `rank_shift_gender` | `rank_baseline` − `rank_gender_focus` | Integer | Rank shift under gender priority. |
+

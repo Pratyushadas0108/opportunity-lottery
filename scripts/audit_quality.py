@@ -27,3 +27,4 @@ for col in num_cols:
     }
     out_str = ', '.join([f"{o['state_name']} ({o[col]})" for o in outliers]) if outliers else 'None'
     print(f"{col}: Min={s.min()}, Max={s.max()}, Mean={round(s.mean(),2)}, Median={round(s.median(),2)} | Outliers: {out_str}")
+

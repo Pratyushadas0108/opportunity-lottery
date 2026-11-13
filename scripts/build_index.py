@@ -139,3 +139,4 @@ print(df_norm[['rank_baseline', 'state_name', 'subindex_school', 'subindex_highe
 
 print("\nBottom 5 States by Opportunity Index:")
 print(df_norm[['rank_baseline', 'state_name', 'subindex_school', 'subindex_higher_ed', 'subindex_jobs', 'subindex_gender', 'opportunity_index']].tail(5))
+

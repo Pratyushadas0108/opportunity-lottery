@@ -28,3 +28,6 @@ raw_data/*
 
 # Secrets and environment variables
 .env
+
+# Matplotlib cache
+dashboard/charts/.mpl_cache/
